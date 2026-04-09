@@ -42,6 +42,46 @@
 # ── 实体/数据类 — Parcelable/Serializable，字段名不可混淆 ────
 -keep class com.chiyuan.va.entity.** { *; }
 
+# ── Native (.so) 에서 문자열로 직접 참조하는 클래스/메서드 ──────
+# 이 클래스들은 C++ 코드에서 FindClass / GetStaticMethodID 로 이름을
+# 하드코딩해서 조회하므로, ProGuard 가 이름을 바꾸면 NoSuchMethodError
+# 또는 ClassNotFoundException 이 발생한다.
+#
+# BoxCore.cpp → VMCORE_CLASS = "com/chiyuan/va/core/NativeCore"
+#   + RegisterNatives: init, enableIO, addIORule, hideXposed,
+#     disableHiddenApi, disableResourceLoading, enableProcSpoof
+#   + GetStaticMethodID: getCallingUid, redirectPath (x2), loadEmptyDex
+-keep class com.chiyuan.va.core.NativeCore {
+    public static native void init(int);
+    public static native void enableIO();
+    public static native void addIORule(java.lang.String, java.lang.String);
+    public static native void hideXposed();
+    public static native boolean disableHiddenApi();
+    public static native boolean disableResourceLoading();
+    public static int getCallingUid(int);
+    public static java.lang.String redirectPath(java.lang.String);
+    public static java.io.File redirectPath(java.io.File);
+    public static long[] loadEmptyDex();
+    public static void startProcSpoof(java.lang.String);
+    private static native void enableProcSpoof(java.lang.String, java.lang.String);
+}
+
+# JniHook.cpp → "com/chiyuan/va/jnihook/jni/JniHook"
+#   + GetStaticMethodID: nativeOffset, nativeOffset2
+# JniHook.cpp → "com/chiyuan/va/jnihook/MethodUtils"
+#   + GetStaticMethodID: getDesc, getMethodName
+-keep class com.chiyuan.va.jnihook.jni.JniHook {
+    public static native void nativeOffset();
+    public static native void nativeOffset2();
+    public static native void setAccessible(java.lang.Class, java.lang.reflect.Method);
+    public static native void setAccessible(java.lang.Class, java.lang.reflect.Field);
+}
+-keep class com.chiyuan.va.jnihook.MethodUtils {
+    public static java.lang.String getDesc(java.lang.reflect.Method);
+    public static java.lang.String getMethodName(java.lang.reflect.Method);
+}
+-keep class com.chiyuan.va.jnihook.** { *; }
+
 # ── AIDL Stub ─────────────────────────────────────────────────
 -keep class com.chiyuan.va.core.system.SystemCallProvider { *; }
 -keep class com.chiyuan.va.fake.provider.FileProvider { *; }
