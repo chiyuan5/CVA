@@ -33,11 +33,6 @@ public class BActivityManager extends BlackManager<IBActivityManagerService> {
         return ServiceManager.ACTIVITY_MANAGER;
     }
 
-    @Override
-    protected Class<IBActivityManagerService> getServiceClass() {
-        return IBActivityManagerService.class;
-    }
-
     public AppConfig initProcess(String packageName, String processName, int userId) {
         int retryCount = 0;
         final int maxRetries = 3;

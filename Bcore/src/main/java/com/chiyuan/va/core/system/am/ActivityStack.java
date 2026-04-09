@@ -532,7 +532,7 @@ public class ActivityStack {
                     return resultTo.component;
                 }
             }
-            return new ComponentName(ChiyuanVACore.getHostPkg(), ProxyActivity.A00.class.getName());
+            return new ComponentName(ChiyuanVACore.getHostPkg(), ProxyActivity.P0.class.getName());
         }
     }
 

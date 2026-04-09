@@ -4,68 +4,249 @@ import android.app.job.JobParameters;
 import android.app.job.JobService;
 import android.content.Intent;
 import android.content.res.Configuration;
+
 import com.chiyuan.va.app.dispatcher.AppJobServiceDispatcher;
 
-/** ★ 内部类改为 J00~J31 */
+
 public class ProxyJobService extends JobService {
-    public static final String TAG = "J";
+    public static final String TAG = "StubJobService";
 
-    @Override public boolean onStartJob(JobParameters p) { return AppJobServiceDispatcher.get().onStartJob(p); }
-    @Override public boolean onStopJob(JobParameters p)  { return AppJobServiceDispatcher.get().onStopJob(p); }
-    @Override public int onStartCommand(Intent i, int f, int id) { return START_NOT_STICKY; }
-    @Override public void onDestroy()                    { super.onDestroy(); AppJobServiceDispatcher.get().onDestroy(); }
-    @Override public void onConfigurationChanged(Configuration c) { super.onConfigurationChanged(c); AppJobServiceDispatcher.get().onConfigurationChanged(c); }
-    @Override public void onLowMemory()                  { super.onLowMemory(); AppJobServiceDispatcher.get().onLowMemory(); }
-    @Override public void onTrimMemory(int l)             { super.onTrimMemory(l); AppJobServiceDispatcher.get().onTrimMemory(l); }
+    @Override
+    public boolean onStartJob(JobParameters params) {
+        return AppJobServiceDispatcher.get().onStartJob(params);
+    }
 
-    public static class J00 extends ProxyJobService {}
-    public static class J01 extends ProxyJobService {}
-    public static class J02 extends ProxyJobService {}
-    public static class J03 extends ProxyJobService {}
-    public static class J04 extends ProxyJobService {}
-    public static class J05 extends ProxyJobService {}
-    public static class J06 extends ProxyJobService {}
-    public static class J07 extends ProxyJobService {}
-    public static class J08 extends ProxyJobService {}
-    public static class J09 extends ProxyJobService {}
-    public static class J0a extends ProxyJobService {}
-    public static class J0b extends ProxyJobService {}
-    public static class J0c extends ProxyJobService {}
-    public static class J0d extends ProxyJobService {}
-    public static class J0e extends ProxyJobService {}
-    public static class J0f extends ProxyJobService {}
-    public static class J10 extends ProxyJobService {}
-    public static class J11 extends ProxyJobService {}
-    public static class J12 extends ProxyJobService {}
-    public static class J13 extends ProxyJobService {}
-    public static class J14 extends ProxyJobService {}
-    public static class J15 extends ProxyJobService {}
-    public static class J16 extends ProxyJobService {}
-    public static class J17 extends ProxyJobService {}
-    public static class J18 extends ProxyJobService {}
-    public static class J19 extends ProxyJobService {}
-    public static class J1a extends ProxyJobService {}
-    public static class J1b extends ProxyJobService {}
-    public static class J1c extends ProxyJobService {}
-    public static class J1d extends ProxyJobService {}
-    public static class J1e extends ProxyJobService {}
-    public static class J1f extends ProxyJobService {}
-    public static class J20 extends ProxyJobService {}
-    public static class J21 extends ProxyJobService {}
-    public static class J22 extends ProxyJobService {}
-    public static class J23 extends ProxyJobService {}
-    public static class J24 extends ProxyJobService {}
-    public static class J25 extends ProxyJobService {}
-    public static class J26 extends ProxyJobService {}
-    public static class J27 extends ProxyJobService {}
-    public static class J28 extends ProxyJobService {}
-    public static class J29 extends ProxyJobService {}
-    public static class J2a extends ProxyJobService {}
-    public static class J2b extends ProxyJobService {}
-    public static class J2c extends ProxyJobService {}
-    public static class J2d extends ProxyJobService {}
-    public static class J2e extends ProxyJobService {}
-    public static class J2f extends ProxyJobService {}
-    public static class J30 extends ProxyJobService {}
-    public static class J31 extends ProxyJobService {}
+    @Override
+    public boolean onStopJob(JobParameters params) {
+        return AppJobServiceDispatcher.get().onStopJob(params);
+    }
+
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        return START_NOT_STICKY;
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        AppJobServiceDispatcher.get().onDestroy();
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        AppJobServiceDispatcher.get().onConfigurationChanged(newConfig);
+    }
+
+    @Override
+    public void onLowMemory() {
+        super.onLowMemory();
+        AppJobServiceDispatcher.get().onLowMemory();
+    }
+
+    @Override
+    public void onTrimMemory(int level) {
+        super.onTrimMemory(level);
+        AppJobServiceDispatcher.get().onTrimMemory(level);
+    }
+
+    public static class P0 extends ProxyJobService {
+
+    }
+
+    public static class P1 extends ProxyJobService {
+
+    }
+
+    public static class P2 extends ProxyJobService {
+
+    }
+
+    public static class P3 extends ProxyJobService {
+
+    }
+
+    public static class P4 extends ProxyJobService {
+
+    }
+
+    public static class P5 extends ProxyJobService {
+
+    }
+
+    public static class P6 extends ProxyJobService {
+
+    }
+
+    public static class P7 extends ProxyJobService {
+
+    }
+
+    public static class P8 extends ProxyJobService {
+
+    }
+
+    public static class P9 extends ProxyJobService {
+
+    }
+
+    public static class P10 extends ProxyJobService {
+
+    }
+
+    public static class P11 extends ProxyJobService {
+
+    }
+
+    public static class P12 extends ProxyJobService {
+
+    }
+
+    public static class P13 extends ProxyJobService {
+
+    }
+
+    public static class P14 extends ProxyJobService {
+
+    }
+
+    public static class P15 extends ProxyJobService {
+
+    }
+
+    public static class P16 extends ProxyJobService {
+
+    }
+
+    public static class P17 extends ProxyJobService {
+
+    }
+
+    public static class P18 extends ProxyJobService {
+
+    }
+
+    public static class P19 extends ProxyJobService {
+
+    }
+
+    public static class P20 extends ProxyJobService {
+
+    }
+
+    public static class P21 extends ProxyJobService {
+
+    }
+
+    public static class P22 extends ProxyJobService {
+
+    }
+
+    public static class P23 extends ProxyJobService {
+
+    }
+
+    public static class P24 extends ProxyJobService {
+
+    }
+
+    public static class P25 extends ProxyJobService {
+
+    }
+
+    public static class P26 extends ProxyJobService {
+
+    }
+
+    public static class P27 extends ProxyJobService {
+
+    }
+
+    public static class P28 extends ProxyJobService {
+
+    }
+
+    public static class P29 extends ProxyJobService {
+
+    }
+
+    public static class P30 extends ProxyJobService {
+
+    }
+
+    public static class P31 extends ProxyJobService {
+
+    }
+
+    public static class P32 extends ProxyJobService {
+
+    }
+
+    public static class P33 extends ProxyJobService {
+
+    }
+
+    public static class P34 extends ProxyJobService {
+
+    }
+
+    public static class P35 extends ProxyJobService {
+
+    }
+
+    public static class P36 extends ProxyJobService {
+
+    }
+
+    public static class P37 extends ProxyJobService {
+
+    }
+
+    public static class P38 extends ProxyJobService {
+
+    }
+
+    public static class P39 extends ProxyJobService {
+
+    }
+
+    public static class P40 extends ProxyJobService {
+
+    }
+
+    public static class P41 extends ProxyJobService {
+
+    }
+
+    public static class P42 extends ProxyJobService {
+
+    }
+
+    public static class P43 extends ProxyJobService {
+
+    }
+
+    public static class P44 extends ProxyJobService {
+
+    }
+
+    public static class P45 extends ProxyJobService {
+
+    }
+
+    public static class P46 extends ProxyJobService {
+
+    }
+
+    public static class P47 extends ProxyJobService {
+
+    }
+
+    public static class P48 extends ProxyJobService {
+
+    }
+
+    public static class P49 extends ProxyJobService {
+
+    }
 }

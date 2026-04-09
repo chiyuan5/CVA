@@ -9,21 +9,20 @@ import com.chiyuan.va.ChiyuanVACore;
 import com.chiyuan.va.entity.am.PendingResultData;
 import com.chiyuan.va.proxy.record.ProxyBroadcastRecord;
 
+
 public class ProxyBroadcastReceiver extends BroadcastReceiver {
-    // ★ 中性 TAG
-    public static final String TAG = "BR";
+    public static final String TAG = "ProxyBroadcastReceiver";
 
     @Override
     public void onReceive(Context context, Intent intent) {
         intent.setExtrasClassLoader(context.getClassLoader());
         ProxyBroadcastRecord record = ProxyBroadcastRecord.create(intent);
-        if (record.mIntent == null) return;
+        if (record.mIntent == null) {
+            return;
+        }
         PendingResult pendingResult = goAsync();
         try {
-            ChiyuanVACore.getBActivityManager().scheduleBroadcastReceiver(
-                    record.mIntent,
-                    new PendingResultData(pendingResult),
-                    record.mUserId);
+            ChiyuanVACore.getBActivityManager().scheduleBroadcastReceiver(record.mIntent, new PendingResultData(pendingResult), record.mUserId);
         } catch (RemoteException e) {
             pendingResult.finish();
         }

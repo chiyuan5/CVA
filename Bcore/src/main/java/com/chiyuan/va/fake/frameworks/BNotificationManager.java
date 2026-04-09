@@ -25,11 +25,6 @@ public class BNotificationManager extends BlackManager<IBNotificationManagerServ
         return ServiceManager.NOTIFICATION_MANAGER;
     }
 
-    @Override
-    protected Class<IBNotificationManagerService> getServiceClass() {
-        return IBNotificationManagerService.class;
-    }
-
     public NotificationChannel getNotificationChannel(String channelId) {
         try {
             return getService().getNotificationChannel(channelId, BActivityThread.getUserId());

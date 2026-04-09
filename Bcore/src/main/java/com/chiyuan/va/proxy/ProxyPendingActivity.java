@@ -7,101 +7,224 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 
 import com.chiyuan.va.ChiyuanVACore;
+import com.chiyuan.va.app.BActivityThread;
 import com.chiyuan.va.proxy.record.ProxyPendingRecord;
 import com.chiyuan.va.utils.Slog;
 
-/**
- * PendingIntent 对应的 Stub Activity 也不能直接在宿主拉起真实目标，
- * 必须回到虚拟 AMS 里处理。
- */
-public class ProxyPendingActivity extends Activity {
 
-    public static final String TAG = "E";
+public class ProxyPendingActivity extends Activity {
+    public static final String TAG = "ProxyPendingActivity";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        final ProxyPendingRecord r;
-        try {
-            r = ProxyPendingRecord.create(getIntent());
-        } catch (Throwable e) {
-            Slog.e(TAG, "Failed to parse ProxyPendingRecord", e);
-            finish();
+        finish();
+        ProxyPendingRecord pendingActivityRecord = ProxyPendingRecord.create(getIntent());
+        Slog.d(TAG, "ProxyPendingActivity: " + pendingActivityRecord);
+        if (pendingActivityRecord.mTarget == null)
             return;
-        }
-
-        Slog.d(TAG, "pending: " + r);
-
-        if (r == null || r.mTarget == null) {
-            finish();
-            return;
-        }
-
-        try {
-            Intent target = new Intent(r.mTarget);
-            target.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            target.setExtrasClassLoader(ChiyuanVACore.getApplication().getClassLoader());
-
-            Slog.d(TAG, "Redirect pending launch to virtual AMS: " + target.getComponent());
-
-            // 关键修复：不能直接 startActivity(target)
-            ChiyuanVACore.getBActivityManager().startActivity(target, 0);
-        } catch (Throwable e) {
-            Slog.e(TAG, "Failed to redirect pending launch to virtual AMS", e);
-        } finally {
-            finish();
-        }
+        pendingActivityRecord.mTarget.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        pendingActivityRecord.mTarget.setExtrasClassLoader(ChiyuanVACore.getApplication().getClassLoader());
+        startActivity(pendingActivityRecord.mTarget);
     }
 
-    public static class E00 extends ProxyPendingActivity {}
-    public static class E01 extends ProxyPendingActivity {}
-    public static class E02 extends ProxyPendingActivity {}
-    public static class E03 extends ProxyPendingActivity {}
-    public static class E04 extends ProxyPendingActivity {}
-    public static class E05 extends ProxyPendingActivity {}
-    public static class E06 extends ProxyPendingActivity {}
-    public static class E07 extends ProxyPendingActivity {}
-    public static class E08 extends ProxyPendingActivity {}
-    public static class E09 extends ProxyPendingActivity {}
-    public static class E0a extends ProxyPendingActivity {}
-    public static class E0b extends ProxyPendingActivity {}
-    public static class E0c extends ProxyPendingActivity {}
-    public static class E0d extends ProxyPendingActivity {}
-    public static class E0e extends ProxyPendingActivity {}
-    public static class E0f extends ProxyPendingActivity {}
-    public static class E10 extends ProxyPendingActivity {}
-    public static class E11 extends ProxyPendingActivity {}
-    public static class E12 extends ProxyPendingActivity {}
-    public static class E13 extends ProxyPendingActivity {}
-    public static class E14 extends ProxyPendingActivity {}
-    public static class E15 extends ProxyPendingActivity {}
-    public static class E16 extends ProxyPendingActivity {}
-    public static class E17 extends ProxyPendingActivity {}
-    public static class E18 extends ProxyPendingActivity {}
-    public static class E19 extends ProxyPendingActivity {}
-    public static class E1a extends ProxyPendingActivity {}
-    public static class E1b extends ProxyPendingActivity {}
-    public static class E1c extends ProxyPendingActivity {}
-    public static class E1d extends ProxyPendingActivity {}
-    public static class E1e extends ProxyPendingActivity {}
-    public static class E1f extends ProxyPendingActivity {}
-    public static class E20 extends ProxyPendingActivity {}
-    public static class E21 extends ProxyPendingActivity {}
-    public static class E22 extends ProxyPendingActivity {}
-    public static class E23 extends ProxyPendingActivity {}
-    public static class E24 extends ProxyPendingActivity {}
-    public static class E25 extends ProxyPendingActivity {}
-    public static class E26 extends ProxyPendingActivity {}
-    public static class E27 extends ProxyPendingActivity {}
-    public static class E28 extends ProxyPendingActivity {}
-    public static class E29 extends ProxyPendingActivity {}
-    public static class E2a extends ProxyPendingActivity {}
-    public static class E2b extends ProxyPendingActivity {}
-    public static class E2c extends ProxyPendingActivity {}
-    public static class E2d extends ProxyPendingActivity {}
-    public static class E2e extends ProxyPendingActivity {}
-    public static class E2f extends ProxyPendingActivity {}
-    public static class E30 extends ProxyPendingActivity {}
-    public static class E31 extends ProxyPendingActivity {}
+    public static class P0 extends ProxyPendingActivity {
+
+    }
+
+    public static class P1 extends ProxyPendingActivity {
+
+    }
+
+    public static class P2 extends ProxyPendingActivity {
+
+    }
+
+    public static class P3 extends ProxyPendingActivity {
+
+    }
+
+    public static class P4 extends ProxyPendingActivity {
+
+    }
+
+    public static class P5 extends ProxyPendingActivity {
+
+    }
+
+    public static class P6 extends ProxyPendingActivity {
+
+    }
+
+    public static class P7 extends ProxyPendingActivity {
+
+    }
+
+    public static class P8 extends ProxyPendingActivity {
+
+    }
+
+    public static class P9 extends ProxyPendingActivity {
+
+    }
+
+    public static class P10 extends ProxyPendingActivity {
+
+    }
+
+    public static class P11 extends ProxyPendingActivity {
+
+    }
+
+    public static class P12 extends ProxyPendingActivity {
+
+    }
+
+    public static class P13 extends ProxyPendingActivity {
+
+    }
+
+    public static class P14 extends ProxyPendingActivity {
+
+    }
+
+    public static class P15 extends ProxyPendingActivity {
+
+    }
+
+    public static class P16 extends ProxyPendingActivity {
+
+    }
+
+    public static class P17 extends ProxyPendingActivity {
+
+    }
+
+    public static class P18 extends ProxyPendingActivity {
+
+    }
+
+    public static class P19 extends ProxyPendingActivity {
+
+    }
+
+    public static class P20 extends ProxyPendingActivity {
+
+    }
+
+    public static class P21 extends ProxyPendingActivity {
+
+    }
+
+    public static class P22 extends ProxyPendingActivity {
+
+    }
+
+    public static class P23 extends ProxyPendingActivity {
+
+    }
+
+    public static class P24 extends ProxyPendingActivity {
+
+    }
+
+    public static class P25 extends ProxyPendingActivity {
+
+    }
+
+    public static class P26 extends ProxyPendingActivity {
+
+    }
+
+    public static class P27 extends ProxyPendingActivity {
+
+    }
+
+    public static class P28 extends ProxyPendingActivity {
+
+    }
+
+    public static class P29 extends ProxyPendingActivity {
+
+    }
+
+    public static class P30 extends ProxyPendingActivity {
+
+    }
+
+    public static class P31 extends ProxyPendingActivity {
+
+    }
+
+    public static class P32 extends ProxyPendingActivity {
+
+    }
+
+    public static class P33 extends ProxyPendingActivity {
+
+    }
+
+    public static class P34 extends ProxyPendingActivity {
+
+    }
+
+    public static class P35 extends ProxyPendingActivity {
+
+    }
+
+    public static class P36 extends ProxyPendingActivity {
+
+    }
+
+    public static class P37 extends ProxyPendingActivity {
+
+    }
+
+    public static class P38 extends ProxyPendingActivity {
+
+    }
+
+    public static class P39 extends ProxyPendingActivity {
+
+    }
+
+    public static class P40 extends ProxyPendingActivity {
+
+    }
+
+    public static class P41 extends ProxyPendingActivity {
+
+    }
+
+    public static class P42 extends ProxyPendingActivity {
+
+    }
+
+    public static class P43 extends ProxyPendingActivity {
+
+    }
+
+    public static class P44 extends ProxyPendingActivity {
+
+    }
+
+    public static class P45 extends ProxyPendingActivity {
+
+    }
+
+    public static class P46 extends ProxyPendingActivity {
+
+    }
+
+    public static class P47 extends ProxyPendingActivity {
+
+    }
+
+    public static class P48 extends ProxyPendingActivity {
+
+    }
+
+    public static class P49 extends ProxyPendingActivity {
+
+    }
 }

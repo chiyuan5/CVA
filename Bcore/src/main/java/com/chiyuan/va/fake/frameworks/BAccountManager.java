@@ -25,11 +25,6 @@ public class BAccountManager extends BlackManager<IBAccountManagerService> {
         return ServiceManager.ACCOUNT_MANAGER;
     }
 
-    @Override
-    protected Class<IBAccountManagerService> getServiceClass() {
-        return IBAccountManagerService.class;
-    }
-
     public String getPassword(Account account) {
         try {
             return getService().getPassword(account, BActivityThread.getUserId());

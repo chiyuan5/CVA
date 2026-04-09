@@ -20,11 +20,6 @@ public class BStorageManager extends BlackManager<IBStorageManagerService> {
         return ServiceManager.STORAGE_MANAGER;
     }
 
-    @Override
-    protected Class<IBStorageManagerService> getServiceClass() {
-        return IBStorageManagerService.class;
-    }
-
     public StorageVolume[] getVolumeList(int uid, String packageName, int flags, int userId) {
         try {
             return getService().getVolumeList(uid, packageName, flags, userId);

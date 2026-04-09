@@ -26,11 +26,6 @@ public class BUserManager extends BlackManager<IBUserManagerService> {
         return ServiceManager.USER_MANAGER;
     }
 
-    @Override
-    protected Class<IBUserManagerService> getServiceClass() {
-        return IBUserManagerService.class;
-    }
-
     public BUserInfo createUser(int userId) {
         try {
             IBUserManagerService service = getService();

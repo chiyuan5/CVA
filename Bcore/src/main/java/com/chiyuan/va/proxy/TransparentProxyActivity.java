@@ -1,55 +1,205 @@
 package com.chiyuan.va.proxy;
 
-/** ★ 内部类改为 T00~T31 */
+
 public class TransparentProxyActivity extends ProxyActivity {
-    public static class T00 extends TransparentProxyActivity {}
-    public static class T01 extends TransparentProxyActivity {}
-    public static class T02 extends TransparentProxyActivity {}
-    public static class T03 extends TransparentProxyActivity {}
-    public static class T04 extends TransparentProxyActivity {}
-    public static class T05 extends TransparentProxyActivity {}
-    public static class T06 extends TransparentProxyActivity {}
-    public static class T07 extends TransparentProxyActivity {}
-    public static class T08 extends TransparentProxyActivity {}
-    public static class T09 extends TransparentProxyActivity {}
-    public static class T0a extends TransparentProxyActivity {}
-    public static class T0b extends TransparentProxyActivity {}
-    public static class T0c extends TransparentProxyActivity {}
-    public static class T0d extends TransparentProxyActivity {}
-    public static class T0e extends TransparentProxyActivity {}
-    public static class T0f extends TransparentProxyActivity {}
-    public static class T10 extends TransparentProxyActivity {}
-    public static class T11 extends TransparentProxyActivity {}
-    public static class T12 extends TransparentProxyActivity {}
-    public static class T13 extends TransparentProxyActivity {}
-    public static class T14 extends TransparentProxyActivity {}
-    public static class T15 extends TransparentProxyActivity {}
-    public static class T16 extends TransparentProxyActivity {}
-    public static class T17 extends TransparentProxyActivity {}
-    public static class T18 extends TransparentProxyActivity {}
-    public static class T19 extends TransparentProxyActivity {}
-    public static class T1a extends TransparentProxyActivity {}
-    public static class T1b extends TransparentProxyActivity {}
-    public static class T1c extends TransparentProxyActivity {}
-    public static class T1d extends TransparentProxyActivity {}
-    public static class T1e extends TransparentProxyActivity {}
-    public static class T1f extends TransparentProxyActivity {}
-    public static class T20 extends TransparentProxyActivity {}
-    public static class T21 extends TransparentProxyActivity {}
-    public static class T22 extends TransparentProxyActivity {}
-    public static class T23 extends TransparentProxyActivity {}
-    public static class T24 extends TransparentProxyActivity {}
-    public static class T25 extends TransparentProxyActivity {}
-    public static class T26 extends TransparentProxyActivity {}
-    public static class T27 extends TransparentProxyActivity {}
-    public static class T28 extends TransparentProxyActivity {}
-    public static class T29 extends TransparentProxyActivity {}
-    public static class T2a extends TransparentProxyActivity {}
-    public static class T2b extends TransparentProxyActivity {}
-    public static class T2c extends TransparentProxyActivity {}
-    public static class T2d extends TransparentProxyActivity {}
-    public static class T2e extends TransparentProxyActivity {}
-    public static class T2f extends TransparentProxyActivity {}
-    public static class T30 extends TransparentProxyActivity {}
-    public static class T31 extends TransparentProxyActivity {}
+
+    public static class P0 extends TransparentProxyActivity {
+
+    }
+
+    public static class P1 extends TransparentProxyActivity {
+
+    }
+
+    public static class P2 extends TransparentProxyActivity {
+
+    }
+
+    public static class P3 extends TransparentProxyActivity {
+
+    }
+
+    public static class P4 extends TransparentProxyActivity {
+
+    }
+
+    public static class P5 extends TransparentProxyActivity {
+
+    }
+
+    public static class P6 extends TransparentProxyActivity {
+
+    }
+
+    public static class P7 extends TransparentProxyActivity {
+
+    }
+
+    public static class P8 extends TransparentProxyActivity {
+
+    }
+
+    public static class P9 extends TransparentProxyActivity {
+
+    }
+
+    public static class P10 extends TransparentProxyActivity {
+
+    }
+
+    public static class P11 extends TransparentProxyActivity {
+
+    }
+
+    public static class P12 extends TransparentProxyActivity {
+
+    }
+
+    public static class P13 extends TransparentProxyActivity {
+
+    }
+
+    public static class P14 extends TransparentProxyActivity {
+
+    }
+
+    public static class P15 extends TransparentProxyActivity {
+
+    }
+
+    public static class P16 extends TransparentProxyActivity {
+
+    }
+
+    public static class P17 extends TransparentProxyActivity {
+
+    }
+
+    public static class P18 extends TransparentProxyActivity {
+
+    }
+
+    public static class P19 extends TransparentProxyActivity {
+
+    }
+
+    public static class P20 extends TransparentProxyActivity {
+
+    }
+
+    public static class P21 extends TransparentProxyActivity {
+
+    }
+
+    public static class P22 extends TransparentProxyActivity {
+
+    }
+
+    public static class P23 extends TransparentProxyActivity {
+
+    }
+
+    public static class P24 extends TransparentProxyActivity {
+
+    }
+
+    public static class P25 extends TransparentProxyActivity {
+
+    }
+
+    public static class P26 extends TransparentProxyActivity {
+
+    }
+
+    public static class P27 extends TransparentProxyActivity {
+
+    }
+
+    public static class P28 extends TransparentProxyActivity {
+
+    }
+
+    public static class P29 extends TransparentProxyActivity {
+
+    }
+
+    public static class P30 extends TransparentProxyActivity {
+
+    }
+
+    public static class P31 extends TransparentProxyActivity {
+
+    }
+
+    public static class P32 extends TransparentProxyActivity {
+
+    }
+
+    public static class P33 extends TransparentProxyActivity {
+
+    }
+
+    public static class P34 extends TransparentProxyActivity {
+
+    }
+
+    public static class P35 extends TransparentProxyActivity {
+
+    }
+
+    public static class P36 extends TransparentProxyActivity {
+
+    }
+
+    public static class P37 extends TransparentProxyActivity {
+
+    }
+
+    public static class P38 extends TransparentProxyActivity {
+
+    }
+
+    public static class P39 extends TransparentProxyActivity {
+
+    }
+
+    public static class P40 extends TransparentProxyActivity {
+
+    }
+
+    public static class P41 extends TransparentProxyActivity {
+
+    }
+
+    public static class P42 extends TransparentProxyActivity {
+
+    }
+
+    public static class P43 extends TransparentProxyActivity {
+
+    }
+
+    public static class P44 extends TransparentProxyActivity {
+
+    }
+
+    public static class P45 extends TransparentProxyActivity {
+
+    }
+
+    public static class P46 extends TransparentProxyActivity {
+
+    }
+
+    public static class P47 extends TransparentProxyActivity {
+
+    }
+
+    public static class P48 extends TransparentProxyActivity {
+
+    }
+
+    public static class P49 extends TransparentProxyActivity {
+
+    }
 }

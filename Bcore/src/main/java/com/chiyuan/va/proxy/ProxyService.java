@@ -4,69 +4,265 @@ import android.app.Service;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.IBinder;
+
 import androidx.annotation.Nullable;
+import androidx.core.app.NotificationCompat;
+
+import com.chiyuan.va.ChiyuanVACore;
 import com.chiyuan.va.app.dispatcher.AppServiceDispatcher;
+import com.chiyuan.va.utils.compat.BuildCompat;
 
-/** ★ 内部类改为 S00~S31 */
+
 public class ProxyService extends Service {
-    public static final String TAG = "S";
+    public static final String TAG = "StubService";
 
-    @Nullable @Override public IBinder onBind(Intent i)  { return AppServiceDispatcher.get().onBind(i); }
-    @Override public int onStartCommand(Intent i, int f, int id) { AppServiceDispatcher.get().onStartCommand(i,f,id); return START_NOT_STICKY; }
-    @Override public void onDestroy()                    { super.onDestroy(); AppServiceDispatcher.get().onDestroy(); }
-    @Override public void onConfigurationChanged(Configuration c) { super.onConfigurationChanged(c); AppServiceDispatcher.get().onConfigurationChanged(c); }
-    @Override public void onLowMemory()                  { super.onLowMemory(); AppServiceDispatcher.get().onLowMemory(); }
-    @Override public void onTrimMemory(int l)             { super.onTrimMemory(l); AppServiceDispatcher.get().onTrimMemory(l); }
-    @Override public boolean onUnbind(Intent i)          { AppServiceDispatcher.get().onUnbind(i); return false; }
+    @Nullable
+    @Override
+    public IBinder onBind(Intent intent) {
+        return AppServiceDispatcher.get().onBind(intent);
+    }
 
-    public static class S00 extends ProxyService {}
-    public static class S01 extends ProxyService {}
-    public static class S02 extends ProxyService {}
-    public static class S03 extends ProxyService {}
-    public static class S04 extends ProxyService {}
-    public static class S05 extends ProxyService {}
-    public static class S06 extends ProxyService {}
-    public static class S07 extends ProxyService {}
-    public static class S08 extends ProxyService {}
-    public static class S09 extends ProxyService {}
-    public static class S0a extends ProxyService {}
-    public static class S0b extends ProxyService {}
-    public static class S0c extends ProxyService {}
-    public static class S0d extends ProxyService {}
-    public static class S0e extends ProxyService {}
-    public static class S0f extends ProxyService {}
-    public static class S10 extends ProxyService {}
-    public static class S11 extends ProxyService {}
-    public static class S12 extends ProxyService {}
-    public static class S13 extends ProxyService {}
-    public static class S14 extends ProxyService {}
-    public static class S15 extends ProxyService {}
-    public static class S16 extends ProxyService {}
-    public static class S17 extends ProxyService {}
-    public static class S18 extends ProxyService {}
-    public static class S19 extends ProxyService {}
-    public static class S1a extends ProxyService {}
-    public static class S1b extends ProxyService {}
-    public static class S1c extends ProxyService {}
-    public static class S1d extends ProxyService {}
-    public static class S1e extends ProxyService {}
-    public static class S1f extends ProxyService {}
-    public static class S20 extends ProxyService {}
-    public static class S21 extends ProxyService {}
-    public static class S22 extends ProxyService {}
-    public static class S23 extends ProxyService {}
-    public static class S24 extends ProxyService {}
-    public static class S25 extends ProxyService {}
-    public static class S26 extends ProxyService {}
-    public static class S27 extends ProxyService {}
-    public static class S28 extends ProxyService {}
-    public static class S29 extends ProxyService {}
-    public static class S2a extends ProxyService {}
-    public static class S2b extends ProxyService {}
-    public static class S2c extends ProxyService {}
-    public static class S2d extends ProxyService {}
-    public static class S2e extends ProxyService {}
-    public static class S2f extends ProxyService {}
-    public static class S30 extends ProxyService {}
-    public static class S31 extends ProxyService {}
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        AppServiceDispatcher.get().onStartCommand(intent, flags, startId);
+        return START_NOT_STICKY;
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        AppServiceDispatcher.get().onDestroy();
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        AppServiceDispatcher.get().onConfigurationChanged(newConfig);
+    }
+
+    @Override
+    public void onLowMemory() {
+        super.onLowMemory();
+        AppServiceDispatcher.get().onLowMemory();
+    }
+
+    @Override
+    public void onTrimMemory(int level) {
+        super.onTrimMemory(level);
+        AppServiceDispatcher.get().onTrimMemory(level);
+    }
+
+    @Override
+    public boolean onUnbind(Intent intent) {
+        AppServiceDispatcher.get().onUnbind(intent);
+        return false;
+    }
+
+    private void showNotification() {
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(), getPackageName() + ".chiyuanva_proxy")
+                .setPriority(NotificationCompat.PRIORITY_MAX);
+        if (BuildCompat.isOreo()) {
+            startForeground(ChiyuanVACore.getHostPkg().hashCode(), builder.build());
+        }
+    }
+
+    public static class P0 extends ProxyService {
+
+    }
+
+    public static class P1 extends ProxyService {
+
+    }
+
+    public static class P2 extends ProxyService {
+
+    }
+
+    public static class P3 extends ProxyService {
+
+    }
+
+    public static class P4 extends ProxyService {
+
+    }
+
+    public static class P5 extends ProxyService {
+
+    }
+
+    public static class P6 extends ProxyService {
+
+    }
+
+    public static class P7 extends ProxyService {
+
+    }
+
+    public static class P8 extends ProxyService {
+
+    }
+
+    public static class P9 extends ProxyService {
+
+    }
+
+    public static class P10 extends ProxyService {
+
+    }
+
+    public static class P11 extends ProxyService {
+
+    }
+
+    public static class P12 extends ProxyService {
+
+    }
+
+    public static class P13 extends ProxyService {
+
+    }
+
+    public static class P14 extends ProxyService {
+
+    }
+
+    public static class P15 extends ProxyService {
+
+    }
+
+    public static class P16 extends ProxyService {
+
+    }
+
+    public static class P17 extends ProxyService {
+
+    }
+
+    public static class P18 extends ProxyService {
+
+    }
+
+    public static class P19 extends ProxyService {
+
+    }
+
+    public static class P20 extends ProxyService {
+
+    }
+
+    public static class P21 extends ProxyService {
+
+    }
+
+    public static class P22 extends ProxyService {
+
+    }
+
+    public static class P23 extends ProxyService {
+
+    }
+
+    public static class P24 extends ProxyService {
+
+    }
+
+    public static class P25 extends ProxyService {
+
+    }
+
+    public static class P26 extends ProxyService {
+
+    }
+
+    public static class P27 extends ProxyService {
+
+    }
+
+    public static class P28 extends ProxyService {
+
+    }
+
+    public static class P29 extends ProxyService {
+
+    }
+
+    public static class P30 extends ProxyService {
+
+    }
+
+    public static class P31 extends ProxyService {
+
+    }
+
+    public static class P32 extends ProxyService {
+
+    }
+
+    public static class P33 extends ProxyService {
+
+    }
+
+    public static class P34 extends ProxyService {
+
+    }
+
+    public static class P35 extends ProxyService {
+
+    }
+
+    public static class P36 extends ProxyService {
+
+    }
+
+    public static class P37 extends ProxyService {
+
+    }
+
+    public static class P38 extends ProxyService {
+
+    }
+
+    public static class P39 extends ProxyService {
+
+    }
+
+    public static class P40 extends ProxyService {
+
+    }
+
+    public static class P41 extends ProxyService {
+
+    }
+
+    public static class P42 extends ProxyService {
+
+    }
+
+    public static class P43 extends ProxyService {
+
+    }
+
+    public static class P44 extends ProxyService {
+
+    }
+
+    public static class P45 extends ProxyService {
+
+    }
+
+    public static class P46 extends ProxyService {
+
+    }
+
+    public static class P47 extends ProxyService {
+
+    }
+
+    public static class P48 extends ProxyService {
+
+    }
+
+    public static class P49 extends ProxyService {
+
+    }
 }

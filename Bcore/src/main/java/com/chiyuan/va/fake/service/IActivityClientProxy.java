@@ -10,44 +10,51 @@ import black.android.util.BRSingleton;
 import com.chiyuan.va.fake.frameworks.BActivityManager;
 import com.chiyuan.va.fake.hook.ClassInvocationStub;
 import com.chiyuan.va.fake.hook.MethodHook;
-import com.chiyuan.va.fake.hook.NonProxyWrapper;
 import com.chiyuan.va.fake.hook.ProxyMethod;
 import com.chiyuan.va.fake.hook.ScanClass;
-import com.chiyuan.va.utils.MethodParameterUtils;
 import com.chiyuan.va.utils.compat.TaskDescriptionCompat;
+
 
 @ScanClass(ActivityManagerCommonProxy.class)
 public class IActivityClientProxy extends ClassInvocationStub {
-    // ★ 中性 TAG
-    public static final String TAG = "IAC";
+    public static final String TAG = "IActivityClientProxy";
     private final Object who;
 
-    public IActivityClientProxy(Object who) { this.who = who; }
+    public IActivityClientProxy(Object who) {
+        this.who = who;
+    }
 
     @Override
     protected Object getWho() {
-        if (who != null) return who;
-        Object instance  = BRActivityClient.get().getInstance();
+        if (who != null) {
+            return who;
+        }
+        Object instance = BRActivityClient.get().getInstance();
         Object singleton = BRActivityClient.get(instance).INTERFACE_SINGLETON();
         return BRSingleton.get(singleton).get();
     }
 
     @Override
     protected void inject(Object baseInvocation, Object proxyInvocation) {
-        // ★ 注入前用 NonProxyWrapper 再包一层，使 isProxyClass() 检测失效
-        Object wrapped = NonProxyWrapper.wrap(
-                baseInvocation,
-                proxyInvocation,
-                MethodParameterUtils.getAllInterface(baseInvocation.getClass()));
-        Object instance  = BRActivityClient.get().getInstance();
+        Object instance = BRActivityClient.get().getInstance();
         Object singleton = BRActivityClient.get(instance).INTERFACE_SINGLETON();
-        BRSingleton.get(singleton)._set_mInstance(wrapped);
+        BRSingleton.get(singleton)._set_mInstance(proxyInvocation);
     }
 
-    @Override public boolean isBadEnv() { return false; }
+    @Override
+    public boolean isBadEnv() {
+        return false;
+    }
 
-    @Override public Object getProxyInvocation() { return super.getProxyInvocation(); }
-    @Override public void onlyProxy(boolean o)   { super.onlyProxy(o); }
+    @Override
+    public Object getProxyInvocation() {
+        return super.getProxyInvocation();
+    }
+
+    @Override
+    public void onlyProxy(boolean o) {
+        super.onlyProxy(o);
+    }
 
     @ProxyMethod("finishActivity")
     public static class FinishActivity extends MethodHook {
@@ -79,6 +86,7 @@ public class IActivityClientProxy extends ClassInvocationStub {
         }
     }
 
+    
     @ProxyMethod("setTaskDescription")
     public static class SetTaskDescription extends MethodHook {
         @Override
