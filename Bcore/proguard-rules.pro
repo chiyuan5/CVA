@@ -2,6 +2,16 @@
 # ChiyuanVA — Bcore 模块 ProGuard 规则
 # ============================================================
 
+# ── Generic Signature 属性保留 ─────────────────────────────────
+# R8 默认会移除 Signature 属性，导致运行时通过 getGenericSuperclass()
+# 获取泛型参数时抛出 ClassCastException。
+# 即使已把 getTClass() 改为抽象方法（根本修复），保留此属性作为安全网，
+# 防止项目中其他依赖泛型签名的代码出现同类问题。
+-keepattributes Signature
+-keepattributes *Annotation*
+-keepattributes InnerClasses
+-keepattributes EnclosingMethod
+
 # ── 反射框架 ─────────────────────────────────────────────────
 -keep class com.chiyuan.va.reflection.** { *; }
 -keep @com.chiyuan.va.reflection.annotation.BClass class * { *; }
@@ -81,6 +91,13 @@
     public static java.lang.String getMethodName(java.lang.reflect.Method);
 }
 -keep class com.chiyuan.va.jnihook.** { *; }
+
+# ── BlackManager 框架层 — Service 代理类，运行时通过 Class.forName 查找 ─
+# BlackManager.getService() 通过 getTClass().getName() + "$Stub" 拼接类名
+# 再用反射调用 asInterface()，因此所有 IB*Service 接口必须保留类名。
+-keep class com.chiyuan.va.fake.frameworks.** { *; }
+-keep interface com.chiyuan.va.core.system.** { *; }
+-keep class com.chiyuan.va.core.system.** { *; }
 
 # ── AIDL Stub ─────────────────────────────────────────────────
 -keep class com.chiyuan.va.core.system.SystemCallProvider { *; }

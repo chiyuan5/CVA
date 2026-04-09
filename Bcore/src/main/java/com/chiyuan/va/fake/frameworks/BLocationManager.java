@@ -29,6 +29,11 @@ public class BLocationManager extends BlackManager<IBLocationManagerService> {
         return ServiceManager.LOCATION_MANAGER;
     }
 
+    @Override
+    protected Class<IBLocationManagerService> getServiceClass() {
+        return IBLocationManagerService.class;
+    }
+
     public static boolean isFakeLocationEnable() {
         return get().getPattern(BActivityThread.getUserId(), BActivityThread.getAppPackageName()) != CLOSE_MODE;
     }

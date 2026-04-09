@@ -150,7 +150,19 @@ public abstract class BlackManager<Service extends IInterface> {
         }
     }
 
+    /**
+     * ★ 修复：原实现通过 ParameterizedType 反射获取泛型参数，
+     * 但 R8/ProGuard 会在混淆时擦除 Signature 属性（Generic Signature），
+     * 导致 getGenericSuperclass() 返回普通 Class 而非 ParameterizedType，
+     * 进而抛出 ClassCastException: java.lang.Class cannot be cast to ParameterizedType。
+     *
+     * 解决方案：改为抽象方法，由每个子类直接返回自己的 Service Class 字面量。
+     * Class 字面量在编译期确定，不依赖运行时泛型信息，完全绕过此问题。
+     */
+    protected abstract Class<Service> getServiceClass();
+
+    // 保留 getTClass() 供兼容调用，但委托给 getServiceClass()
     private Class<Service> getTClass() {
-        return (Class<Service>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
+        return getServiceClass();
     }
 }

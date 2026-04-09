@@ -82,6 +82,11 @@ public class BPackageManager extends BlackManager<IBPackageManagerService> {
         return ServiceManager.PACKAGE_MANAGER;
     }
 
+    @Override
+    protected Class<IBPackageManagerService> getServiceClass() {
+        return IBPackageManagerService.class;
+    }
+
     public Intent getLaunchIntentForPackage(String packageName, int userId) {
         
         if (shouldUseFallbackMode()) {

@@ -21,6 +21,11 @@ public class BJobManager extends BlackManager<IBJobManagerService> {
         return ServiceManager.JOB_MANAGER;
     }
 
+    @Override
+    protected Class<IBJobManagerService> getServiceClass() {
+        return IBJobManagerService.class;
+    }
+
     public JobInfo schedule(JobInfo info) {
         try {
             return getService().schedule(info, BActivityThread.getUserId());
