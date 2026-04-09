@@ -3,25 +3,55 @@ package com.chiyuan.va.proxy;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+
 import androidx.annotation.Nullable;
+
 import com.chiyuan.va.ChiyuanVACore;
 import com.chiyuan.va.proxy.record.ProxyPendingRecord;
 import com.chiyuan.va.utils.Slog;
 
-/** ★ 内部类改为 E00~E31 (E=pEnding) */
+/**
+ * PendingIntent 对应的 Stub Activity 也不能直接在宿主拉起真实目标，
+ * 必须回到虚拟 AMS 里处理。
+ */
 public class ProxyPendingActivity extends Activity {
+
     public static final String TAG = "E";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        finish();
-        ProxyPendingRecord r = ProxyPendingRecord.create(getIntent());
+
+        final ProxyPendingRecord r;
+        try {
+            r = ProxyPendingRecord.create(getIntent());
+        } catch (Throwable e) {
+            Slog.e(TAG, "Failed to parse ProxyPendingRecord", e);
+            finish();
+            return;
+        }
+
         Slog.d(TAG, "pending: " + r);
-        if (r.mTarget == null) return;
-        r.mTarget.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        r.mTarget.setExtrasClassLoader(ChiyuanVACore.getApplication().getClassLoader());
-        startActivity(r.mTarget);
+
+        if (r == null || r.mTarget == null) {
+            finish();
+            return;
+        }
+
+        try {
+            Intent target = new Intent(r.mTarget);
+            target.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            target.setExtrasClassLoader(ChiyuanVACore.getApplication().getClassLoader());
+
+            Slog.d(TAG, "Redirect pending launch to virtual AMS: " + target.getComponent());
+
+            // 关键修复：不能直接 startActivity(target)
+            ChiyuanVACore.getBActivityManager().startActivity(target, 0);
+        } catch (Throwable e) {
+            Slog.e(TAG, "Failed to redirect pending launch to virtual AMS", e);
+        } finally {
+            finish();
+        }
     }
 
     public static class E00 extends ProxyPendingActivity {}

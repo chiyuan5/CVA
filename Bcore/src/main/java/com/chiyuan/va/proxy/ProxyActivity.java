@@ -3,26 +3,65 @@ package com.chiyuan.va.proxy;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+
 import androidx.annotation.Nullable;
+
 import com.chiyuan.va.ChiyuanVACore;
 import com.chiyuan.va.fake.hook.HookManager;
 import com.chiyuan.va.fake.service.HCallbackProxy;
 import com.chiyuan.va.proxy.record.ProxyActivityRecord;
+import com.chiyuan.va.utils.Slog;
 
-/** ★ 内部类从 P0~P49 改为 A00~A31 (hex)，去掉语义化 "P" 前缀 */
+/**
+ * Stub Activity 只能把启动请求重新路由回虚拟 AMS，
+ * 绝不能在宿主进程里直接 startActivity(真实目标 Intent)，
+ * 否则系统会尝试启动分身应用“本体”的 Activity。
+ */
 public class ProxyActivity extends Activity {
+
     public static final String TAG = "A";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        finish();
-        // ★ post 延迟执行，不污染 onCreate 调用栈帧
-        getWindow().getDecorView().post(() -> HookManager.get().checkEnv(HCallbackProxy.class));
-        ProxyActivityRecord record = ProxyActivityRecord.create(getIntent());
-        if (record.mTarget != null) {
-            record.mTarget.setExtrasClassLoader(ChiyuanVACore.getApplication().getClassLoader());
-            startActivity(record.mTarget);
+
+        // 尽早确保回调环境就绪，避免第二个 Activity 切换时环境失效
+        try {
+            HookManager.get().checkEnv(HCallbackProxy.class);
+        } catch (Throwable e) {
+            Slog.w(TAG, "checkEnv(HCallbackProxy) failed: " + e.getMessage());
+        }
+
+        final ProxyActivityRecord record;
+        try {
+            record = ProxyActivityRecord.create(getIntent());
+        } catch (Throwable e) {
+            Slog.e(TAG, "Failed to parse ProxyActivityRecord", e);
+            finish();
+            return;
+        }
+
+        if (record == null || record.mTarget == null) {
+            Slog.w(TAG, "Stub target intent is null, finish.");
+            finish();
+            return;
+        }
+
+        try {
+            Intent target = new Intent(record.mTarget);
+            target.setExtrasClassLoader(ChiyuanVACore.getApplication().getClassLoader());
+
+            Slog.d(TAG, "Redirect stub launch to virtual AMS: " + target.getComponent()
+                    + ", userId=" + record.mUserId);
+
+            // 关键修复：
+            // 不在宿主里直接 startActivity(target)
+            // 必须重新交给虚拟 ActivityManager 处理
+            ChiyuanVACore.getBActivityManager().startActivity(target, record.mUserId);
+        } catch (Throwable e) {
+            Slog.e(TAG, "Failed to redirect stub launch to virtual AMS", e);
+        } finally {
+            finish();
         }
     }
 
