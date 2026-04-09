@@ -1,0 +1,213 @@
+package com.chiyuan.va.fake.delegate;
+
+import android.app.Activity;
+import android.app.Application;
+import android.app.Instrumentation;
+import android.content.Context;
+import android.content.Intent;
+import android.content.pm.ActivityInfo;
+import android.os.Bundle;
+import android.os.IBinder;
+import android.os.PersistableBundle;
+import android.util.Log;
+import android.view.Choreographer;
+
+import java.lang.reflect.Field;
+
+import black.android.app.BRActivity;
+import black.android.app.BRActivityThread;
+import com.chiyuan.va.ChiyuanVACore;
+import com.chiyuan.va.app.BActivityThread;
+import com.chiyuan.va.fake.hook.HookManager;
+import com.chiyuan.va.fake.hook.IInjectHook;
+import com.chiyuan.va.fake.service.HCallbackProxy;
+import com.chiyuan.va.fake.service.IActivityClientProxy;
+import com.chiyuan.va.utils.HackAppUtils;
+import com.chiyuan.va.utils.compat.ActivityCompat;
+import com.chiyuan.va.utils.compat.ActivityManagerCompat;
+import com.chiyuan.va.utils.compat.ContextCompat;
+
+public final class AppInstrumentation extends BaseInstrumentationDelegate implements IInjectHook {
+
+    // ★ TAG 不暴露类名
+    private static final String TAG = "Instrumentation";
+
+    private static AppInstrumentation sAppInstrumentation;
+
+    public static AppInstrumentation get() {
+        if (sAppInstrumentation == null) {
+            synchronized (AppInstrumentation.class) {
+                if (sAppInstrumentation == null) {
+                    sAppInstrumentation = new AppInstrumentation();
+                }
+            }
+        }
+        return sAppInstrumentation;
+    }
+
+    public AppInstrumentation() {}
+
+    @Override
+    public void injectHook() {
+        try {
+            Instrumentation curr = getCurrInstrumentation();
+            if (curr == this || checkInstrumentation(curr)) return;
+            mBaseInstrumentation = curr;
+            // ★ 注入匿名包装类：getClass().getName() 不含任何 VA 框架关键词
+            Instrumentation wrapper = buildWrapper(this);
+            BRActivityThread.get(ChiyuanVACore.mainThread())._set_mInstrumentation(wrapper);
+            mInjectedWrapper = wrapper;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    // 保存注入的包装实例，用于 isBadEnv 判断
+    private Instrumentation mInjectedWrapper;
+
+    /**
+     * 构造匿名 Instrumentation 子类，完全委托给 delegate。
+     * 匿名类的 getClass().getEnclosingClass() == AppInstrumentation.class，
+     * 可在 checkInstrumentation() 中识别，同时对外不暴露框架类名。
+     */
+    private static Instrumentation buildWrapper(final AppInstrumentation d) {
+        return new Instrumentation() {
+            @Override public void onCreate(Bundle a)                   { d.onCreate(a); }
+            @Override public void start()                              { d.start(); }
+            @Override public void onStart()                            { d.onStart(); }
+            @Override public boolean onException(Object o, Throwable e){ return d.onException(o,e); }
+            @Override public void finish(int r, Bundle b)              { d.finish(r,b); }
+            @Override public void onDestroy()                          { d.onDestroy(); }
+            @Override public Context getContext()                      { return d.getContext(); }
+            @Override public Context getTargetContext()                 { return d.getTargetContext(); }
+            @Override public android.content.ComponentName getComponentName(){ return d.getComponentName(); }
+            @Override public boolean isProfiling()                     { return d.isProfiling(); }
+            @Override public void startProfiling()                     { d.startProfiling(); }
+            @Override public void stopProfiling()                      { d.stopProfiling(); }
+            @Override public void waitForIdle(Runnable r)              { d.waitForIdle(r); }
+            @Override public void waitForIdleSync()                    { d.waitForIdleSync(); }
+            @Override public void runOnMainSync(Runnable r)            { d.runOnMainSync(r); }
+            @Override public android.app.UiAutomation getUiAutomation(){ return d.getUiAutomation(); }
+            @Override public void sendStatus(int c, Bundle b)          { d.sendStatus(c,b); }
+            @Override public Application newApplication(ClassLoader cl, String cls, Context ctx)
+                    throws InstantiationException, IllegalAccessException, ClassNotFoundException {
+                return d.newApplication(cl, cls, ctx);
+            }
+            @Override public Activity newActivity(ClassLoader cl, String cls, Intent i)
+                    throws InstantiationException, IllegalAccessException, ClassNotFoundException {
+                return d.newActivity(cl, cls, i);
+            }
+            @Override public Activity newActivity(Class<?> clazz, Context ctx, IBinder token,
+                    Application app, Intent i, ActivityInfo info, CharSequence title,
+                    Activity parent, String id, Object last)
+                    throws IllegalAccessException, InstantiationException {
+                return d.newActivity(clazz, ctx, token, app, i, info, title, parent, id, last);
+            }
+            @Override public void callApplicationOnCreate(Application app) { d.callApplicationOnCreate(app); }
+            @Override public void callActivityOnCreate(Activity a, Bundle b)                     { d.callActivityOnCreate(a,b); }
+            @Override public void callActivityOnCreate(Activity a, Bundle b, PersistableBundle p){ d.callActivityOnCreate(a,b,p); }
+            @Override public void callActivityOnDestroy(Activity a)   { d.callActivityOnDestroy(a); }
+            @Override public void callActivityOnStart(Activity a)     { d.callActivityOnStart(a); }
+            @Override public void callActivityOnStop(Activity a)      { d.callActivityOnStop(a); }
+            @Override public void callActivityOnResume(Activity a)    { d.callActivityOnResume(a); }
+            @Override public void callActivityOnPause(Activity a)     { d.callActivityOnPause(a); }
+            @Override public void callActivityOnRestart(Activity a)   { d.callActivityOnRestart(a); }
+            @Override public void callActivityOnNewIntent(Activity a, Intent i){ d.callActivityOnNewIntent(a,i); }
+            @Override public void callActivityOnUserLeaving(Activity a){ d.callActivityOnUserLeaving(a); }
+            @Override public void callActivityOnSaveInstanceState(Activity a, Bundle b){ d.callActivityOnSaveInstanceState(a,b); }
+            @Override public void callActivityOnSaveInstanceState(Activity a, Bundle b, PersistableBundle p){ d.callActivityOnSaveInstanceState(a,b,p); }
+            @Override public void callActivityOnRestoreInstanceState(Activity a, Bundle b){ d.callActivityOnRestoreInstanceState(a,b); }
+            @Override public void callActivityOnRestoreInstanceState(Activity a, Bundle b, PersistableBundle p){ d.callActivityOnRestoreInstanceState(a,b,p); }
+            @Override public void callActivityOnPostCreate(Activity a, Bundle b){ d.callActivityOnPostCreate(a,b); }
+            @Override public void callActivityOnPostCreate(Activity a, Bundle b, PersistableBundle p){ d.callActivityOnPostCreate(a,b,p); }
+        };
+    }
+
+    private Instrumentation getCurrInstrumentation() {
+        return BRActivityThread.get(ChiyuanVACore.mainThread()).mInstrumentation();
+    }
+
+    @Override
+    public boolean isBadEnv() {
+        return !checkInstrumentation(getCurrInstrumentation());
+    }
+
+    private boolean checkInstrumentation(Instrumentation inst) {
+        if (inst == null) return false;
+        if (inst == this || inst == mInjectedWrapper) return true;
+        // 匿名包装类的 enclosingClass 是 AppInstrumentation
+        if (AppInstrumentation.class.equals(inst.getClass().getEnclosingClass())) return true;
+        // 兼容：字段遍历查找内部的 AppInstrumentation 引用
+        Class<?> clazz = inst.getClass();
+        while (clazz != null && !Instrumentation.class.equals(clazz)) {
+            for (Field f : clazz.getDeclaredFields()) {
+                if (Instrumentation.class.isAssignableFrom(f.getType())) {
+                    f.setAccessible(true);
+                    try {
+                        Object obj = f.get(inst);
+                        if (obj instanceof AppInstrumentation) return true;
+                    } catch (Exception ignored) {}
+                }
+            }
+            clazz = clazz.getSuperclass();
+        }
+        return false;
+    }
+
+    // ★ 异步：通过 Choreographer 帧回调检查，不出现在 Activity 生命周期调用栈帧里
+    private void scheduleCheckHCallback() {
+        try {
+            Choreographer.getInstance().postFrameCallback(
+                    frameTimeNanos -> HookManager.get().checkEnv(HCallbackProxy.class));
+        } catch (Throwable t) {
+            HookManager.get().checkEnv(HCallbackProxy.class);
+        }
+    }
+
+    private void checkActivity(Activity activity) {
+        Log.d(TAG, "callActivityOnCreate: " + activity.getClass().getName());
+        HackAppUtils.enableQQLogOutput(activity.getPackageName(), activity.getClassLoader());
+        scheduleCheckHCallback();
+        HookManager.get().checkEnv(IActivityClientProxy.class);
+        ActivityInfo info = BRActivity.get(activity).mActivityInfo();
+        ContextCompat.fix(activity);
+        ActivityCompat.fix(activity);
+        if (info.theme != 0) activity.getTheme().applyStyle(info.theme, true);
+        ActivityManagerCompat.setActivityOrientation(activity, info.screenOrientation);
+    }
+
+    @Override
+    public Application newApplication(ClassLoader cl, String className, Context context)
+            throws InstantiationException, IllegalAccessException, ClassNotFoundException {
+        ContextCompat.fix(context);
+        return super.newApplication(cl, className, context);
+    }
+
+    @Override
+    public void callActivityOnCreate(Activity activity, Bundle icicle, PersistableBundle ps) {
+        checkActivity(activity);
+        super.callActivityOnCreate(activity, icicle, ps);
+    }
+
+    @Override
+    public void callActivityOnCreate(Activity activity, Bundle icicle) {
+        checkActivity(activity);
+        super.callActivityOnCreate(activity, icicle);
+    }
+
+    @Override
+    public void callApplicationOnCreate(Application app) {
+        scheduleCheckHCallback();
+        super.callApplicationOnCreate(app);
+    }
+
+    @Override
+    public Activity newActivity(ClassLoader cl, String className, Intent intent)
+            throws InstantiationException, IllegalAccessException, ClassNotFoundException {
+        try {
+            return super.newActivity(cl, className, intent);
+        } catch (ClassNotFoundException e) {
+            return mBaseInstrumentation.newActivity(cl, className, intent);
+        }
+    }
+}
