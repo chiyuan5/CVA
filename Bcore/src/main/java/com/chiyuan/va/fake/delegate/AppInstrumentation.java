@@ -239,55 +239,33 @@ public final class AppInstrumentation extends BaseInstrumentationDelegate implem
     }
 
     // =========================================================================
-    // ★ execStartActivity 拦截 — 核心：将分身 App 内部的 startActivity 调用
-    //   路由到 VA 的 BActivityManager，确保通过 stub 组件中转，而非直接发给系统 AM。
+    // ★ execStartActivity 不再拦截。
     //
-    //   设备方：Activity.startActivity() → Instrumentation.execStartActivity()
-    //   VA 方：  execStartActivity() → BActivityManager.startActivity()
-    //              → ActivityStack → stub 组件 → HCallbackProxy 还原真实 Intent
+    //   之前的实现会在 Instrumentation 层拦截 startActivity 并调用
+    //   BActivityManager.startActivity(intent, userId)，但该方法不传递
+    //   resultTo（调用者 Activity 的 token），导致 ActivityStack 无法
+    //   找到源 Activity，从而错误地以宿主 Context 创建新 Task，使得
+    //   分身应用在打开第二个 Activity 时崩溃并回退到宿主。
+    //
+    //   正确的路由由 ActivityManagerCommonProxy.StartActivity（IActivityManager
+    //   的 hook）完成——它在系统 AM 层拦截，能正确传递 resultTo、requestCode
+    //   等全部调用者上下文信息给 startActivityAms()，确保 ActivityStack
+    //   能找到源 Activity 并在同一 Task 内启动新 Activity。
+    //
+    //   因此，这里所有 execStartActivity 重载均直接委托给 super（即原始
+    //   Instrumentation），让调用正常流入系统 AM，由
+    //   ActivityManagerCommonProxy 在那里完成拦截和路由。
     // =========================================================================
-
-    /**
-     * 判断是否应由 VA 路由：仅在分身进程已初始化且 intent 指向分身 App 内的组件时拦截。
-     */
-    private boolean shouldIntercept(Intent intent) {
-        if (intent == null) return false;
-        String pkg = BActivityThread.getAppPackageName();
-        if (pkg == null) return false;
-        ComponentName cn = intent.getComponent();
-        if (cn != null) {
-            // 显式 intent：目标包 == 分身包，或未指定包（框架内部调用），才拦截
-            return pkg.equals(cn.getPackageName());
-        }
-        // 隐式 intent：只要分身已启动就拦截，让 VA 的 PM 做解析
-        return BActivityThread.getAppConfig() != null;
-    }
-
-    /**
-     * 统一拦截入口：把 intent 交给 VA 的 BActivityManager.startActivity()。
-     * 返回 null 表示已处理（与系统 execStartActivity 行为一致：startActivityForResult 也传 null）。
-     */
-    private ActivityResult interceptStartActivity(Intent intent) {
-        try {
-            ChiyuanVACore.getBActivityManager().startActivity(intent, BActivityThread.getUserId());
-        } catch (Throwable t) {
-            Log.w(TAG, "interceptStartActivity failed, falling through: " + t);
-            return null;
-        }
-        return null;
-    }
 
     // --- Activity caller ---
     public ActivityResult execStartActivity(Context ctx, IBinder b1, IBinder b2,
             Activity activity, Intent intent, int requestCode, Bundle options) throws Throwable {
-        if (shouldIntercept(intent)) return interceptStartActivity(intent);
         return super.execStartActivity(ctx, b1, b2, activity, intent, requestCode, options);
     }
 
     // --- String caller (API 23+) ---
     public ActivityResult execStartActivity(Context ctx, IBinder b1, IBinder b2,
             String str, Intent intent, int requestCode, Bundle options) throws Throwable {
-        if (shouldIntercept(intent)) return interceptStartActivity(intent);
         return super.execStartActivity(ctx, b1, b2, str, intent, requestCode, options);
     }
 
@@ -295,14 +273,12 @@ public final class AppInstrumentation extends BaseInstrumentationDelegate implem
     @SuppressLint("NewApi")
     public ActivityResult execStartActivity(Context ctx, IBinder b1, IBinder b2,
             Fragment fragment, Intent intent, int requestCode) throws Throwable {
-        if (shouldIntercept(intent)) return interceptStartActivity(intent);
         return super.execStartActivity(ctx, b1, b2, fragment, intent, requestCode);
     }
 
     // --- Activity caller, no Bundle (older API) ---
     public ActivityResult execStartActivity(Context ctx, IBinder b1, IBinder b2,
             Activity activity, Intent intent, int requestCode) throws Throwable {
-        if (shouldIntercept(intent)) return interceptStartActivity(intent);
         return super.execStartActivity(ctx, b1, b2, activity, intent, requestCode);
     }
 
@@ -310,7 +286,6 @@ public final class AppInstrumentation extends BaseInstrumentationDelegate implem
     @SuppressLint("NewApi")
     public ActivityResult execStartActivity(Context ctx, IBinder b1, IBinder b2,
             Fragment fragment, Intent intent, int requestCode, Bundle options) throws Throwable {
-        if (shouldIntercept(intent)) return interceptStartActivity(intent);
         return super.execStartActivity(ctx, b1, b2, fragment, intent, requestCode, options);
     }
 
@@ -319,7 +294,6 @@ public final class AppInstrumentation extends BaseInstrumentationDelegate implem
     public ActivityResult execStartActivity(Context ctx, IBinder b1, IBinder b2,
             Activity activity, Intent intent, int requestCode, Bundle options,
             UserHandle userHandle) throws Throwable {
-        if (shouldIntercept(intent)) return interceptStartActivity(intent);
         return super.execStartActivity(ctx, b1, b2, activity, intent, requestCode, options, userHandle);
     }
 }
