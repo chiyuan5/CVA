@@ -8,10 +8,6 @@ import com.chiyuan.va.ChiyuanVACore;
 public class ProxyManifest {
     public static final int FREE_COUNT = 50;
 
-    // Obfuscated naming: "ext_data_provider_" instead of "ext_data_provider_"
-    // "ExtActivity$Pxx" instead of "ProxyActivity$Pxx" etc.
-    // Note: these must match AndroidManifest.xml declarations
-
     public static boolean isProxy(String msg) {
         return getBindProvider().equals(msg) || msg.contains("ext_data_provider_");
     }
@@ -24,6 +20,9 @@ public class ProxyManifest {
         return String.format(Locale.CHINA, "%s.ext_data_provider_%d", ChiyuanVACore.getHostPkg(), index);
     }
 
+    // These MUST match the actual Java class names declared in the codebase
+    // and registered in AndroidManifest.xml. Do NOT rename these without
+    // also renaming the Java classes and manifest entries.
     public static String getProxyPendingActivity(int index) {
         return String.format(Locale.CHINA, "com.chiyuan.va.proxy.ProxyPendingActivity$P%d", index);
     }
@@ -49,11 +48,10 @@ public class ProxyManifest {
     }
 
     public static String getProxyReceiver() {
-        return ChiyuanVACore.getHostPkg() + ".ext_receiver";
+        return ChiyuanVACore.getHostPkg() + ".event_receiver";
     }
 
     public static String getProcessName(int bPid) {
-        // Use "w" prefix instead of "p" to look less like "process slot"
         return ChiyuanVACore.getHostPkg() + ":w" + bPid;
     }
 }
