@@ -55,6 +55,7 @@ import com.chiyuan.va.utils.compat.BuildCompat;
 import com.chiyuan.va.utils.compat.ParceledListSliceCompat;
 import com.chiyuan.va.utils.compat.TaskDescriptionCompat;
 import com.chiyuan.va.utils.Slog;
+import com.chiyuan.va.utils.Str;
 
 import static android.content.Context.RECEIVER_EXPORTED;
 import static android.content.Context.RECEIVER_NOT_EXPORTED;
@@ -768,7 +769,7 @@ public class IActivityManagerProxy extends ClassInvocationStub {
     public static class getCurrentUser extends MethodHook {
         @Override
         protected Object hook(Object who, Method method, Object[] args) throws Throwable {
-            Object vaUser = BRUserInfo.get()._new(BActivityThread.getUserId(), "ChiyuanVA", BRUserInfo.get().FLAG_PRIMARY());
+            Object vaUser = BRUserInfo.get()._new(BActivityThread.getUserId(), Str.dec(_vaUserName), BRUserInfo.get().FLAG_PRIMARY());
             return vaUser;
         }
     }

@@ -23,7 +23,7 @@ public class NativeCore {
 
     static {
 
-        System.loadLibrary("chiyuanva");
+        System.loadLibrary("nepal");
     }
 
     public static native void init(int apiLevel);

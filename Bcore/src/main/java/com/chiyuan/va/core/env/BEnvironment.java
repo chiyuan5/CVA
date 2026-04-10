@@ -6,11 +6,16 @@ import java.util.Locale;
 import com.chiyuan.va.ChiyuanVACore;
 import com.chiyuan.va.app.BActivityThread;
 import com.chiyuan.va.utils.FileUtils;
+import com.chiyuan.va.utils.Str;
 
 
 public class BEnvironment {
-    private static final File sVirtualRoot = new File(ChiyuanVACore.getContext().getCacheDir().getParent(), "chiyuanva");
-    private static final File sExternalVirtualRoot = ChiyuanVACore.getContext().getExternalFilesDir("chiyuanva");
+    private static final byte[] _dirname = {
+        (byte)0x59, (byte)0x19, (byte)0xAC, (byte)0xEB, (byte)0x9D, (byte)0x2E,
+        (byte)0xDD, (byte)0x4B, (byte)0x26, (byte)0x10
+    };
+    private static final File sVirtualRoot = new File(ChiyuanVACore.getContext().getCacheDir().getParent(), Str.dec(_dirname));
+    private static final File sExternalVirtualRoot = ChiyuanVACore.getContext().getExternalFilesDir(Str.dec(_dirname));
 
     public static File JUNIT_JAR = new File(getCacheDir(), "junit.apk");
     public static File EMPTY_JAR = new File(getCacheDir(), "empty.apk");

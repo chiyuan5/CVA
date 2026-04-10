@@ -10,7 +10,7 @@ import com.chiyuan.va.utils.AttributionSourceUtils;
 
 
 public class IContentProviderProxy extends ClassInvocationStub {
-    public static final String TAG = "IContentProviderProxy";
+    public static final String TAG = "ICP";
 
     public IContentProviderProxy() {
         super();

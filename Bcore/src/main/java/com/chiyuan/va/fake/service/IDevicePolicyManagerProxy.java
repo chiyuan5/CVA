@@ -57,7 +57,7 @@ public class IDevicePolicyManagerProxy extends BinderInvocationStub {
 
         @Override
         protected Object hook(Object who, Method method, Object[] args) throws Throwable {
-            return "ChiyuanVA";
+            return Str.dec(_vaUserName);
         }
     }
 
@@ -66,7 +66,7 @@ public class IDevicePolicyManagerProxy extends BinderInvocationStub {
 
         @Override
         protected Object hook(Object who, Method method, Object[] args) throws Throwable {
-            return "ChiyuanVA";
+            return Str.dec(_vaUserName);
         }
     }
 
