@@ -12,7 +12,7 @@ import com.chiyuan.va.utils.Slog;
 
 
 public class BrowserEngineProxy extends ClassInvocationStub {
-    public static final String TAG = "BrowserEngineProxy";
+    public static final String TAG = "be.p";
 
     public BrowserEngineProxy() {
         super();

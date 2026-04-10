@@ -1,4 +1,5 @@
 package com.chiyuan.va.core.system;
+import com.chiyuan.va.utils.Slog;
 
 import android.util.Log;
 
@@ -14,7 +15,7 @@ public class JarManagerTest {
             JarManager jarManager = JarManager.getInstance();
             
             
-            Log.d(TAG, "Testing async initialization");
+            Slog.d(TAG, "Testing async initialization");
             jarManager.initializeAsync();
             
             
@@ -22,21 +23,21 @@ public class JarManagerTest {
             
             
             if (!jarManager.isReady()) {
-                Log.d(TAG, "Async initialization not complete, trying sync");
+                Slog.d(TAG, "Async initialization not complete, trying sync");
                 jarManager.initializeSync();
             }
             
             
-            Log.d(TAG, "Testing JAR file retrieval");
+            Slog.d(TAG, "Testing JAR file retrieval");
             testJarFileRetrieval(jarManager);
             
             
-            Log.d(TAG, "Testing cache statistics");
+            Slog.d(TAG, "Testing cache statistics");
             String stats = jarManager.getCacheStats();
             Log.i(TAG, "Cache stats: " + stats);
             
             
-            Log.d(TAG, "Testing individual JAR info");
+            Slog.d(TAG, "Testing individual JAR info");
             String emptyJarInfo = jarManager.getJarInfo("empty.jar");
             String junitJarInfo = jarManager.getJarInfo("junit.jar");
             
@@ -54,23 +55,23 @@ public class JarManagerTest {
     private static void testJarFileRetrieval(JarManager jarManager) {
         
         if (jarManager.getEmptyJar() != null) {
-            Log.d(TAG, "Empty JAR retrieved successfully");
+            Slog.d(TAG, "Empty JAR retrieved successfully");
         } else {
-            Log.w(TAG, "Empty JAR retrieval failed");
+            Slog.w(TAG, "Empty JAR retrieval failed");
         }
         
         
         if (jarManager.getJunitJar() != null) {
-            Log.d(TAG, "JUnit JAR retrieved successfully");
+            Slog.d(TAG, "JUnit JAR retrieved successfully");
         } else {
-            Log.w(TAG, "JUnit JAR retrieval failed");
+            Slog.w(TAG, "JUnit JAR retrieval failed");
         }
         
         
         if (jarManager.getJarFile("empty.jar") != null) {
-            Log.d(TAG, "Generic JAR retrieval for empty.jar successful");
+            Slog.d(TAG, "Generic JAR retrieval for empty.jar successful");
         } else {
-            Log.w(TAG, "Generic JAR retrieval for empty.jar failed");
+            Slog.w(TAG, "Generic JAR retrieval for empty.jar failed");
         }
     }
     
@@ -80,10 +81,10 @@ public class JarManagerTest {
         
         
         JarConfig.JarDefinition[] jars = JarConfig.getRequiredJars();
-        Log.d(TAG, "Found " + jars.length + " JAR definitions");
+        Slog.d(TAG, "Found " + jars.length + " JAR definitions");
         
         for (JarConfig.JarDefinition jar : jars) {
-            Log.d(TAG, "JAR: " + jar.getAssetName() + 
+            Slog.d(TAG, "JAR: " + jar.getAssetName() + 
                       ", File: " + jar.getFileName() + 
                       ", MinSize: " + jar.getMinSize() + 
                       ", Required: " + jar.isRequired() + 
@@ -92,15 +93,15 @@ public class JarManagerTest {
         
         
         int bufferSize = JarConfig.getOptimalBufferSize();
-        Log.d(TAG, "Optimal buffer size: " + bufferSize + " bytes");
+        Slog.d(TAG, "Optimal buffer size: " + bufferSize + " bytes");
         
         
         boolean enableValidation = JarConfig.ENABLE_SIZE_VALIDATION;
         boolean enableHashing = JarConfig.ENABLE_FILE_HASHING;
         boolean enableAsync = JarConfig.ENABLE_ASYNC_LOADING;
         
-        Log.d(TAG, "Validation enabled: " + enableValidation);
-        Log.d(TAG, "Hashing enabled: " + enableHashing);
-        Log.d(TAG, "Async loading enabled: " + enableAsync);
+        Slog.d(TAG, "Validation enabled: " + enableValidation);
+        Slog.d(TAG, "Hashing enabled: " + enableHashing);
+        Slog.d(TAG, "Async loading enabled: " + enableAsync);
     }
 }

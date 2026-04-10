@@ -77,7 +77,7 @@ import com.chiyuan.va.utils.LogSender;
 @SuppressLint({"StaticFieldLeak", "NewApi"})
 @SuppressWarnings({"unchecked", "deprecation"})
 public class ChiyuanVACore extends ClientConfiguration {
-    public static final String TAG = "CVA_Core";
+    public static final String TAG = "CC";
 
     private static final ChiyuanVACore sChiyuanVACore = new ChiyuanVACore();
     private static Context sContext;

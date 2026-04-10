@@ -1,189 +1,242 @@
 package com.chiyuan.va.fake.service;
 
-import static com.chiyuan.va.ChiyuanVACore.mainThread;
-import static com.chiyuan.va.ChiyuanVACore.mainHandler;
-
+import android.content.ComponentName;
+import android.content.Intent;
+import android.content.pm.ActivityInfo;
+import android.content.pm.ServiceInfo;
 import android.os.Handler;
-import android.os.Looper;
+import android.os.IBinder;
 import android.os.Message;
-import android.util.Printer;
+import android.util.Log;
 
-import java.lang.reflect.Field;
+import androidx.annotation.NonNull;
+
 import java.lang.reflect.Method;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 
+import black.android.app.ActivityThreadActivityClientRecordContext;
+import black.android.app.BRActivityClient;
+import black.android.app.BRActivityClientActivityClientControllerSingleton;
+import black.android.app.BRActivityManagerNative;
+import black.android.app.BRActivityThread;
+import black.android.app.BRActivityThreadActivityClientRecord;
+import black.android.app.BRActivityThreadCreateServiceData;
+import black.android.app.BRActivityThreadH;
+import black.android.app.BRIActivityManager;
+import black.android.app.servertransaction.BRClientTransaction;
+import black.android.app.servertransaction.BRLaunchActivityItem;
+import black.android.app.servertransaction.LaunchActivityItemContext;
+import black.android.os.BRHandler;
 import com.chiyuan.va.ChiyuanVACore;
-import com.chiyuan.va.entity.VBinder;
+import com.chiyuan.va.app.BActivityThread;
 import com.chiyuan.va.fake.hook.IInjectHook;
-import com.chiyuan.va.fake.hook.MethodHook;
-import com.chiyuan.va.fake.hook.ProxyMethod;
-import com.chiyuan.va.utils.MethodParameterUtils;
-import com.chiyuan.va.utils.ReflectUtils;
+import com.chiyuan.va.proxy.ProxyManifest;
+import com.chiyuan.va.proxy.record.ProxyActivityRecord;
 import com.chiyuan.va.utils.Slog;
-import com.chiyuan.va.utils.Str;
 import com.chiyuan.va.utils.compat.BuildCompat;
-import com.chiyuan.va.utils.compat.VAContentProviderCompat;
 
 
-public class HCallbackProxy implements Handler.Callback, IInjectHook {
-    private static final String TAG = "HCB";
 
-    
-    private static final byte[] _mCallback = {
-        (byte)0x57, (byte)0x32, (byte)0xA4, (byte)0xFE, (byte)0x84,
-        (byte)0x2D, (byte)0xD2, (byte)0x7E, (byte)0x0C
-    };
-    private static final byte[] _android_os_Handler = {
-        (byte)0x5B, (byte)0x1F, (byte)0xA1, (byte)0xE0, (byte)0x87,
-        (byte)0x26, (byte)0xD7, (byte)0x33, (byte)0x08, (byte)0x89,
-        (byte)0xAA, (byte)0x14, (byte)0xB8, (byte)0x48, (byte)0x6F,
-        (byte)0xCD, (byte)0x5F, (byte)0x03
-    };
+public class HCallbackProxy implements IInjectHook, Handler.Callback {
+    public static final String TAG = "h.cb";
+    private Handler.Callback mOtherCallback;
+    private AtomicBoolean mBeing = new AtomicBoolean(false);
 
-    private static final HCallbackProxy sCallback = new HCallbackProxy();
-    private Handler.Callback mOldCallback;
-    private boolean isEnable = false;
-    private volatile boolean mReentrantGuard = false;
-    private Printer printer;
-
-    private static String dec(byte[] encoded) {
-        return Str.dec(encoded);
+    private Handler.Callback getHCallback() {
+        return BRHandler.get(getH()).mCallback();
     }
 
-    public static HCallbackProxy get() {
-        return sCallback;
-    }
-
-    public Handler.Callback getOldCallback() {
-        return mOldCallback;
+    private Handler getH() {
+        Object currentActivityThread = ChiyuanVACore.mainThread();
+        return BRActivityThread.get(currentActivityThread).mH();
     }
 
     @Override
     public void injectHook() {
-        if (isEnable) {
-            Slog.d(TAG, "mCallback has been injected!");
-            return;
+        mOtherCallback = getHCallback();
+        if (mOtherCallback != null && (mOtherCallback == this || mOtherCallback.getClass().getName().equals(this.getClass().getName()))) {
+            mOtherCallback = null;
         }
-        try {
-            Handler handler = mainHandler();
-            Field callbackField = findCallbackField(handler);
-            if (callbackField != null) {
-                callbackField.setAccessible(true);
-                mOldCallback = (Handler.Callback) callbackField.get(handler);
-                callbackField.set(handler, this);
-                isEnable = true;
-            } else {
-                Slog.e(TAG, "callbackField is null!");
-            }
-        } catch (Exception e) {
-            Slog.e(TAG, "injectHook error", e);
-        }
-    }
-
-    private Field findCallbackField(Handler handler) {
-        try {
-            
-            Class<?> handlerClass = Class.forName(dec(_android_os_Handler));
-            Field f = handlerClass.getDeclaredField(dec(_mCallback));
-            f.setAccessible(true);
-            return f;
-        } catch (Exception e) {
-            
-            try {
-                for (Field f : Handler.class.getDeclaredFields()) {
-                    if (Handler.Callback.class.isAssignableFrom(f.getType())) {
-                        f.setAccessible(true);
-                        return f;
-                    }
-                }
-            } catch (Exception ex) {
-                Slog.e(TAG, "findCallbackField error", ex);
-            }
-            return null;
-        }
+        BRHandler.get(getH())._set_mCallback(this);
     }
 
     @Override
     public boolean isBadEnv() {
-        Handler handler = mainHandler();
-        if (handler == null) {
-            return false;
-        }
-        try {
-            Field callbackField = findCallbackField(handler);
-            if (callbackField != null) {
-                callbackField.setAccessible(true);
-                Handler.Callback cb = (Handler.Callback) callbackField.get(handler);
-                if (cb == this) {
-                    return false;
+        Handler.Callback hCallback = getHCallback();
+        return hCallback != null && hCallback != this;
+    }
+
+    @Override
+    public boolean handleMessage(@NonNull Message msg) {
+        if (!mBeing.getAndSet(true)) {
+            try {
+                if (BuildCompat.isPie()) {
+                    if (msg.what == BRActivityThreadH.get().EXECUTE_TRANSACTION()) {
+                        if (handleLaunchActivity(msg.obj)) {
+                            getH().sendMessageAtFrontOfQueue(Message.obtain(msg));
+                            return true;
+                        }
+                    }
+                } else {
+                    if (msg.what == BRActivityThreadH.get().LAUNCH_ACTIVITY()) {
+                        if (handleLaunchActivity(msg.obj)) {
+                            getH().sendMessageAtFrontOfQueue(Message.obtain(msg));
+                            return true;
+                        }
+                    }
                 }
-                return true;
+                if (msg.what == BRActivityThreadH.get().CREATE_SERVICE()) {
+                    return handleCreateService(msg.obj);
+                }
+                if (mOtherCallback != null) {
+                    return mOtherCallback.handleMessage(msg);
+                }
+                return false;
+            } finally {
+                mBeing.set(false);
             }
-        } catch (Exception e) {
         }
         return false;
     }
 
-    @Override
-    public boolean handleMessage(Message msg) {
-        if (mReentrantGuard) {
-            return false;
+    private Object getLaunchActivityItem(Object clientTransaction) {
+        List<Object> mActivityCallbacks = BRClientTransaction.get(clientTransaction).mActivityCallbacks();
+
+        if (mActivityCallbacks == null) {
+            Slog.e(TAG, "mActivityCallbacks is null for clientTransaction: " + clientTransaction);
+            return null;
         }
-        mReentrantGuard = true;
-        try {
-            if (printer != null) {
-                printer.println(">>>>> Dispatching to " + msg.target + " "
-                        + msg.getCallback() + ": " + msg.what);
-            }
-            Handler handler = mainHandler();
-            if (handler == null) {
-                return false;
-            }
-            android.app.ActivityThread at = (android.app.ActivityThread) mainThread();
-            if (at == null) {
-                return false;
-            }
 
-            boolean intercept = false;
-            try {
-                if (BuildCompat.isS()) {
-                    if (msg.what == 159) {
-                        Object obj = msg.obj;
-                        if (obj != null) {
-                            List<?> transactionItems = (List<?>) ReflectUtils.readField(obj,
-                                    "mTransactionItems");
-                            if (transactionItems != null) {
-                                for (Object item : transactionItems) {
-                                    if (item != null) {
-                                        intercept = VAContentProviderCompat.installVAContentProvider(
-                                                ChiyuanVACore.get().getHostPkg(),
-                                                ChiyuanVACore.get().getUserId());
-                                        break;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            } catch (Exception e) {
-            }
-
-            if (mOldCallback != null && !intercept) {
-                mOldCallback.handleMessage(msg);
-            }
-            return true;
-        } catch (Exception e) {
-            Slog.e(TAG, "handleMessage error", e);
-            return false;
-        } finally {
-            mReentrantGuard = false;
-            if (printer != null) {
-                printer.println("<<<<< Finished to " + msg.target + " " + msg.getCallback());
+        for (Object obj : mActivityCallbacks) {
+            if (BRLaunchActivityItem.getRealClass().getName().equals(obj.getClass().getCanonicalName())) {
+                return obj;
             }
         }
+        return null;
     }
 
-    public boolean isEnable() {
-        return isEnable;
+    private boolean handleLaunchActivity(Object client) {
+        Object r;
+        if (BuildCompat.isPie()) {
+            
+            r = getLaunchActivityItem(client);
+        } else {
+            
+            r = client;
+        }
+        if (r == null)
+            return false;
+
+        Intent intent;
+        IBinder token;
+        if (BuildCompat.isPie()) {
+            intent = BRLaunchActivityItem.get(r).mIntent();
+            token = BRClientTransaction.get(client).mActivityToken();
+        } else {
+            ActivityThreadActivityClientRecordContext clientRecordContext = BRActivityThreadActivityClientRecord.get(r);
+            intent = clientRecordContext.intent();
+            token = clientRecordContext.token();
+        }
+
+        if (intent == null)
+            return false;
+
+        ProxyActivityRecord stubRecord = ProxyActivityRecord.create(intent);
+        ActivityInfo activityInfo = stubRecord.mActivityInfo;
+        if (activityInfo != null) {
+            if (BActivityThread.getAppConfig() == null) {
+                ChiyuanVACore.getBActivityManager().restartProcess(activityInfo.packageName, activityInfo.processName, stubRecord.mUserId);
+
+                Intent launchIntentForPackage = ChiyuanVACore.getBPackageManager().getLaunchIntentForPackage(activityInfo.packageName, stubRecord.mUserId);
+                intent.setExtrasClassLoader(this.getClass().getClassLoader());
+                ProxyActivityRecord.saveStub(intent, launchIntentForPackage, stubRecord.mActivityInfo, stubRecord.mActivityRecord, stubRecord.mUserId);
+                if (BuildCompat.isPie()) {
+                    LaunchActivityItemContext launchActivityItemContext = BRLaunchActivityItem.get(r);
+                    launchActivityItemContext._set_mIntent(intent);
+                    launchActivityItemContext._set_mInfo(activityInfo);
+                } else {
+                    ActivityThreadActivityClientRecordContext clientRecordContext = BRActivityThreadActivityClientRecord.get(r);
+                    clientRecordContext._set_intent(intent);
+                    clientRecordContext._set_activityInfo(activityInfo);
+                }
+                return true;
+            }
+            
+            if (!BActivityThread.currentActivityThread().isInit()) {
+                BActivityThread.currentActivityThread().bindApplication(activityInfo.packageName,
+                        activityInfo.processName);
+                return true;
+            }
+
+            int taskId = BRIActivityManager.get(BRActivityManagerNative.get().getDefault()).getTaskForActivity(token, false);
+            ChiyuanVACore.getBActivityManager().onActivityCreated(taskId, token, stubRecord.mActivityRecord);
+
+            if(BuildCompat.isTiramisu()){
+                LaunchActivityItemContext launchActivityItemContext = BRLaunchActivityItem.get(r);
+                launchActivityItemContext._set_mIntent(stubRecord.mTarget);
+                launchActivityItemContext._set_mInfo(activityInfo);
+            } else if (BuildCompat.isS()) {
+                Object record = BRActivityThread.get(ChiyuanVACore.mainThread()).getLaunchingActivity(token);
+                ActivityThreadActivityClientRecordContext clientRecordContext = BRActivityThreadActivityClientRecord.get(record);
+                clientRecordContext._set_intent(stubRecord.mTarget);
+                clientRecordContext._set_activityInfo(activityInfo);
+                clientRecordContext._set_packageInfo(BActivityThread.currentActivityThread().getPackageInfo());
+
+                checkActivityClient();
+            } else if (BuildCompat.isPie()) {
+                LaunchActivityItemContext launchActivityItemContext = BRLaunchActivityItem.get(r);
+                launchActivityItemContext._set_mIntent(stubRecord.mTarget);
+                launchActivityItemContext._set_mInfo(activityInfo);
+            } else {
+                ActivityThreadActivityClientRecordContext clientRecordContext = BRActivityThreadActivityClientRecord.get(r);
+                clientRecordContext._set_intent(stubRecord.mTarget);
+                clientRecordContext._set_activityInfo(activityInfo);
+            }
+        }
+        return false;
+    }
+
+    private boolean handleCreateService(Object data) {
+        if (BActivityThread.getAppConfig() != null) {
+            String appPackageName = BActivityThread.getAppPackageName();
+            assert appPackageName != null;
+
+            ServiceInfo serviceInfo = BRActivityThreadCreateServiceData.get(data).info();
+            if (!serviceInfo.name.equals(ProxyManifest.getProxyService(BActivityThread.getAppPid()))
+                    && !serviceInfo.name.equals(ProxyManifest.getProxyJobService(BActivityThread.getAppPid()))) {
+                Slog.d(TAG, "handleCreateService: " + data);
+                Intent intent = new Intent();
+                intent.setComponent(new ComponentName(appPackageName, serviceInfo.name));
+                ChiyuanVACore.getBActivityManager().startService(intent, null, false, BActivityThread.getUserId());
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private void checkActivityClient() {
+        try {
+            Object activityClientController = BRActivityClient.get().getActivityClientController();
+            // Use reflection to check for Proxy instead of direct instanceof
+            // This avoids: import java.lang.reflect.Proxy  and  instanceof Proxy
+            boolean isAlreadyProxied = false;
+            try {
+                Class<?> proxyClass = Class.forName("java.lang.reflect.Proxy");
+                Method isProxyClassMethod = proxyClass.getMethod("isProxyClass", Class.class);
+                isAlreadyProxied = (Boolean) isProxyClassMethod.invoke(null, activityClientController.getClass());
+            } catch (Throwable ignored) {}
+
+            if (!isAlreadyProxied) {
+                IActivityClientProxy iActivityClientProxy = new IActivityClientProxy(activityClientController);
+                iActivityClientProxy.onlyProxy(true);
+                iActivityClientProxy.injectHook();
+                Object instance = BRActivityClient.get().getInstance();
+                Object o = BRActivityClient.get(instance).INTERFACE_SINGLETON();
+                BRActivityClientActivityClientControllerSingleton.get(o)._set_mKnownInstance(iActivityClientProxy.getProxyInvocation());
+            }
+        } catch (Throwable t) {
+            t.printStackTrace();
+        }
     }
 }

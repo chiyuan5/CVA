@@ -1,4 +1,5 @@
 package com.chiyuan.va.core.system.am;
+import com.chiyuan.va.utils.Slog;
 
 import android.annotation.SuppressLint;
 import android.app.ActivityManager;
@@ -72,7 +73,7 @@ public class ActiveServices {
                 return 0;
             }
             if (runningServiceRecord.mBindCount.get() > 0) {
-                Log.d(TAG, "There are also connections");
+                Slog.d(TAG, "There are also connections");
                 return 0;
             }
             runningServiceRecord.mStartId.set(0);

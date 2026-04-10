@@ -489,14 +489,14 @@
         android:usesCleartextTraffic="true">
         <provider
             android:name="com.chiyuan.va.core.system.SystemCallProvider"
-            android:authorities="${applicationId}.chiyuanva.SystemCallProvider"
+            android:authorities="${applicationId}.core.SystemCallProvider"
             android:exported="false"
             android:process="@string/black_box_service_name" />
 
         
         <provider
             android:name=".fake.provider.FileProvider"
-            android:authorities="${applicationId}.chiyuanva.FileProvider"
+            android:authorities="${applicationId}.core.FileProvider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data
@@ -510,7 +510,7 @@
             android:exported="true"
             android:process="@string/black_box_service_name">
             <intent-filter>
-                <action android:name="${applicationId}.stub_receiver" />
+                <action android:name="${applicationId}.event_receiver" />
             </intent-filter>
         </receiver>
 
@@ -547,1812 +547,1812 @@
 
 
         <activity
-            android:name=".proxy.ProxyActivity$azcx"
+            android:name=".proxy.ProxyActivity$P0"
             android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|uiMode|screenSize|smallestScreenSize|fontScale"
             android:exported="true"
-            android:process=":remote"
+            android:process=":w0"
             android:supportsPictureInPicture="true"
-            android:taskAffinity="com.chiyuan.va.task_affinity"
+            android:taskAffinity="com.chiyuan.va.affinity"
             android:theme="@style/BTheme" />
         <activity
-            android:name=".proxy.ProxyActivity$bbbr"
+            android:name=".proxy.ProxyActivity$P1"
             android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|uiMode|screenSize|smallestScreenSize|fontScale"
             android:exported="true"
-            android:process=":push"
+            android:process=":w1"
             android:supportsPictureInPicture="true"
-            android:taskAffinity="com.chiyuan.va.task_affinity"
+            android:taskAffinity="com.chiyuan.va.affinity"
             android:theme="@style/BTheme" />
         <activity
-            android:name=".proxy.ProxyActivity$coxu"
+            android:name=".proxy.ProxyActivity$P2"
             android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|uiMode|screenSize|smallestScreenSize|fontScale"
             android:exported="true"
-            android:process=":worker"
+            android:process=":w2"
             android:supportsPictureInPicture="true"
-            android:taskAffinity="com.chiyuan.va.task_affinity"
+            android:taskAffinity="com.chiyuan.va.affinity"
             android:theme="@style/BTheme" />
         <activity
-            android:name=".proxy.ProxyActivity$dpss"
+            android:name=".proxy.ProxyActivity$P3"
             android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|uiMode|screenSize|smallestScreenSize|fontScale"
             android:exported="true"
-            android:process=":core"
+            android:process=":w3"
             android:supportsPictureInPicture="true"
-            android:taskAffinity="com.chiyuan.va.task_affinity"
+            android:taskAffinity="com.chiyuan.va.affinity"
             android:theme="@style/BTheme" />
         <activity
-            android:name=".proxy.ProxyActivity$emre"
+            android:name=".proxy.ProxyActivity$P4"
             android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|uiMode|screenSize|smallestScreenSize|fontScale"
             android:exported="true"
-            android:process=":sync"
+            android:process=":w4"
             android:supportsPictureInPicture="true"
-            android:taskAffinity="com.chiyuan.va.task_affinity"
+            android:taskAffinity="com.chiyuan.va.affinity"
             android:theme="@style/BTheme" />
         <activity
-            android:name=".proxy.ProxyActivity$fmsq"
+            android:name=".proxy.ProxyActivity$P5"
             android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|uiMode|screenSize|smallestScreenSize|fontScale"
             android:exported="true"
-            android:process=":media"
+            android:process=":w5"
             android:supportsPictureInPicture="true"
-            android:taskAffinity="com.chiyuan.va.task_affinity"
+            android:taskAffinity="com.chiyuan.va.affinity"
             android:theme="@style/BTheme" />
         <activity
-            android:name=".proxy.ProxyActivity$gecz"
+            android:name=".proxy.ProxyActivity$P6"
             android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|uiMode|screenSize|smallestScreenSize|fontScale"
             android:exported="true"
-            android:process=":service"
+            android:process=":w6"
             android:supportsPictureInPicture="true"
-            android:taskAffinity="com.chiyuan.va.task_affinity"
+            android:taskAffinity="com.chiyuan.va.affinity"
             android:theme="@style/BTheme" />
         <activity
-            android:name=".proxy.ProxyActivity$hjnw"
+            android:name=".proxy.ProxyActivity$P7"
             android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|uiMode|screenSize|smallestScreenSize|fontScale"
             android:exported="true"
-            android:process=":render"
+            android:process=":w7"
             android:supportsPictureInPicture="true"
-            android:taskAffinity="com.chiyuan.va.task_affinity"
+            android:taskAffinity="com.chiyuan.va.affinity"
             android:theme="@style/BTheme" />
         <activity
-            android:name=".proxy.ProxyActivity$iclq"
+            android:name=".proxy.ProxyActivity$P8"
             android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|uiMode|screenSize|smallestScreenSize|fontScale"
             android:exported="true"
-            android:process=":data"
+            android:process=":w8"
             android:supportsPictureInPicture="true"
-            android:taskAffinity="com.chiyuan.va.task_affinity"
+            android:taskAffinity="com.chiyuan.va.affinity"
             android:theme="@style/BTheme" />
         <activity
-            android:name=".proxy.ProxyActivity$jdsj"
+            android:name=".proxy.ProxyActivity$P9"
             android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|uiMode|screenSize|smallestScreenSize|fontScale"
             android:exported="true"
-            android:process=":web"
+            android:process=":w9"
             android:supportsPictureInPicture="true"
-            android:taskAffinity="com.chiyuan.va.task_affinity"
+            android:taskAffinity="com.chiyuan.va.affinity"
             android:theme="@style/BTheme" />
         <activity
-            android:name=".proxy.ProxyActivity$krav"
+            android:name=".proxy.ProxyActivity$P10"
             android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|uiMode|screenSize|smallestScreenSize|fontScale"
             android:exported="true"
-            android:process=":net"
+            android:process=":w10"
             android:supportsPictureInPicture="true"
-            android:taskAffinity="com.chiyuan.va.task_affinity"
+            android:taskAffinity="com.chiyuan.va.affinity"
             android:theme="@style/BTheme" />
         <activity
-            android:name=".proxy.ProxyActivity$ljvr"
+            android:name=".proxy.ProxyActivity$P11"
             android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|uiMode|screenSize|smallestScreenSize|fontScale"
             android:exported="true"
-            android:process=":io"
+            android:process=":w11"
             android:supportsPictureInPicture="true"
-            android:taskAffinity="com.chiyuan.va.task_affinity"
+            android:taskAffinity="com.chiyuan.va.affinity"
             android:theme="@style/BTheme" />
         <activity
-            android:name=".proxy.ProxyActivity$mrjd"
+            android:name=".proxy.ProxyActivity$P12"
             android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|uiMode|screenSize|smallestScreenSize|fontScale"
             android:exported="true"
-            android:process=":plugin"
+            android:process=":w12"
             android:supportsPictureInPicture="true"
-            android:taskAffinity="com.chiyuan.va.task_affinity"
+            android:taskAffinity="com.chiyuan.va.affinity"
             android:theme="@style/BTheme" />
         <activity
-            android:name=".proxy.ProxyActivity$ncna"
+            android:name=".proxy.ProxyActivity$P13"
             android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|uiMode|screenSize|smallestScreenSize|fontScale"
             android:exported="true"
-            android:process=":aux"
+            android:process=":w13"
             android:supportsPictureInPicture="true"
-            android:taskAffinity="com.chiyuan.va.task_affinity"
+            android:taskAffinity="com.chiyuan.va.affinity"
             android:theme="@style/BTheme" />
         <activity
-            android:name=".proxy.ProxyActivity$okeg"
+            android:name=".proxy.ProxyActivity$P14"
             android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|uiMode|screenSize|smallestScreenSize|fontScale"
             android:exported="true"
-            android:process=":background"
+            android:process=":w14"
             android:supportsPictureInPicture="true"
-            android:taskAffinity="com.chiyuan.va.task_affinity"
+            android:taskAffinity="com.chiyuan.va.affinity"
             android:theme="@style/BTheme" />
         <activity
-            android:name=".proxy.ProxyActivity$pisu"
+            android:name=".proxy.ProxyActivity$P15"
             android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|uiMode|screenSize|smallestScreenSize|fontScale"
             android:exported="true"
-            android:process=":persist"
+            android:process=":w15"
             android:supportsPictureInPicture="true"
-            android:taskAffinity="com.chiyuan.va.task_affinity"
+            android:taskAffinity="com.chiyuan.va.affinity"
             android:theme="@style/BTheme" />
         <activity
-            android:name=".proxy.ProxyActivity$qshg"
+            android:name=".proxy.ProxyActivity$P16"
             android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|uiMode|screenSize|smallestScreenSize|fontScale"
             android:exported="true"
-            android:process=":system"
+            android:process=":w16"
             android:supportsPictureInPicture="true"
-            android:taskAffinity="com.chiyuan.va.task_affinity"
+            android:taskAffinity="com.chiyuan.va.affinity"
             android:theme="@style/BTheme" />
         <activity
-            android:name=".proxy.ProxyActivity$rbhk"
+            android:name=".proxy.ProxyActivity$P17"
             android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|uiMode|screenSize|smallestScreenSize|fontScale"
             android:exported="true"
-            android:process=":tools"
+            android:process=":w17"
             android:supportsPictureInPicture="true"
-            android:taskAffinity="com.chiyuan.va.task_affinity"
+            android:taskAffinity="com.chiyuan.va.affinity"
             android:theme="@style/BTheme" />
         <activity
-            android:name=".proxy.ProxyActivity$sumb"
+            android:name=".proxy.ProxyActivity$P18"
             android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|uiMode|screenSize|smallestScreenSize|fontScale"
             android:exported="true"
-            android:process=":app"
+            android:process=":w18"
             android:supportsPictureInPicture="true"
-            android:taskAffinity="com.chiyuan.va.task_affinity"
+            android:taskAffinity="com.chiyuan.va.affinity"
             android:theme="@style/BTheme" />
         <activity
-            android:name=".proxy.ProxyActivity$tieq"
+            android:name=".proxy.ProxyActivity$P19"
             android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|uiMode|screenSize|smallestScreenSize|fontScale"
             android:exported="true"
-            android:process=":secure"
+            android:process=":w19"
             android:supportsPictureInPicture="true"
-            android:taskAffinity="com.chiyuan.va.task_affinity"
+            android:taskAffinity="com.chiyuan.va.affinity"
             android:theme="@style/BTheme" />
         <activity
-            android:name=".proxy.ProxyActivity$uwoe"
+            android:name=".proxy.ProxyActivity$P20"
             android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|uiMode|screenSize|smallestScreenSize|fontScale"
             android:exported="true"
-            android:process=":remote"
+            android:process=":w20"
             android:supportsPictureInPicture="true"
-            android:taskAffinity="com.chiyuan.va.task_affinity"
+            android:taskAffinity="com.chiyuan.va.affinity"
             android:theme="@style/BTheme" />
         <activity
-            android:name=".proxy.ProxyActivity$vubh"
+            android:name=".proxy.ProxyActivity$P21"
             android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|uiMode|screenSize|smallestScreenSize|fontScale"
             android:exported="true"
-            android:process=":push"
+            android:process=":w21"
             android:supportsPictureInPicture="true"
-            android:taskAffinity="com.chiyuan.va.task_affinity"
+            android:taskAffinity="com.chiyuan.va.affinity"
             android:theme="@style/BTheme" />
         <activity
-            android:name=".proxy.ProxyActivity$wlch"
+            android:name=".proxy.ProxyActivity$P22"
             android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|uiMode|screenSize|smallestScreenSize|fontScale"
             android:exported="true"
-            android:process=":worker"
+            android:process=":w22"
             android:supportsPictureInPicture="true"
-            android:taskAffinity="com.chiyuan.va.task_affinity"
+            android:taskAffinity="com.chiyuan.va.affinity"
             android:theme="@style/BTheme" />
         <activity
-            android:name=".proxy.ProxyActivity$xsni"
+            android:name=".proxy.ProxyActivity$P23"
             android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|uiMode|screenSize|smallestScreenSize|fontScale"
             android:exported="true"
-            android:process=":core"
+            android:process=":w23"
             android:supportsPictureInPicture="true"
-            android:taskAffinity="com.chiyuan.va.task_affinity"
+            android:taskAffinity="com.chiyuan.va.affinity"
             android:theme="@style/BTheme" />
         <activity
-            android:name=".proxy.ProxyActivity$yzej"
+            android:name=".proxy.ProxyActivity$P24"
             android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|uiMode|screenSize|smallestScreenSize|fontScale"
             android:exported="true"
-            android:process=":sync"
+            android:process=":w24"
             android:supportsPictureInPicture="true"
-            android:taskAffinity="com.chiyuan.va.task_affinity"
+            android:taskAffinity="com.chiyuan.va.affinity"
             android:theme="@style/BTheme" />
         <activity
-            android:name=".proxy.ProxyActivity$ziil"
+            android:name=".proxy.ProxyActivity$P25"
             android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|uiMode|screenSize|smallestScreenSize|fontScale"
             android:exported="true"
-            android:process=":media"
+            android:process=":w25"
             android:supportsPictureInPicture="true"
-            android:taskAffinity="com.chiyuan.va.task_affinity"
+            android:taskAffinity="com.chiyuan.va.affinity"
             android:theme="@style/BTheme" />
         <activity
-            android:name=".proxy.ProxyActivity$apwo"
+            android:name=".proxy.ProxyActivity$P26"
             android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|uiMode|screenSize|smallestScreenSize|fontScale"
             android:exported="true"
-            android:process=":service"
+            android:process=":w26"
             android:supportsPictureInPicture="true"
-            android:taskAffinity="com.chiyuan.va.task_affinity"
+            android:taskAffinity="com.chiyuan.va.affinity"
             android:theme="@style/BTheme" />
         <activity
-            android:name=".proxy.ProxyActivity$bwcr"
+            android:name=".proxy.ProxyActivity$P27"
             android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|uiMode|screenSize|smallestScreenSize|fontScale"
             android:exported="true"
-            android:process=":render"
+            android:process=":w27"
             android:supportsPictureInPicture="true"
-            android:taskAffinity="com.chiyuan.va.task_affinity"
+            android:taskAffinity="com.chiyuan.va.affinity"
             android:theme="@style/BTheme" />
         <activity
-            android:name=".proxy.ProxyActivity$chem"
+            android:name=".proxy.ProxyActivity$P28"
             android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|uiMode|screenSize|smallestScreenSize|fontScale"
             android:exported="true"
-            android:process=":data"
+            android:process=":w28"
             android:supportsPictureInPicture="true"
-            android:taskAffinity="com.chiyuan.va.task_affinity"
+            android:taskAffinity="com.chiyuan.va.affinity"
             android:theme="@style/BTheme" />
         <activity
-            android:name=".proxy.ProxyActivity$dzvs"
+            android:name=".proxy.ProxyActivity$P29"
             android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|uiMode|screenSize|smallestScreenSize|fontScale"
             android:exported="true"
-            android:process=":web"
+            android:process=":w29"
             android:supportsPictureInPicture="true"
-            android:taskAffinity="com.chiyuan.va.task_affinity"
+            android:taskAffinity="com.chiyuan.va.affinity"
             android:theme="@style/BTheme" />
         <activity
-            android:name=".proxy.ProxyActivity$eyhl"
+            android:name=".proxy.ProxyActivity$P30"
             android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|uiMode|screenSize|smallestScreenSize|fontScale"
             android:exported="true"
-            android:process=":net"
+            android:process=":w30"
             android:supportsPictureInPicture="true"
-            android:taskAffinity="com.chiyuan.va.task_affinity"
+            android:taskAffinity="com.chiyuan.va.affinity"
             android:theme="@style/BTheme" />
         <activity
-            android:name=".proxy.ProxyActivity$fwdv"
+            android:name=".proxy.ProxyActivity$P31"
             android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|uiMode|screenSize|smallestScreenSize|fontScale"
             android:exported="true"
-            android:process=":io"
+            android:process=":w31"
             android:supportsPictureInPicture="true"
-            android:taskAffinity="com.chiyuan.va.task_affinity"
+            android:taskAffinity="com.chiyuan.va.affinity"
             android:theme="@style/BTheme" />
         <activity
-            android:name=".proxy.ProxyActivity$guqu"
+            android:name=".proxy.ProxyActivity$P32"
             android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|uiMode|screenSize|smallestScreenSize|fontScale"
             android:exported="true"
-            android:process=":plugin"
+            android:process=":w32"
             android:supportsPictureInPicture="true"
-            android:taskAffinity="com.chiyuan.va.task_affinity"
+            android:taskAffinity="com.chiyuan.va.affinity"
             android:theme="@style/BTheme" />
         <activity
-            android:name=".proxy.ProxyActivity$hcyr"
+            android:name=".proxy.ProxyActivity$P33"
             android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|uiMode|screenSize|smallestScreenSize|fontScale"
             android:exported="true"
-            android:process=":aux"
+            android:process=":w33"
             android:supportsPictureInPicture="true"
-            android:taskAffinity="com.chiyuan.va.task_affinity"
+            android:taskAffinity="com.chiyuan.va.affinity"
             android:theme="@style/BTheme" />
         <activity
-            android:name=".proxy.ProxyActivity$iiol"
+            android:name=".proxy.ProxyActivity$P34"
             android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|uiMode|screenSize|smallestScreenSize|fontScale"
             android:exported="true"
-            android:process=":background"
+            android:process=":w34"
             android:supportsPictureInPicture="true"
-            android:taskAffinity="com.chiyuan.va.task_affinity"
+            android:taskAffinity="com.chiyuan.va.affinity"
             android:theme="@style/BTheme" />
         <activity
-            android:name=".proxy.ProxyActivity$jsrx"
+            android:name=".proxy.ProxyActivity$P35"
             android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|uiMode|screenSize|smallestScreenSize|fontScale"
             android:exported="true"
-            android:process=":persist"
+            android:process=":w35"
             android:supportsPictureInPicture="true"
-            android:taskAffinity="com.chiyuan.va.task_affinity"
+            android:taskAffinity="com.chiyuan.va.affinity"
             android:theme="@style/BTheme" />
         <activity
-            android:name=".proxy.ProxyActivity$kgzi"
+            android:name=".proxy.ProxyActivity$P36"
             android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|uiMode|screenSize|smallestScreenSize|fontScale"
             android:exported="true"
-            android:process=":system"
+            android:process=":w36"
             android:supportsPictureInPicture="true"
-            android:taskAffinity="com.chiyuan.va.task_affinity"
+            android:taskAffinity="com.chiyuan.va.affinity"
             android:theme="@style/BTheme" />
         <activity
-            android:name=".proxy.ProxyActivity$lpaq"
+            android:name=".proxy.ProxyActivity$P37"
             android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|uiMode|screenSize|smallestScreenSize|fontScale"
             android:exported="true"
-            android:process=":tools"
+            android:process=":w37"
             android:supportsPictureInPicture="true"
-            android:taskAffinity="com.chiyuan.va.task_affinity"
+            android:taskAffinity="com.chiyuan.va.affinity"
             android:theme="@style/BTheme" />
         <activity
-            android:name=".proxy.ProxyActivity$mcni"
+            android:name=".proxy.ProxyActivity$P38"
             android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|uiMode|screenSize|smallestScreenSize|fontScale"
             android:exported="true"
-            android:process=":app"
+            android:process=":w38"
             android:supportsPictureInPicture="true"
-            android:taskAffinity="com.chiyuan.va.task_affinity"
+            android:taskAffinity="com.chiyuan.va.affinity"
             android:theme="@style/BTheme" />
         <activity
-            android:name=".proxy.ProxyActivity$ngfp"
+            android:name=".proxy.ProxyActivity$P39"
             android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|uiMode|screenSize|smallestScreenSize|fontScale"
             android:exported="true"
-            android:process=":secure"
+            android:process=":w39"
             android:supportsPictureInPicture="true"
-            android:taskAffinity="com.chiyuan.va.task_affinity"
+            android:taskAffinity="com.chiyuan.va.affinity"
             android:theme="@style/BTheme" />
         <activity
-            android:name=".proxy.ProxyActivity$ockw"
+            android:name=".proxy.ProxyActivity$P40"
             android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|uiMode|screenSize|smallestScreenSize|fontScale"
             android:exported="true"
-            android:process=":remote"
+            android:process=":w40"
             android:supportsPictureInPicture="true"
-            android:taskAffinity="com.chiyuan.va.task_affinity"
+            android:taskAffinity="com.chiyuan.va.affinity"
             android:theme="@style/BTheme" />
         <activity
-            android:name=".proxy.ProxyActivity$pjko"
+            android:name=".proxy.ProxyActivity$P41"
             android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|uiMode|screenSize|smallestScreenSize|fontScale"
             android:exported="true"
-            android:process=":push"
+            android:process=":w41"
             android:supportsPictureInPicture="true"
-            android:taskAffinity="com.chiyuan.va.task_affinity"
+            android:taskAffinity="com.chiyuan.va.affinity"
             android:theme="@style/BTheme" />
         <activity
-            android:name=".proxy.ProxyActivity$qrgw"
+            android:name=".proxy.ProxyActivity$P42"
             android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|uiMode|screenSize|smallestScreenSize|fontScale"
             android:exported="true"
-            android:process=":worker"
+            android:process=":w42"
             android:supportsPictureInPicture="true"
-            android:taskAffinity="com.chiyuan.va.task_affinity"
+            android:taskAffinity="com.chiyuan.va.affinity"
             android:theme="@style/BTheme" />
         <activity
-            android:name=".proxy.ProxyActivity$rkpq"
+            android:name=".proxy.ProxyActivity$P43"
             android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|uiMode|screenSize|smallestScreenSize|fontScale"
             android:exported="true"
-            android:process=":core"
+            android:process=":w43"
             android:supportsPictureInPicture="true"
-            android:taskAffinity="com.chiyuan.va.task_affinity"
+            android:taskAffinity="com.chiyuan.va.affinity"
             android:theme="@style/BTheme" />
         <activity
-            android:name=".proxy.ProxyActivity$sous"
+            android:name=".proxy.ProxyActivity$P44"
             android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|uiMode|screenSize|smallestScreenSize|fontScale"
             android:exported="true"
-            android:process=":sync"
+            android:process=":w44"
             android:supportsPictureInPicture="true"
-            android:taskAffinity="com.chiyuan.va.task_affinity"
+            android:taskAffinity="com.chiyuan.va.affinity"
             android:theme="@style/BTheme" />
         <activity
-            android:name=".proxy.ProxyActivity$ttjr"
+            android:name=".proxy.ProxyActivity$P45"
             android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|uiMode|screenSize|smallestScreenSize|fontScale"
             android:exported="true"
-            android:process=":media"
+            android:process=":w45"
             android:supportsPictureInPicture="true"
-            android:taskAffinity="com.chiyuan.va.task_affinity"
+            android:taskAffinity="com.chiyuan.va.affinity"
             android:theme="@style/BTheme" />
         <activity
-            android:name=".proxy.ProxyActivity$uinh"
+            android:name=".proxy.ProxyActivity$P46"
             android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|uiMode|screenSize|smallestScreenSize|fontScale"
             android:exported="true"
-            android:process=":service"
+            android:process=":w46"
             android:supportsPictureInPicture="true"
-            android:taskAffinity="com.chiyuan.va.task_affinity"
+            android:taskAffinity="com.chiyuan.va.affinity"
             android:theme="@style/BTheme" />
         <activity
-            android:name=".proxy.ProxyActivity$vuet"
+            android:name=".proxy.ProxyActivity$P47"
             android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|uiMode|screenSize|smallestScreenSize|fontScale"
             android:exported="true"
-            android:process=":render"
+            android:process=":w47"
             android:supportsPictureInPicture="true"
-            android:taskAffinity="com.chiyuan.va.task_affinity"
+            android:taskAffinity="com.chiyuan.va.affinity"
             android:theme="@style/BTheme" />
         <activity
-            android:name=".proxy.ProxyActivity$wons"
+            android:name=".proxy.ProxyActivity$P48"
             android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|uiMode|screenSize|smallestScreenSize|fontScale"
             android:exported="true"
-            android:process=":data"
+            android:process=":w48"
             android:supportsPictureInPicture="true"
-            android:taskAffinity="com.chiyuan.va.task_affinity"
+            android:taskAffinity="com.chiyuan.va.affinity"
             android:theme="@style/BTheme" />
         <activity
-            android:name=".proxy.ProxyActivity$xeqa"
+            android:name=".proxy.ProxyActivity$P49"
             android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|uiMode|screenSize|smallestScreenSize|fontScale"
             android:exported="true"
-            android:process=":web"
+            android:process=":w49"
             android:supportsPictureInPicture="true"
-            android:taskAffinity="com.chiyuan.va.task_affinity"
+            android:taskAffinity="com.chiyuan.va.affinity"
             android:theme="@style/BTheme" />
 
 
         <activity
-            android:name=".proxy.TransparentProxyActivity$tpouo"
+            android:name=".proxy.TransparentProxyActivity$P0"
             android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|uiMode|screenSize|smallestScreenSize|fontScale"
             android:exported="true"
-            android:process=":remote"
+            android:process=":w0"
             android:supportsPictureInPicture="true"
-            android:taskAffinity="com.chiyuan.va.task_affinity"
+            android:taskAffinity="com.chiyuan.va.affinity"
             android:theme="@android:style/Theme.Translucent" />
         <activity
-            android:name=".proxy.TransparentProxyActivity$uxilc"
+            android:name=".proxy.TransparentProxyActivity$P1"
             android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|uiMode|screenSize|smallestScreenSize|fontScale"
             android:exported="true"
-            android:process=":push"
+            android:process=":w1"
             android:supportsPictureInPicture="true"
-            android:taskAffinity="com.chiyuan.va.task_affinity"
+            android:taskAffinity="com.chiyuan.va.affinity"
             android:theme="@android:style/Theme.Translucent" />
         <activity
-            android:name=".proxy.TransparentProxyActivity$vpunp"
+            android:name=".proxy.TransparentProxyActivity$P2"
             android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|uiMode|screenSize|smallestScreenSize|fontScale"
             android:exported="true"
-            android:process=":worker"
+            android:process=":w2"
             android:supportsPictureInPicture="true"
-            android:taskAffinity="com.chiyuan.va.task_affinity"
+            android:taskAffinity="com.chiyuan.va.affinity"
             android:theme="@android:style/Theme.Translucent" />
         <activity
-            android:name=".proxy.TransparentProxyActivity$wptbf"
+            android:name=".proxy.TransparentProxyActivity$P3"
             android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|uiMode|screenSize|smallestScreenSize|fontScale"
             android:exported="true"
-            android:process=":core"
+            android:process=":w3"
             android:supportsPictureInPicture="true"
-            android:taskAffinity="com.chiyuan.va.task_affinity"
+            android:taskAffinity="com.chiyuan.va.affinity"
             android:theme="@android:style/Theme.Translucent" />
         <activity
-            android:name=".proxy.TransparentProxyActivity$xzoog"
+            android:name=".proxy.TransparentProxyActivity$P4"
             android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|uiMode|screenSize|smallestScreenSize|fontScale"
             android:exported="true"
-            android:process=":sync"
+            android:process=":w4"
             android:supportsPictureInPicture="true"
-            android:taskAffinity="com.chiyuan.va.task_affinity"
+            android:taskAffinity="com.chiyuan.va.affinity"
             android:theme="@android:style/Theme.Translucent" />
         <activity
-            android:name=".proxy.TransparentProxyActivity$ydglu"
+            android:name=".proxy.TransparentProxyActivity$P5"
             android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|uiMode|screenSize|smallestScreenSize|fontScale"
             android:exported="true"
-            android:process=":media"
+            android:process=":w5"
             android:supportsPictureInPicture="true"
-            android:taskAffinity="com.chiyuan.va.task_affinity"
+            android:taskAffinity="com.chiyuan.va.affinity"
             android:theme="@android:style/Theme.Translucent" />
         <activity
-            android:name=".proxy.TransparentProxyActivity$znprs"
+            android:name=".proxy.TransparentProxyActivity$P6"
             android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|uiMode|screenSize|smallestScreenSize|fontScale"
             android:exported="true"
-            android:process=":service"
+            android:process=":w6"
             android:supportsPictureInPicture="true"
-            android:taskAffinity="com.chiyuan.va.task_affinity"
+            android:taskAffinity="com.chiyuan.va.affinity"
             android:theme="@android:style/Theme.Translucent" />
         <activity
-            android:name=".proxy.TransparentProxyActivity${ntsi"
+            android:name=".proxy.TransparentProxyActivity$P7"
             android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|uiMode|screenSize|smallestScreenSize|fontScale"
             android:exported="true"
-            android:process=":render"
+            android:process=":w7"
             android:supportsPictureInPicture="true"
-            android:taskAffinity="com.chiyuan.va.task_affinity"
+            android:taskAffinity="com.chiyuan.va.affinity"
             android:theme="@android:style/Theme.Translucent" />
         <activity
-            android:name=".proxy.TransparentProxyActivity$|dsxp"
+            android:name=".proxy.TransparentProxyActivity$P8"
             android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|uiMode|screenSize|smallestScreenSize|fontScale"
             android:exported="true"
-            android:process=":data"
+            android:process=":w8"
             android:supportsPictureInPicture="true"
-            android:taskAffinity="com.chiyuan.va.task_affinity"
+            android:taskAffinity="com.chiyuan.va.affinity"
             android:theme="@android:style/Theme.Translucent" />
         <activity
-            android:name=".proxy.TransparentProxyActivity$}ilic"
+            android:name=".proxy.TransparentProxyActivity$P9"
             android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|uiMode|screenSize|smallestScreenSize|fontScale"
             android:exported="true"
-            android:process=":web"
+            android:process=":w9"
             android:supportsPictureInPicture="true"
-            android:taskAffinity="com.chiyuan.va.task_affinity"
+            android:taskAffinity="com.chiyuan.va.affinity"
             android:theme="@android:style/Theme.Translucent" />
         <activity
-            android:name=".proxy.TransparentProxyActivity$twfrs"
+            android:name=".proxy.TransparentProxyActivity$P10"
             android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|uiMode|screenSize|smallestScreenSize|fontScale"
             android:exported="true"
-            android:process=":net"
+            android:process=":w10"
             android:supportsPictureInPicture="true"
-            android:taskAffinity="com.chiyuan.va.task_affinity"
+            android:taskAffinity="com.chiyuan.va.affinity"
             android:theme="@android:style/Theme.Translucent" />
         <activity
-            android:name=".proxy.TransparentProxyActivity$upuhh"
+            android:name=".proxy.TransparentProxyActivity$P11"
             android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|uiMode|screenSize|smallestScreenSize|fontScale"
             android:exported="true"
-            android:process=":io"
+            android:process=":w11"
             android:supportsPictureInPicture="true"
-            android:taskAffinity="com.chiyuan.va.task_affinity"
+            android:taskAffinity="com.chiyuan.va.affinity"
             android:theme="@android:style/Theme.Translucent" />
         <activity
-            android:name=".proxy.TransparentProxyActivity$vygrg"
+            android:name=".proxy.TransparentProxyActivity$P12"
             android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|uiMode|screenSize|smallestScreenSize|fontScale"
             android:exported="true"
-            android:process=":plugin"
+            android:process=":w12"
             android:supportsPictureInPicture="true"
-            android:taskAffinity="com.chiyuan.va.task_affinity"
+            android:taskAffinity="com.chiyuan.va.affinity"
             android:theme="@android:style/Theme.Translucent" />
         <activity
-            android:name=".proxy.TransparentProxyActivity$wltwd"
+            android:name=".proxy.TransparentProxyActivity$P13"
             android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|uiMode|screenSize|smallestScreenSize|fontScale"
             android:exported="true"
-            android:process=":aux"
+            android:process=":w13"
             android:supportsPictureInPicture="true"
-            android:taskAffinity="com.chiyuan.va.task_affinity"
+            android:taskAffinity="com.chiyuan.va.affinity"
             android:theme="@android:style/Theme.Translucent" />
         <activity
-            android:name=".proxy.TransparentProxyActivity$xbxzq"
+            android:name=".proxy.TransparentProxyActivity$P14"
             android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|uiMode|screenSize|smallestScreenSize|fontScale"
             android:exported="true"
-            android:process=":background"
+            android:process=":w14"
             android:supportsPictureInPicture="true"
-            android:taskAffinity="com.chiyuan.va.task_affinity"
+            android:taskAffinity="com.chiyuan.va.affinity"
             android:theme="@android:style/Theme.Translucent" />
         <activity
-            android:name=".proxy.TransparentProxyActivity$ywlgs"
+            android:name=".proxy.TransparentProxyActivity$P15"
             android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|uiMode|screenSize|smallestScreenSize|fontScale"
             android:exported="true"
-            android:process=":persist"
+            android:process=":w15"
             android:supportsPictureInPicture="true"
-            android:taskAffinity="com.chiyuan.va.task_affinity"
+            android:taskAffinity="com.chiyuan.va.affinity"
             android:theme="@android:style/Theme.Translucent" />
         <activity
-            android:name=".proxy.TransparentProxyActivity$zmtbf"
+            android:name=".proxy.TransparentProxyActivity$P16"
             android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|uiMode|screenSize|smallestScreenSize|fontScale"
             android:exported="true"
-            android:process=":system"
+            android:process=":w16"
             android:supportsPictureInPicture="true"
-            android:taskAffinity="com.chiyuan.va.task_affinity"
+            android:taskAffinity="com.chiyuan.va.affinity"
             android:theme="@android:style/Theme.Translucent" />
         <activity
-            android:name=".proxy.TransparentProxyActivity${kwbv"
+            android:name=".proxy.TransparentProxyActivity$P17"
             android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|uiMode|screenSize|smallestScreenSize|fontScale"
             android:exported="true"
-            android:process=":tools"
+            android:process=":w17"
             android:supportsPictureInPicture="true"
-            android:taskAffinity="com.chiyuan.va.task_affinity"
+            android:taskAffinity="com.chiyuan.va.affinity"
             android:theme="@android:style/Theme.Translucent" />
         <activity
-            android:name=".proxy.TransparentProxyActivity$|uhyr"
+            android:name=".proxy.TransparentProxyActivity$P18"
             android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|uiMode|screenSize|smallestScreenSize|fontScale"
             android:exported="true"
-            android:process=":app"
+            android:process=":w18"
             android:supportsPictureInPicture="true"
-            android:taskAffinity="com.chiyuan.va.task_affinity"
+            android:taskAffinity="com.chiyuan.va.affinity"
             android:theme="@android:style/Theme.Translucent" />
         <activity
-            android:name=".proxy.TransparentProxyActivity$}nsgv"
+            android:name=".proxy.TransparentProxyActivity$P19"
             android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|uiMode|screenSize|smallestScreenSize|fontScale"
             android:exported="true"
-            android:process=":secure"
+            android:process=":w19"
             android:supportsPictureInPicture="true"
-            android:taskAffinity="com.chiyuan.va.task_affinity"
+            android:taskAffinity="com.chiyuan.va.affinity"
             android:theme="@android:style/Theme.Translucent" />
         <activity
-            android:name=".proxy.TransparentProxyActivity$topke"
+            android:name=".proxy.TransparentProxyActivity$P20"
             android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|uiMode|screenSize|smallestScreenSize|fontScale"
             android:exported="true"
-            android:process=":remote"
+            android:process=":w20"
             android:supportsPictureInPicture="true"
-            android:taskAffinity="com.chiyuan.va.task_affinity"
+            android:taskAffinity="com.chiyuan.va.affinity"
             android:theme="@android:style/Theme.Translucent" />
         <activity
-            android:name=".proxy.TransparentProxyActivity$ucesf"
+            android:name=".proxy.TransparentProxyActivity$P21"
             android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|uiMode|screenSize|smallestScreenSize|fontScale"
             android:exported="true"
-            android:process=":push"
+            android:process=":w21"
             android:supportsPictureInPicture="true"
-            android:taskAffinity="com.chiyuan.va.task_affinity"
+            android:taskAffinity="com.chiyuan.va.affinity"
             android:theme="@android:style/Theme.Translucent" />
         <activity
-            android:name=".proxy.TransparentProxyActivity$veksa"
+            android:name=".proxy.TransparentProxyActivity$P22"
             android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|uiMode|screenSize|smallestScreenSize|fontScale"
             android:exported="true"
-            android:process=":worker"
+            android:process=":w22"
             android:supportsPictureInPicture="true"
-            android:taskAffinity="com.chiyuan.va.task_affinity"
+            android:taskAffinity="com.chiyuan.va.affinity"
             android:theme="@android:style/Theme.Translucent" />
         <activity
-            android:name=".proxy.TransparentProxyActivity$wjhbm"
+            android:name=".proxy.TransparentProxyActivity$P23"
             android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|uiMode|screenSize|smallestScreenSize|fontScale"
             android:exported="true"
-            android:process=":core"
+            android:process=":w23"
             android:supportsPictureInPicture="true"
-            android:taskAffinity="com.chiyuan.va.task_affinity"
+            android:taskAffinity="com.chiyuan.va.affinity"
             android:theme="@android:style/Theme.Translucent" />
         <activity
-            android:name=".proxy.TransparentProxyActivity$xaixy"
+            android:name=".proxy.TransparentProxyActivity$P24"
             android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|uiMode|screenSize|smallestScreenSize|fontScale"
             android:exported="true"
-            android:process=":sync"
+            android:process=":w24"
             android:supportsPictureInPicture="true"
-            android:taskAffinity="com.chiyuan.va.task_affinity"
+            android:taskAffinity="com.chiyuan.va.affinity"
             android:theme="@android:style/Theme.Translucent" />
         <activity
-            android:name=".proxy.TransparentProxyActivity$ymmqf"
+            android:name=".proxy.TransparentProxyActivity$P25"
             android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|uiMode|screenSize|smallestScreenSize|fontScale"
             android:exported="true"
-            android:process=":media"
+            android:process=":w25"
             android:supportsPictureInPicture="true"
-            android:taskAffinity="com.chiyuan.va.task_affinity"
+            android:taskAffinity="com.chiyuan.va.affinity"
             android:theme="@android:style/Theme.Translucent" />
         <activity
-            android:name=".proxy.TransparentProxyActivity$zosav"
+            android:name=".proxy.TransparentProxyActivity$P26"
             android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|uiMode|screenSize|smallestScreenSize|fontScale"
             android:exported="true"
-            android:process=":service"
+            android:process=":w26"
             android:supportsPictureInPicture="true"
-            android:taskAffinity="com.chiyuan.va.task_affinity"
+            android:taskAffinity="com.chiyuan.va.affinity"
             android:theme="@android:style/Theme.Translucent" />
         <activity
-            android:name=".proxy.TransparentProxyActivity${vhmy"
+            android:name=".proxy.TransparentProxyActivity$P27"
             android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|uiMode|screenSize|smallestScreenSize|fontScale"
             android:exported="true"
-            android:process=":render"
+            android:process=":w27"
             android:supportsPictureInPicture="true"
-            android:taskAffinity="com.chiyuan.va.task_affinity"
+            android:taskAffinity="com.chiyuan.va.affinity"
             android:theme="@android:style/Theme.Translucent" />
         <activity
-            android:name=".proxy.TransparentProxyActivity$|bapq"
+            android:name=".proxy.TransparentProxyActivity$P28"
             android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|uiMode|screenSize|smallestScreenSize|fontScale"
             android:exported="true"
-            android:process=":data"
+            android:process=":w28"
             android:supportsPictureInPicture="true"
-            android:taskAffinity="com.chiyuan.va.task_affinity"
+            android:taskAffinity="com.chiyuan.va.affinity"
             android:theme="@android:style/Theme.Translucent" />
         <activity
-            android:name=".proxy.TransparentProxyActivity$}wtel"
+            android:name=".proxy.TransparentProxyActivity$P29"
             android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|uiMode|screenSize|smallestScreenSize|fontScale"
             android:exported="true"
-            android:process=":web"
+            android:process=":w29"
             android:supportsPictureInPicture="true"
-            android:taskAffinity="com.chiyuan.va.task_affinity"
+            android:taskAffinity="com.chiyuan.va.affinity"
             android:theme="@android:style/Theme.Translucent" />
         <activity
-            android:name=".proxy.TransparentProxyActivity$tzpmi"
+            android:name=".proxy.TransparentProxyActivity$P30"
             android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|uiMode|screenSize|smallestScreenSize|fontScale"
             android:exported="true"
-            android:process=":net"
+            android:process=":w30"
             android:supportsPictureInPicture="true"
-            android:taskAffinity="com.chiyuan.va.task_affinity"
+            android:taskAffinity="com.chiyuan.va.affinity"
             android:theme="@android:style/Theme.Translucent" />
         <activity
-            android:name=".proxy.TransparentProxyActivity$udexi"
+            android:name=".proxy.TransparentProxyActivity$P31"
             android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|uiMode|screenSize|smallestScreenSize|fontScale"
             android:exported="true"
-            android:process=":io"
+            android:process=":w31"
             android:supportsPictureInPicture="true"
-            android:taskAffinity="com.chiyuan.va.task_affinity"
+            android:taskAffinity="com.chiyuan.va.affinity"
             android:theme="@android:style/Theme.Translucent" />
         <activity
-            android:name=".proxy.TransparentProxyActivity$vfexi"
+            android:name=".proxy.TransparentProxyActivity$P32"
             android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|uiMode|screenSize|smallestScreenSize|fontScale"
             android:exported="true"
-            android:process=":plugin"
+            android:process=":w32"
             android:supportsPictureInPicture="true"
-            android:taskAffinity="com.chiyuan.va.task_affinity"
+            android:taskAffinity="com.chiyuan.va.affinity"
             android:theme="@android:style/Theme.Translucent" />
         <activity
-            android:name=".proxy.TransparentProxyActivity$wrgfs"
+            android:name=".proxy.TransparentProxyActivity$P33"
             android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|uiMode|screenSize|smallestScreenSize|fontScale"
             android:exported="true"
-            android:process=":aux"
+            android:process=":w33"
             android:supportsPictureInPicture="true"
-            android:taskAffinity="com.chiyuan.va.task_affinity"
+            android:taskAffinity="com.chiyuan.va.affinity"
             android:theme="@android:style/Theme.Translucent" />
         <activity
-            android:name=".proxy.TransparentProxyActivity$xegbp"
+            android:name=".proxy.TransparentProxyActivity$P34"
             android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|uiMode|screenSize|smallestScreenSize|fontScale"
             android:exported="true"
-            android:process=":background"
+            android:process=":w34"
             android:supportsPictureInPicture="true"
-            android:taskAffinity="com.chiyuan.va.task_affinity"
+            android:taskAffinity="com.chiyuan.va.affinity"
             android:theme="@android:style/Theme.Translucent" />
         <activity
-            android:name=".proxy.TransparentProxyActivity$yjwqi"
+            android:name=".proxy.TransparentProxyActivity$P35"
             android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|uiMode|screenSize|smallestScreenSize|fontScale"
             android:exported="true"
-            android:process=":persist"
+            android:process=":w35"
             android:supportsPictureInPicture="true"
-            android:taskAffinity="com.chiyuan.va.task_affinity"
+            android:taskAffinity="com.chiyuan.va.affinity"
             android:theme="@android:style/Theme.Translucent" />
         <activity
-            android:name=".proxy.TransparentProxyActivity$zkydr"
+            android:name=".proxy.TransparentProxyActivity$P36"
             android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|uiMode|screenSize|smallestScreenSize|fontScale"
             android:exported="true"
-            android:process=":system"
+            android:process=":w36"
             android:supportsPictureInPicture="true"
-            android:taskAffinity="com.chiyuan.va.task_affinity"
+            android:taskAffinity="com.chiyuan.va.affinity"
             android:theme="@android:style/Theme.Translucent" />
         <activity
-            android:name=".proxy.TransparentProxyActivity${kfwd"
+            android:name=".proxy.TransparentProxyActivity$P37"
             android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|uiMode|screenSize|smallestScreenSize|fontScale"
             android:exported="true"
-            android:process=":tools"
+            android:process=":w37"
             android:supportsPictureInPicture="true"
-            android:taskAffinity="com.chiyuan.va.task_affinity"
+            android:taskAffinity="com.chiyuan.va.affinity"
             android:theme="@android:style/Theme.Translucent" />
         <activity
-            android:name=".proxy.TransparentProxyActivity$|jwcp"
+            android:name=".proxy.TransparentProxyActivity$P38"
             android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|uiMode|screenSize|smallestScreenSize|fontScale"
             android:exported="true"
-            android:process=":app"
+            android:process=":w38"
             android:supportsPictureInPicture="true"
-            android:taskAffinity="com.chiyuan.va.task_affinity"
+            android:taskAffinity="com.chiyuan.va.affinity"
             android:theme="@android:style/Theme.Translucent" />
         <activity
-            android:name=".proxy.TransparentProxyActivity$}brrz"
+            android:name=".proxy.TransparentProxyActivity$P39"
             android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|uiMode|screenSize|smallestScreenSize|fontScale"
             android:exported="true"
-            android:process=":secure"
+            android:process=":w39"
             android:supportsPictureInPicture="true"
-            android:taskAffinity="com.chiyuan.va.task_affinity"
+            android:taskAffinity="com.chiyuan.va.affinity"
             android:theme="@android:style/Theme.Translucent" />
         <activity
-            android:name=".proxy.TransparentProxyActivity$trshr"
+            android:name=".proxy.TransparentProxyActivity$P40"
             android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|uiMode|screenSize|smallestScreenSize|fontScale"
             android:exported="true"
-            android:process=":remote"
+            android:process=":w40"
             android:supportsPictureInPicture="true"
-            android:taskAffinity="com.chiyuan.va.task_affinity"
+            android:taskAffinity="com.chiyuan.va.affinity"
             android:theme="@android:style/Theme.Translucent" />
         <activity
-            android:name=".proxy.TransparentProxyActivity$ukhnj"
+            android:name=".proxy.TransparentProxyActivity$P41"
             android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|uiMode|screenSize|smallestScreenSize|fontScale"
             android:exported="true"
-            android:process=":push"
+            android:process=":w41"
             android:supportsPictureInPicture="true"
-            android:taskAffinity="com.chiyuan.va.task_affinity"
+            android:taskAffinity="com.chiyuan.va.affinity"
             android:theme="@android:style/Theme.Translucent" />
         <activity
-            android:name=".proxy.TransparentProxyActivity$vzsrq"
+            android:name=".proxy.TransparentProxyActivity$P42"
             android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|uiMode|screenSize|smallestScreenSize|fontScale"
             android:exported="true"
-            android:process=":worker"
+            android:process=":w42"
             android:supportsPictureInPicture="true"
-            android:taskAffinity="com.chiyuan.va.task_affinity"
+            android:taskAffinity="com.chiyuan.va.affinity"
             android:theme="@android:style/Theme.Translucent" />
         <activity
-            android:name=".proxy.TransparentProxyActivity$wpxcm"
+            android:name=".proxy.TransparentProxyActivity$P43"
             android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|uiMode|screenSize|smallestScreenSize|fontScale"
             android:exported="true"
-            android:process=":core"
+            android:process=":w43"
             android:supportsPictureInPicture="true"
-            android:taskAffinity="com.chiyuan.va.task_affinity"
+            android:taskAffinity="com.chiyuan.va.affinity"
             android:theme="@android:style/Theme.Translucent" />
         <activity
-            android:name=".proxy.TransparentProxyActivity$xvswz"
+            android:name=".proxy.TransparentProxyActivity$P44"
             android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|uiMode|screenSize|smallestScreenSize|fontScale"
             android:exported="true"
-            android:process=":sync"
+            android:process=":w44"
             android:supportsPictureInPicture="true"
-            android:taskAffinity="com.chiyuan.va.task_affinity"
+            android:taskAffinity="com.chiyuan.va.affinity"
             android:theme="@android:style/Theme.Translucent" />
         <activity
-            android:name=".proxy.TransparentProxyActivity$yyesz"
+            android:name=".proxy.TransparentProxyActivity$P45"
             android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|uiMode|screenSize|smallestScreenSize|fontScale"
             android:exported="true"
-            android:process=":media"
+            android:process=":w45"
             android:supportsPictureInPicture="true"
-            android:taskAffinity="com.chiyuan.va.task_affinity"
+            android:taskAffinity="com.chiyuan.va.affinity"
             android:theme="@android:style/Theme.Translucent" />
         <activity
-            android:name=".proxy.TransparentProxyActivity$zwmmv"
+            android:name=".proxy.TransparentProxyActivity$P46"
             android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|uiMode|screenSize|smallestScreenSize|fontScale"
             android:exported="true"
-            android:process=":service"
+            android:process=":w46"
             android:supportsPictureInPicture="true"
-            android:taskAffinity="com.chiyuan.va.task_affinity"
+            android:taskAffinity="com.chiyuan.va.affinity"
             android:theme="@android:style/Theme.Translucent" />
         <activity
-            android:name=".proxy.TransparentProxyActivity${jqju"
+            android:name=".proxy.TransparentProxyActivity$P47"
             android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|uiMode|screenSize|smallestScreenSize|fontScale"
             android:exported="true"
-            android:process=":render"
+            android:process=":w47"
             android:supportsPictureInPicture="true"
-            android:taskAffinity="com.chiyuan.va.task_affinity"
+            android:taskAffinity="com.chiyuan.va.affinity"
             android:theme="@android:style/Theme.Translucent" />
         <activity
-            android:name=".proxy.TransparentProxyActivity$|qnaj"
+            android:name=".proxy.TransparentProxyActivity$P48"
             android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|uiMode|screenSize|smallestScreenSize|fontScale"
             android:exported="true"
-            android:process=":data"
+            android:process=":w48"
             android:supportsPictureInPicture="true"
-            android:taskAffinity="com.chiyuan.va.task_affinity"
+            android:taskAffinity="com.chiyuan.va.affinity"
             android:theme="@android:style/Theme.Translucent" />
         <activity
-            android:name=".proxy.TransparentProxyActivity$}fioh"
+            android:name=".proxy.TransparentProxyActivity$P49"
             android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|uiMode|screenSize|smallestScreenSize|fontScale"
             android:exported="true"
-            android:process=":web"
+            android:process=":w49"
             android:supportsPictureInPicture="true"
-            android:taskAffinity="com.chiyuan.va.task_affinity"
+            android:taskAffinity="com.chiyuan.va.affinity"
             android:theme="@android:style/Theme.Translucent" />
 
 
         <activity
-            android:name=".proxy.ProxyPendingActivity$pwiqg"
+            android:name=".proxy.ProxyPendingActivity$P0"
             android:exported="true"
-            android:process=":remote"
+            android:process=":w0"
             android:theme="@android:style/Theme.Translucent" />
         <activity
-            android:name=".proxy.ProxyPendingActivity$qbxqu"
+            android:name=".proxy.ProxyPendingActivity$P1"
             android:exported="true"
-            android:process=":push"
+            android:process=":w1"
             android:theme="@android:style/Theme.Translucent" />
         <activity
-            android:name=".proxy.ProxyPendingActivity$rgpzt"
+            android:name=".proxy.ProxyPendingActivity$P2"
             android:exported="true"
-            android:process=":worker"
+            android:process=":w2"
             android:theme="@android:style/Theme.Translucent" />
         <activity
-            android:name=".proxy.ProxyPendingActivity$swvsl"
+            android:name=".proxy.ProxyPendingActivity$P3"
             android:exported="true"
-            android:process=":core"
+            android:process=":w3"
             android:theme="@android:style/Theme.Translucent" />
         <activity
-            android:name=".proxy.ProxyPendingActivity$thhvv"
+            android:name=".proxy.ProxyPendingActivity$P4"
             android:exported="true"
-            android:process=":sync"
+            android:process=":w4"
             android:theme="@android:style/Theme.Translucent" />
         <activity
-            android:name=".proxy.ProxyPendingActivity$ujnjc"
+            android:name=".proxy.ProxyPendingActivity$P5"
             android:exported="true"
-            android:process=":media"
+            android:process=":w5"
             android:theme="@android:style/Theme.Translucent" />
         <activity
-            android:name=".proxy.ProxyPendingActivity$vauza"
+            android:name=".proxy.ProxyPendingActivity$P6"
             android:exported="true"
-            android:process=":service"
+            android:process=":w6"
             android:theme="@android:style/Theme.Translucent" />
         <activity
-            android:name=".proxy.ProxyPendingActivity$wvbrd"
+            android:name=".proxy.ProxyPendingActivity$P7"
             android:exported="true"
-            android:process=":render"
+            android:process=":w7"
             android:theme="@android:style/Theme.Translucent" />
         <activity
-            android:name=".proxy.ProxyPendingActivity$xyqod"
+            android:name=".proxy.ProxyPendingActivity$P8"
             android:exported="true"
-            android:process=":data"
+            android:process=":w8"
             android:theme="@android:style/Theme.Translucent" />
         <activity
-            android:name=".proxy.ProxyPendingActivity$ylvlo"
+            android:name=".proxy.ProxyPendingActivity$P9"
             android:exported="true"
-            android:process=":web"
+            android:process=":w9"
             android:theme="@android:style/Theme.Translucent" />
         <activity
-            android:name=".proxy.ProxyPendingActivity$pidck"
+            android:name=".proxy.ProxyPendingActivity$P10"
             android:exported="true"
-            android:process=":net"
+            android:process=":w10"
             android:theme="@android:style/Theme.Translucent" />
         <activity
-            android:name=".proxy.ProxyPendingActivity$qnxjr"
+            android:name=".proxy.ProxyPendingActivity$P11"
             android:exported="true"
-            android:process=":io"
+            android:process=":w11"
             android:theme="@android:style/Theme.Translucent" />
         <activity
-            android:name=".proxy.ProxyPendingActivity$riran"
+            android:name=".proxy.ProxyPendingActivity$P12"
             android:exported="true"
-            android:process=":plugin"
+            android:process=":w12"
             android:theme="@android:style/Theme.Translucent" />
         <activity
-            android:name=".proxy.ProxyPendingActivity$sclfn"
+            android:name=".proxy.ProxyPendingActivity$P13"
             android:exported="true"
-            android:process=":aux"
+            android:process=":w13"
             android:theme="@android:style/Theme.Translucent" />
         <activity
-            android:name=".proxy.ProxyPendingActivity$tcmwr"
+            android:name=".proxy.ProxyPendingActivity$P14"
             android:exported="true"
-            android:process=":background"
+            android:process=":w14"
             android:theme="@android:style/Theme.Translucent" />
         <activity
-            android:name=".proxy.ProxyPendingActivity$ujjtr"
+            android:name=".proxy.ProxyPendingActivity$P15"
             android:exported="true"
-            android:process=":persist"
+            android:process=":w15"
             android:theme="@android:style/Theme.Translucent" />
         <activity
-            android:name=".proxy.ProxyPendingActivity$vgbla"
+            android:name=".proxy.ProxyPendingActivity$P16"
             android:exported="true"
-            android:process=":system"
+            android:process=":w16"
             android:theme="@android:style/Theme.Translucent" />
         <activity
-            android:name=".proxy.ProxyPendingActivity$wwsyk"
+            android:name=".proxy.ProxyPendingActivity$P17"
             android:exported="true"
-            android:process=":tools"
+            android:process=":w17"
             android:theme="@android:style/Theme.Translucent" />
         <activity
-            android:name=".proxy.ProxyPendingActivity$xshqb"
+            android:name=".proxy.ProxyPendingActivity$P18"
             android:exported="true"
-            android:process=":app"
+            android:process=":w18"
             android:theme="@android:style/Theme.Translucent" />
         <activity
-            android:name=".proxy.ProxyPendingActivity$yochl"
+            android:name=".proxy.ProxyPendingActivity$P19"
             android:exported="true"
-            android:process=":secure"
+            android:process=":w19"
             android:theme="@android:style/Theme.Translucent" />
         <activity
-            android:name=".proxy.ProxyPendingActivity$ppkaq"
+            android:name=".proxy.ProxyPendingActivity$P20"
             android:exported="true"
-            android:process=":remote"
+            android:process=":w20"
             android:theme="@android:style/Theme.Translucent" />
         <activity
-            android:name=".proxy.ProxyPendingActivity$qfkfd"
+            android:name=".proxy.ProxyPendingActivity$P21"
             android:exported="true"
-            android:process=":push"
+            android:process=":w21"
             android:theme="@android:style/Theme.Translucent" />
         <activity
-            android:name=".proxy.ProxyPendingActivity$ritcw"
+            android:name=".proxy.ProxyPendingActivity$P22"
             android:exported="true"
-            android:process=":worker"
+            android:process=":w22"
             android:theme="@android:style/Theme.Translucent" />
         <activity
-            android:name=".proxy.ProxyPendingActivity$sdaxv"
+            android:name=".proxy.ProxyPendingActivity$P23"
             android:exported="true"
-            android:process=":core"
+            android:process=":w23"
             android:theme="@android:style/Theme.Translucent" />
         <activity
-            android:name=".proxy.ProxyPendingActivity$tmaom"
+            android:name=".proxy.ProxyPendingActivity$P24"
             android:exported="true"
-            android:process=":sync"
+            android:process=":w24"
             android:theme="@android:style/Theme.Translucent" />
         <activity
-            android:name=".proxy.ProxyPendingActivity$unpep"
+            android:name=".proxy.ProxyPendingActivity$P25"
             android:exported="true"
-            android:process=":media"
+            android:process=":w25"
             android:theme="@android:style/Theme.Translucent" />
         <activity
-            android:name=".proxy.ProxyPendingActivity$vqyqr"
+            android:name=".proxy.ProxyPendingActivity$P26"
             android:exported="true"
-            android:process=":service"
+            android:process=":w26"
             android:theme="@android:style/Theme.Translucent" />
         <activity
-            android:name=".proxy.ProxyPendingActivity$wtwym"
+            android:name=".proxy.ProxyPendingActivity$P27"
             android:exported="true"
-            android:process=":render"
+            android:process=":w27"
             android:theme="@android:style/Theme.Translucent" />
         <activity
-            android:name=".proxy.ProxyPendingActivity$xhaww"
+            android:name=".proxy.ProxyPendingActivity$P28"
             android:exported="true"
-            android:process=":data"
+            android:process=":w28"
             android:theme="@android:style/Theme.Translucent" />
         <activity
-            android:name=".proxy.ProxyPendingActivity$ytrfa"
+            android:name=".proxy.ProxyPendingActivity$P29"
             android:exported="true"
-            android:process=":web"
+            android:process=":w29"
             android:theme="@android:style/Theme.Translucent" />
         <activity
-            android:name=".proxy.ProxyPendingActivity$pyzan"
+            android:name=".proxy.ProxyPendingActivity$P30"
             android:exported="true"
-            android:process=":net"
+            android:process=":w30"
             android:theme="@android:style/Theme.Translucent" />
         <activity
-            android:name=".proxy.ProxyPendingActivity$qpsep"
+            android:name=".proxy.ProxyPendingActivity$P31"
             android:exported="true"
-            android:process=":io"
+            android:process=":w31"
             android:theme="@android:style/Theme.Translucent" />
         <activity
-            android:name=".proxy.ProxyPendingActivity$rnope"
+            android:name=".proxy.ProxyPendingActivity$P32"
             android:exported="true"
-            android:process=":plugin"
+            android:process=":w32"
             android:theme="@android:style/Theme.Translucent" />
         <activity
-            android:name=".proxy.ProxyPendingActivity$scnix"
+            android:name=".proxy.ProxyPendingActivity$P33"
             android:exported="true"
-            android:process=":aux"
+            android:process=":w33"
             android:theme="@android:style/Theme.Translucent" />
         <activity
-            android:name=".proxy.ProxyPendingActivity$tyclh"
+            android:name=".proxy.ProxyPendingActivity$P34"
             android:exported="true"
-            android:process=":background"
+            android:process=":w34"
             android:theme="@android:style/Theme.Translucent" />
         <activity
-            android:name=".proxy.ProxyPendingActivity$uvgpy"
+            android:name=".proxy.ProxyPendingActivity$P35"
             android:exported="true"
-            android:process=":persist"
+            android:process=":w35"
             android:theme="@android:style/Theme.Translucent" />
         <activity
-            android:name=".proxy.ProxyPendingActivity$vyaky"
+            android:name=".proxy.ProxyPendingActivity$P36"
             android:exported="true"
-            android:process=":system"
+            android:process=":w36"
             android:theme="@android:style/Theme.Translucent" />
         <activity
-            android:name=".proxy.ProxyPendingActivity$wiaef"
+            android:name=".proxy.ProxyPendingActivity$P37"
             android:exported="true"
-            android:process=":tools"
+            android:process=":w37"
             android:theme="@android:style/Theme.Translucent" />
         <activity
-            android:name=".proxy.ProxyPendingActivity$xjwkv"
+            android:name=".proxy.ProxyPendingActivity$P38"
             android:exported="true"
-            android:process=":app"
+            android:process=":w38"
             android:theme="@android:style/Theme.Translucent" />
         <activity
-            android:name=".proxy.ProxyPendingActivity$yoptv"
+            android:name=".proxy.ProxyPendingActivity$P39"
             android:exported="true"
-            android:process=":secure"
+            android:process=":w39"
             android:theme="@android:style/Theme.Translucent" />
         <activity
-            android:name=".proxy.ProxyPendingActivity$pvztk"
+            android:name=".proxy.ProxyPendingActivity$P40"
             android:exported="true"
-            android:process=":remote"
+            android:process=":w40"
             android:theme="@android:style/Theme.Translucent" />
         <activity
-            android:name=".proxy.ProxyPendingActivity$qpzqx"
+            android:name=".proxy.ProxyPendingActivity$P41"
             android:exported="true"
-            android:process=":push"
+            android:process=":w41"
             android:theme="@android:style/Theme.Translucent" />
         <activity
-            android:name=".proxy.ProxyPendingActivity$rlgau"
+            android:name=".proxy.ProxyPendingActivity$P42"
             android:exported="true"
-            android:process=":worker"
+            android:process=":w42"
             android:theme="@android:style/Theme.Translucent" />
         <activity
-            android:name=".proxy.ProxyPendingActivity$sigwl"
+            android:name=".proxy.ProxyPendingActivity$P43"
             android:exported="true"
-            android:process=":core"
+            android:process=":w43"
             android:theme="@android:style/Theme.Translucent" />
         <activity
-            android:name=".proxy.ProxyPendingActivity$tgmpm"
+            android:name=".proxy.ProxyPendingActivity$P44"
             android:exported="true"
-            android:process=":sync"
+            android:process=":w44"
             android:theme="@android:style/Theme.Translucent" />
         <activity
-            android:name=".proxy.ProxyPendingActivity$unggz"
+            android:name=".proxy.ProxyPendingActivity$P45"
             android:exported="true"
-            android:process=":media"
+            android:process=":w45"
             android:theme="@android:style/Theme.Translucent" />
         <activity
-            android:name=".proxy.ProxyPendingActivity$vvtlc"
+            android:name=".proxy.ProxyPendingActivity$P46"
             android:exported="true"
-            android:process=":service"
+            android:process=":w46"
             android:theme="@android:style/Theme.Translucent" />
         <activity
-            android:name=".proxy.ProxyPendingActivity$wbvrn"
+            android:name=".proxy.ProxyPendingActivity$P47"
             android:exported="true"
-            android:process=":render"
+            android:process=":w47"
             android:theme="@android:style/Theme.Translucent" />
         <activity
-            android:name=".proxy.ProxyPendingActivity$xqhxy"
+            android:name=".proxy.ProxyPendingActivity$P48"
             android:exported="true"
-            android:process=":data"
+            android:process=":w48"
             android:theme="@android:style/Theme.Translucent" />
         <activity
-            android:name=".proxy.ProxyPendingActivity$yovhq"
+            android:name=".proxy.ProxyPendingActivity$P49"
             android:exported="true"
-            android:process=":data"
+            android:process=":w48"
             android:theme="@android:style/Theme.Translucent" />
 
         <service
-            android:name=".proxy.ProxyService$abzc"
+            android:name=".proxy.ProxyService$P0"
             android:exported="true"
-            android:process=":remote" />
+            android:process=":w0" />
         <service
-            android:name=".proxy.ProxyService$bhqs"
+            android:name=".proxy.ProxyService$P1"
             android:exported="true"
-            android:process=":push" />
+            android:process=":w1" />
         <service
-            android:name=".proxy.ProxyService$cqum"
+            android:name=".proxy.ProxyService$P2"
             android:exported="true"
-            android:process=":worker" />
+            android:process=":w2" />
         <service
-            android:name=".proxy.ProxyService$dvcd"
+            android:name=".proxy.ProxyService$P3"
             android:exported="true"
-            android:process=":core" />
+            android:process=":w3" />
         <service
-            android:name=".proxy.ProxyService$eche"
+            android:name=".proxy.ProxyService$P4"
             android:exported="true"
-            android:process=":sync" />
+            android:process=":w4" />
         <service
-            android:name=".proxy.ProxyService$fopc"
+            android:name=".proxy.ProxyService$P5"
             android:exported="true"
-            android:process=":media" />
+            android:process=":w5" />
         <service
-            android:name=".proxy.ProxyService$gqlx"
+            android:name=".proxy.ProxyService$P6"
             android:exported="true"
-            android:process=":service" />
+            android:process=":w6" />
         <service
-            android:name=".proxy.ProxyService$hkxq"
+            android:name=".proxy.ProxyService$P7"
             android:exported="true"
-            android:process=":render" />
+            android:process=":w7" />
         <service
-            android:name=".proxy.ProxyService$ircb"
+            android:name=".proxy.ProxyService$P8"
             android:exported="true"
-            android:process=":data" />
+            android:process=":w8" />
         <service
-            android:name=".proxy.ProxyService$jlfl"
+            android:name=".proxy.ProxyService$P9"
             android:exported="true"
-            android:process=":web" />
+            android:process=":w9" />
         <service
-            android:name=".proxy.ProxyService$ktkk"
+            android:name=".proxy.ProxyService$P10"
             android:exported="true"
-            android:process=":net" />
+            android:process=":w10" />
         <service
-            android:name=".proxy.ProxyService$lvrg"
+            android:name=".proxy.ProxyService$P11"
             android:exported="true"
-            android:process=":io" />
+            android:process=":w11" />
         <service
-            android:name=".proxy.ProxyService$mtui"
+            android:name=".proxy.ProxyService$P12"
             android:exported="true"
-            android:process=":plugin" />
+            android:process=":w12" />
         <service
-            android:name=".proxy.ProxyService$nmii"
+            android:name=".proxy.ProxyService$P13"
             android:exported="true"
-            android:process=":aux" />
+            android:process=":w13" />
         <service
-            android:name=".proxy.ProxyService$opyk"
+            android:name=".proxy.ProxyService$P14"
             android:exported="true"
-            android:process=":background" />
+            android:process=":w14" />
         <service
-            android:name=".proxy.ProxyService$pgps"
+            android:name=".proxy.ProxyService$P15"
             android:exported="true"
-            android:process=":persist" />
+            android:process=":w15" />
         <service
-            android:name=".proxy.ProxyService$qsbo"
+            android:name=".proxy.ProxyService$P16"
             android:exported="true"
-            android:process=":system" />
+            android:process=":w16" />
         <service
-            android:name=".proxy.ProxyService$rlxa"
+            android:name=".proxy.ProxyService$P17"
             android:exported="true"
-            android:process=":tools" />
+            android:process=":w17" />
         <service
-            android:name=".proxy.ProxyService$soqy"
+            android:name=".proxy.ProxyService$P18"
             android:exported="true"
-            android:process=":app" />
+            android:process=":w18" />
         <service
-            android:name=".proxy.ProxyService$twjg"
+            android:name=".proxy.ProxyService$P19"
             android:exported="true"
-            android:process=":secure" />
+            android:process=":w19" />
         <service
-            android:name=".proxy.ProxyService$uayf"
+            android:name=".proxy.ProxyService$P20"
             android:exported="true"
-            android:process=":remote" />
+            android:process=":w20" />
         <service
-            android:name=".proxy.ProxyService$vpch"
+            android:name=".proxy.ProxyService$P21"
             android:exported="true"
-            android:process=":push" />
+            android:process=":w21" />
         <service
-            android:name=".proxy.ProxyService$wovm"
+            android:name=".proxy.ProxyService$P22"
             android:exported="true"
-            android:process=":worker" />
+            android:process=":w22" />
         <service
-            android:name=".proxy.ProxyService$xsld"
+            android:name=".proxy.ProxyService$P23"
             android:exported="true"
-            android:process=":core" />
+            android:process=":w23" />
         <service
-            android:name=".proxy.ProxyService$yite"
+            android:name=".proxy.ProxyService$P24"
             android:exported="true"
-            android:process=":sync" />
+            android:process=":w24" />
         <service
-            android:name=".proxy.ProxyService$zuht"
+            android:name=".proxy.ProxyService$P25"
             android:exported="true"
-            android:process=":media" />
+            android:process=":w25" />
         <service
-            android:name=".proxy.ProxyService$acrw"
+            android:name=".proxy.ProxyService$P26"
             android:exported="true"
-            android:process=":service" />
+            android:process=":w26" />
         <service
-            android:name=".proxy.ProxyService$bwmk"
+            android:name=".proxy.ProxyService$P27"
             android:exported="true"
-            android:process=":render" />
+            android:process=":w27" />
         <service
-            android:name=".proxy.ProxyService$cnyy"
+            android:name=".proxy.ProxyService$P28"
             android:exported="true"
-            android:process=":data" />
+            android:process=":w28" />
         <service
-            android:name=".proxy.ProxyService$dgmo"
+            android:name=".proxy.ProxyService$P29"
             android:exported="true"
-            android:process=":web" />
+            android:process=":w29" />
         <service
-            android:name=".proxy.ProxyService$eumv"
+            android:name=".proxy.ProxyService$P30"
             android:exported="true"
-            android:process=":net" />
+            android:process=":w30" />
         <service
-            android:name=".proxy.ProxyService$fjqp"
+            android:name=".proxy.ProxyService$P31"
             android:exported="true"
-            android:process=":io" />
+            android:process=":w31" />
         <service
-            android:name=".proxy.ProxyService$gsuo"
+            android:name=".proxy.ProxyService$P32"
             android:exported="true"
-            android:process=":plugin" />
+            android:process=":w32" />
         <service
-            android:name=".proxy.ProxyService$hzyl"
+            android:name=".proxy.ProxyService$P33"
             android:exported="true"
-            android:process=":aux" />
+            android:process=":w33" />
         <service
-            android:name=".proxy.ProxyService$ijhi"
+            android:name=".proxy.ProxyService$P34"
             android:exported="true"
-            android:process=":background" />
+            android:process=":w34" />
         <service
-            android:name=".proxy.ProxyService$jkqd"
+            android:name=".proxy.ProxyService$P35"
             android:exported="true"
-            android:process=":persist" />
+            android:process=":w35" />
         <service
-            android:name=".proxy.ProxyService$kxcw"
+            android:name=".proxy.ProxyService$P36"
             android:exported="true"
-            android:process=":system" />
+            android:process=":w36" />
         <service
-            android:name=".proxy.ProxyService$ldhm"
+            android:name=".proxy.ProxyService$P37"
             android:exported="true"
-            android:process=":tools" />
+            android:process=":w37" />
         <service
-            android:name=".proxy.ProxyService$mbto"
+            android:name=".proxy.ProxyService$P38"
             android:exported="true"
-            android:process=":app" />
+            android:process=":w38" />
         <service
-            android:name=".proxy.ProxyService$njpb"
+            android:name=".proxy.ProxyService$P39"
             android:exported="true"
-            android:process=":secure" />
+            android:process=":w39" />
         <service
-            android:name=".proxy.ProxyService$otuc"
+            android:name=".proxy.ProxyService$P40"
             android:exported="true"
-            android:process=":remote" />
+            android:process=":w40" />
         <service
-            android:name=".proxy.ProxyService$pjot"
+            android:name=".proxy.ProxyService$P41"
             android:exported="true"
-            android:process=":push" />
+            android:process=":w41" />
         <service
-            android:name=".proxy.ProxyService$qpie"
+            android:name=".proxy.ProxyService$P42"
             android:exported="true"
-            android:process=":worker" />
+            android:process=":w42" />
         <service
-            android:name=".proxy.ProxyService$rivv"
+            android:name=".proxy.ProxyService$P43"
             android:exported="true"
-            android:process=":core" />
+            android:process=":w43" />
         <service
-            android:name=".proxy.ProxyService$suez"
+            android:name=".proxy.ProxyService$P44"
             android:exported="true"
-            android:process=":sync" />
+            android:process=":w44" />
         <service
-            android:name=".proxy.ProxyService$tauy"
+            android:name=".proxy.ProxyService$P45"
             android:exported="true"
-            android:process=":media" />
+            android:process=":w45" />
         <service
-            android:name=".proxy.ProxyService$uopy"
+            android:name=".proxy.ProxyService$P46"
             android:exported="true"
-            android:process=":service" />
+            android:process=":w46" />
         <service
-            android:name=".proxy.ProxyService$vgnz"
+            android:name=".proxy.ProxyService$P47"
             android:exported="true"
-            android:process=":render" />
+            android:process=":w47" />
         <service
-            android:name=".proxy.ProxyService$wyxq"
+            android:name=".proxy.ProxyService$P48"
             android:exported="true"
-            android:process=":data" />
+            android:process=":w48" />
         <service
-            android:name=".proxy.ProxyService$xahv"
+            android:name=".proxy.ProxyService$P49"
             android:exported="true"
-            android:process=":web" />
+            android:process=":w49" />
 
 
         <provider
-            android:name=".proxy.ProxyContentProvider$angz"
-            android:authorities="${applicationId}.com.chiyuan.va.data_provider.0"
+            android:name=".proxy.ProxyContentProvider$P0"
+            android:authorities="${applicationId}.ext_data_provider_0"
             android:exported="true"
-            android:process=":remote" />
+            android:process=":w0" />
         <provider
-            android:name=".proxy.ProxyContentProvider$bjwd"
-            android:authorities="${applicationId}.com.chiyuan.va.log_provider.1"
+            android:name=".proxy.ProxyContentProvider$P1"
+            android:authorities="${applicationId}.ext_data_provider_1"
             android:exported="true"
-            android:process=":push" />
+            android:process=":w1" />
         <provider
-            android:name=".proxy.ProxyContentProvider$czsm"
-            android:authorities="${applicationId}.com.chiyuan.va.data_provider.2"
+            android:name=".proxy.ProxyContentProvider$P2"
+            android:authorities="${applicationId}.ext_data_provider_2"
             android:exported="true"
-            android:process=":worker" />
+            android:process=":w2" />
         <provider
-            android:name=".proxy.ProxyContentProvider$dumt"
-            android:authorities="${applicationId}.com.chiyuan.va.file_provider.3"
+            android:name=".proxy.ProxyContentProvider$P3"
+            android:authorities="${applicationId}.ext_data_provider_3"
             android:exported="true"
-            android:process=":core" />
+            android:process=":w3" />
         <provider
-            android:name=".proxy.ProxyContentProvider$eoiw"
-            android:authorities="${applicationId}.com.chiyuan.va.log_provider.4"
+            android:name=".proxy.ProxyContentProvider$P4"
+            android:authorities="${applicationId}.ext_data_provider_4"
             android:exported="true"
-            android:process=":sync" />
+            android:process=":w4" />
         <provider
-            android:name=".proxy.ProxyContentProvider$fnjz"
-            android:authorities="${applicationId}.com.chiyuan.va.info_provider.5"
+            android:name=".proxy.ProxyContentProvider$P5"
+            android:authorities="${applicationId}.ext_data_provider_5"
             android:exported="true"
-            android:process=":media" />
+            android:process=":w5" />
         <provider
-            android:name=".proxy.ProxyContentProvider$geil"
-            android:authorities="${applicationId}.com.chiyuan.va.sync_provider.6"
+            android:name=".proxy.ProxyContentProvider$P6"
+            android:authorities="${applicationId}.ext_data_provider_6"
             android:exported="true"
-            android:process=":service" />
+            android:process=":w6" />
         <provider
-            android:name=".proxy.ProxyContentProvider$hqhf"
-            android:authorities="${applicationId}.com.chiyuan.va.cache_provider.7"
+            android:name=".proxy.ProxyContentProvider$P7"
+            android:authorities="${applicationId}.ext_data_provider_7"
             android:exported="true"
-            android:process=":render" />
+            android:process=":w7" />
         <provider
-            android:name=".proxy.ProxyContentProvider$ixzy"
-            android:authorities="${applicationId}.com.chiyuan.va.settings_provider.8"
+            android:name=".proxy.ProxyContentProvider$P8"
+            android:authorities="${applicationId}.ext_data_provider_8"
             android:exported="true"
-            android:process=":data" />
+            android:process=":w8" />
         <provider
-            android:name=".proxy.ProxyContentProvider$jtjh"
-            android:authorities="${applicationId}.com.chiyuan.va.state_provider.9"
+            android:name=".proxy.ProxyContentProvider$P9"
+            android:authorities="${applicationId}.ext_data_provider_9"
             android:exported="true"
-            android:process=":web" />
+            android:process=":w9" />
         <provider
-            android:name=".proxy.ProxyContentProvider$klif"
-            android:authorities="${applicationId}.com.chiyuan.va.file_provider.10"
+            android:name=".proxy.ProxyContentProvider$P10"
+            android:authorities="${applicationId}.ext_data_provider_10"
             android:exported="true"
-            android:process=":net" />
+            android:process=":w10" />
         <provider
-            android:name=".proxy.ProxyContentProvider$ljmc"
-            android:authorities="${applicationId}.com.chiyuan.va.file_provider.11"
+            android:name=".proxy.ProxyContentProvider$P11"
+            android:authorities="${applicationId}.ext_data_provider_11"
             android:exported="true"
-            android:process=":io" />
+            android:process=":w11" />
         <provider
-            android:name=".proxy.ProxyContentProvider$mxdi"
-            android:authorities="${applicationId}.com.chiyuan.va.config_provider.12"
+            android:name=".proxy.ProxyContentProvider$P12"
+            android:authorities="${applicationId}.ext_data_provider_12"
             android:exported="true"
-            android:process=":plugin" />
+            android:process=":w12" />
         <provider
-            android:name=".proxy.ProxyContentProvider$nbkn"
-            android:authorities="${applicationId}.com.chiyuan.va.info_provider.13"
+            android:name=".proxy.ProxyContentProvider$P13"
+            android:authorities="${applicationId}.ext_data_provider_13"
             android:exported="true"
-            android:process=":aux" />
+            android:process=":w13" />
         <provider
-            android:name=".proxy.ProxyContentProvider$oghj"
-            android:authorities="${applicationId}.com.chiyuan.va.asset_provider.14"
+            android:name=".proxy.ProxyContentProvider$P14"
+            android:authorities="${applicationId}.ext_data_provider_14"
             android:exported="true"
-            android:process=":background" />
+            android:process=":w14" />
         <provider
-            android:name=".proxy.ProxyContentProvider$paov"
-            android:authorities="${applicationId}.com.chiyuan.va.file_provider.15"
+            android:name=".proxy.ProxyContentProvider$P15"
+            android:authorities="${applicationId}.ext_data_provider_15"
             android:exported="true"
-            android:process=":persist" />
+            android:process=":w15" />
         <provider
-            android:name=".proxy.ProxyContentProvider$qnuw"
-            android:authorities="${applicationId}.com.chiyuan.va.data_provider.16"
+            android:name=".proxy.ProxyContentProvider$P16"
+            android:authorities="${applicationId}.ext_data_provider_16"
             android:exported="true"
-            android:process=":system" />
+            android:process=":w16" />
         <provider
-            android:name=".proxy.ProxyContentProvider$rwuc"
-            android:authorities="${applicationId}.com.chiyuan.va.settings_provider.17"
+            android:name=".proxy.ProxyContentProvider$P17"
+            android:authorities="${applicationId}.ext_data_provider_17"
             android:exported="true"
-            android:process=":tools" />
+            android:process=":w17" />
         <provider
-            android:name=".proxy.ProxyContentProvider$srvo"
-            android:authorities="${applicationId}.com.chiyuan.va.data_provider.18"
+            android:name=".proxy.ProxyContentProvider$P18"
+            android:authorities="${applicationId}.ext_data_provider_18"
             android:exported="true"
-            android:process=":app" />
+            android:process=":w18" />
         <provider
-            android:name=".proxy.ProxyContentProvider$trej"
-            android:authorities="${applicationId}.com.chiyuan.va.data_provider.19"
+            android:name=".proxy.ProxyContentProvider$P19"
+            android:authorities="${applicationId}.ext_data_provider_19"
             android:exported="true"
-            android:process=":secure" />
+            android:process=":w19" />
         <provider
-            android:name=".proxy.ProxyContentProvider$uvcp"
-            android:authorities="${applicationId}.com.chiyuan.va.media_provider.20"
+            android:name=".proxy.ProxyContentProvider$P20"
+            android:authorities="${applicationId}.ext_data_provider_20"
             android:exported="true"
-            android:process=":remote" />
+            android:process=":w20" />
         <provider
-            android:name=".proxy.ProxyContentProvider$vzza"
-            android:authorities="${applicationId}.com.chiyuan.va.db_provider.21"
+            android:name=".proxy.ProxyContentProvider$P21"
+            android:authorities="${applicationId}.ext_data_provider_21"
             android:exported="true"
-            android:process=":push" />
+            android:process=":w21" />
         <provider
-            android:name=".proxy.ProxyContentProvider$woli"
-            android:authorities="${applicationId}.com.chiyuan.va.db_provider.22"
+            android:name=".proxy.ProxyContentProvider$P22"
+            android:authorities="${applicationId}.ext_data_provider_22"
             android:exported="true"
-            android:process=":worker" />
+            android:process=":w22" />
         <provider
-            android:name=".proxy.ProxyContentProvider$xtrm"
-            android:authorities="${applicationId}.com.chiyuan.va.state_provider.23"
+            android:name=".proxy.ProxyContentProvider$P23"
+            android:authorities="${applicationId}.ext_data_provider_23"
             android:exported="true"
-            android:process=":core" />
+            android:process=":w23" />
         <provider
-            android:name=".proxy.ProxyContentProvider$ycso"
-            android:authorities="${applicationId}.com.chiyuan.va.sync_provider.24"
+            android:name=".proxy.ProxyContentProvider$P24"
+            android:authorities="${applicationId}.ext_data_provider_24"
             android:exported="true"
-            android:process=":sync" />
+            android:process=":w24" />
         <provider
-            android:name=".proxy.ProxyContentProvider$ztyg"
-            android:authorities="${applicationId}.com.chiyuan.va.sync_provider.25"
+            android:name=".proxy.ProxyContentProvider$P25"
+            android:authorities="${applicationId}.ext_data_provider_25"
             android:exported="true"
-            android:process=":media" />
+            android:process=":w25" />
         <provider
-            android:name=".proxy.ProxyContentProvider$ajwq"
-            android:authorities="${applicationId}.com.chiyuan.va.config_provider.26"
+            android:name=".proxy.ProxyContentProvider$P26"
+            android:authorities="${applicationId}.ext_data_provider_26"
             android:exported="true"
-            android:process=":service" />
+            android:process=":w26" />
         <provider
-            android:name=".proxy.ProxyContentProvider$bruk"
-            android:authorities="${applicationId}.com.chiyuan.va.data_provider.27"
+            android:name=".proxy.ProxyContentProvider$P27"
+            android:authorities="${applicationId}.ext_data_provider_27"
             android:exported="true"
-            android:process=":render" />
+            android:process=":w27" />
         <provider
-            android:name=".proxy.ProxyContentProvider$cezy"
-            android:authorities="${applicationId}.com.chiyuan.va.info_provider.28"
+            android:name=".proxy.ProxyContentProvider$P28"
+            android:authorities="${applicationId}.ext_data_provider_28"
             android:exported="true"
-            android:process=":data" />
+            android:process=":w28" />
         <provider
-            android:name=".proxy.ProxyContentProvider$djyy"
-            android:authorities="${applicationId}.com.chiyuan.va.media_provider.29"
+            android:name=".proxy.ProxyContentProvider$P29"
+            android:authorities="${applicationId}.ext_data_provider_29"
             android:exported="true"
-            android:process=":web" />
+            android:process=":w29" />
         <provider
-            android:name=".proxy.ProxyContentProvider$esof"
-            android:authorities="${applicationId}.com.chiyuan.va.data_provider.30"
+            android:name=".proxy.ProxyContentProvider$P30"
+            android:authorities="${applicationId}.ext_data_provider_30"
             android:exported="true"
-            android:process=":net" />
+            android:process=":w30" />
         <provider
-            android:name=".proxy.ProxyContentProvider$fqhg"
-            android:authorities="${applicationId}.com.chiyuan.va.settings_provider.31"
+            android:name=".proxy.ProxyContentProvider$P31"
+            android:authorities="${applicationId}.ext_data_provider_31"
             android:exported="true"
-            android:process=":io" />
+            android:process=":w31" />
         <provider
-            android:name=".proxy.ProxyContentProvider$gctz"
-            android:authorities="${applicationId}.com.chiyuan.va.asset_provider.32"
+            android:name=".proxy.ProxyContentProvider$P32"
+            android:authorities="${applicationId}.ext_data_provider_32"
             android:exported="true"
-            android:process=":plugin" />
+            android:process=":w32" />
         <provider
-            android:name=".proxy.ProxyContentProvider$hppe"
-            android:authorities="${applicationId}.com.chiyuan.va.settings_provider.33"
+            android:name=".proxy.ProxyContentProvider$P33"
+            android:authorities="${applicationId}.ext_data_provider_33"
             android:exported="true"
-            android:process=":aux" />
+            android:process=":w33" />
         <provider
-            android:name=".proxy.ProxyContentProvider$idpd"
-            android:authorities="${applicationId}.com.chiyuan.va.log_provider.34"
+            android:name=".proxy.ProxyContentProvider$P34"
+            android:authorities="${applicationId}.ext_data_provider_34"
             android:exported="true"
-            android:process=":background" />
+            android:process=":w34" />
         <provider
-            android:name=".proxy.ProxyContentProvider$jtcm"
-            android:authorities="${applicationId}.com.chiyuan.va.sync_provider.35"
+            android:name=".proxy.ProxyContentProvider$P35"
+            android:authorities="${applicationId}.ext_data_provider_35"
             android:exported="true"
-            android:process=":persist" />
+            android:process=":w35" />
         <provider
-            android:name=".proxy.ProxyContentProvider$kuvw"
-            android:authorities="${applicationId}.com.chiyuan.va.sync_provider.36"
+            android:name=".proxy.ProxyContentProvider$P36"
+            android:authorities="${applicationId}.ext_data_provider_36"
             android:exported="true"
-            android:process=":system" />
+            android:process=":w36" />
         <provider
-            android:name=".proxy.ProxyContentProvider$lgms"
-            android:authorities="${applicationId}.com.chiyuan.va.state_provider.37"
+            android:name=".proxy.ProxyContentProvider$P37"
+            android:authorities="${applicationId}.ext_data_provider_37"
             android:exported="true"
-            android:process=":tools" />
+            android:process=":w37" />
         <provider
-            android:name=".proxy.ProxyContentProvider$mykx"
-            android:authorities="${applicationId}.com.chiyuan.va.asset_provider.38"
+            android:name=".proxy.ProxyContentProvider$P38"
+            android:authorities="${applicationId}.ext_data_provider_38"
             android:exported="true"
-            android:process=":app" />
+            android:process=":w38" />
         <provider
-            android:name=".proxy.ProxyContentProvider$nvfq"
-            android:authorities="${applicationId}.com.chiyuan.va.state_provider.39"
+            android:name=".proxy.ProxyContentProvider$P39"
+            android:authorities="${applicationId}.ext_data_provider_39"
             android:exported="true"
-            android:process=":secure" />
+            android:process=":w39" />
         <provider
-            android:name=".proxy.ProxyContentProvider$oyls"
-            android:authorities="${applicationId}.com.chiyuan.va.asset_provider.40"
+            android:name=".proxy.ProxyContentProvider$P40"
+            android:authorities="${applicationId}.ext_data_provider_40"
             android:exported="true"
-            android:process=":remote" />
+            android:process=":w40" />
         <provider
-            android:name=".proxy.ProxyContentProvider$prir"
-            android:authorities="${applicationId}.com.chiyuan.va.data_provider.41"
+            android:name=".proxy.ProxyContentProvider$P41"
+            android:authorities="${applicationId}.ext_data_provider_41"
             android:exported="true"
-            android:process=":push" />
+            android:process=":w41" />
         <provider
-            android:name=".proxy.ProxyContentProvider$qysp"
-            android:authorities="${applicationId}.com.chiyuan.va.file_provider.42"
+            android:name=".proxy.ProxyContentProvider$P42"
+            android:authorities="${applicationId}.ext_data_provider_42"
             android:exported="true"
-            android:process=":worker" />
+            android:process=":w42" />
         <provider
-            android:name=".proxy.ProxyContentProvider$rgwm"
-            android:authorities="${applicationId}.com.chiyuan.va.file_provider.43"
+            android:name=".proxy.ProxyContentProvider$P43"
+            android:authorities="${applicationId}.ext_data_provider_43"
             android:exported="true"
-            android:process=":core" />
+            android:process=":w43" />
         <provider
-            android:name=".proxy.ProxyContentProvider$sesj"
-            android:authorities="${applicationId}.com.chiyuan.va.state_provider.44"
+            android:name=".proxy.ProxyContentProvider$P44"
+            android:authorities="${applicationId}.ext_data_provider_44"
             android:exported="true"
-            android:process=":sync" />
+            android:process=":w44" />
         <provider
-            android:name=".proxy.ProxyContentProvider$tysh"
-            android:authorities="${applicationId}.com.chiyuan.va.cache_provider.45"
+            android:name=".proxy.ProxyContentProvider$P45"
+            android:authorities="${applicationId}.ext_data_provider_45"
             android:exported="true"
-            android:process=":media" />
+            android:process=":w45" />
         <provider
-            android:name=".proxy.ProxyContentProvider$ucoi"
-            android:authorities="${applicationId}.com.chiyuan.va.data_provider.46"
+            android:name=".proxy.ProxyContentProvider$P46"
+            android:authorities="${applicationId}.ext_data_provider_46"
             android:exported="true"
-            android:process=":service" />
+            android:process=":w46" />
         <provider
-            android:name=".proxy.ProxyContentProvider$vllq"
-            android:authorities="${applicationId}.com.chiyuan.va.settings_provider.47"
+            android:name=".proxy.ProxyContentProvider$P47"
+            android:authorities="${applicationId}.ext_data_provider_47"
             android:exported="true"
-            android:process=":render" />
+            android:process=":w47" />
         <provider
-            android:name=".proxy.ProxyContentProvider$wnkn"
-            android:authorities="${applicationId}.com.chiyuan.va.data_provider.48"
+            android:name=".proxy.ProxyContentProvider$P48"
+            android:authorities="${applicationId}.ext_data_provider_48"
             android:exported="true"
-            android:process=":data" />
+            android:process=":w48" />
         <provider
-            android:name=".proxy.ProxyContentProvider$xdnu"
-            android:authorities="${applicationId}.com.chiyuan.va.data_provider.49"
+            android:name=".proxy.ProxyContentProvider$P49"
+            android:authorities="${applicationId}.ext_data_provider_49"
             android:exported="true"
-            android:process=":web" />
+            android:process=":w49" />
 
         <service
-            android:name=".proxy.ProxyJobService$jywz"
+            android:name=".proxy.ProxyJobService$P0"
             android:exported="true"
             android:permission="android.permission.BIND_JOB_SERVICE"
-            android:process=":remote" />
+            android:process=":w0" />
 
         <service
-            android:name=".proxy.ProxyJobService$kgcv"
+            android:name=".proxy.ProxyJobService$P1"
             android:exported="true"
             android:permission="android.permission.BIND_JOB_SERVICE"
-            android:process=":push" />
+            android:process=":w1" />
 
         <service
-            android:name=".proxy.ProxyJobService$lwff"
+            android:name=".proxy.ProxyJobService$P2"
             android:exported="true"
             android:permission="android.permission.BIND_JOB_SERVICE"
-            android:process=":worker" />
+            android:process=":w2" />
 
         <service
-            android:name=".proxy.ProxyJobService$mfdy"
+            android:name=".proxy.ProxyJobService$P3"
             android:exported="true"
             android:permission="android.permission.BIND_JOB_SERVICE"
-            android:process=":core" />
+            android:process=":w3" />
 
         <service
-            android:name=".proxy.ProxyJobService$nnwb"
+            android:name=".proxy.ProxyJobService$P4"
             android:exported="true"
             android:permission="android.permission.BIND_JOB_SERVICE"
-            android:process=":sync" />
+            android:process=":w4" />
 
         <service
-            android:name=".proxy.ProxyJobService$jobw"
+            android:name=".proxy.ProxyJobService$P5"
             android:exported="true"
             android:permission="android.permission.BIND_JOB_SERVICE"
-            android:process=":media" />
+            android:process=":w5" />
 
         <service
-            android:name=".proxy.ProxyJobService$kkdq"
+            android:name=".proxy.ProxyJobService$P6"
             android:exported="true"
             android:permission="android.permission.BIND_JOB_SERVICE"
-            android:process=":service" />
+            android:process=":w6" />
 
         <service
-            android:name=".proxy.ProxyJobService$legl"
+            android:name=".proxy.ProxyJobService$P7"
             android:exported="true"
             android:permission="android.permission.BIND_JOB_SERVICE"
-            android:process=":render" />
+            android:process=":w7" />
 
         <service
-            android:name=".proxy.ProxyJobService$mhsv"
+            android:name=".proxy.ProxyJobService$P8"
             android:exported="true"
             android:permission="android.permission.BIND_JOB_SERVICE"
-            android:process=":data" />
+            android:process=":w8" />
 
         <service
-            android:name=".proxy.ProxyJobService$nozz"
+            android:name=".proxy.ProxyJobService$P9"
             android:exported="true"
             android:permission="android.permission.BIND_JOB_SERVICE"
-            android:process=":web" />
+            android:process=":w9" />
 
         <service
-            android:name=".proxy.ProxyJobService$jxwu"
+            android:name=".proxy.ProxyJobService$P10"
             android:exported="true"
             android:permission="android.permission.BIND_JOB_SERVICE"
-            android:process=":net" />
+            android:process=":w10" />
 
         <service
-            android:name=".proxy.ProxyJobService$knii"
+            android:name=".proxy.ProxyJobService$P11"
             android:exported="true"
             android:permission="android.permission.BIND_JOB_SERVICE"
-            android:process=":io" />
+            android:process=":w11" />
 
         <service
-            android:name=".proxy.ProxyJobService$lvka"
+            android:name=".proxy.ProxyJobService$P12"
             android:exported="true"
             android:permission="android.permission.BIND_JOB_SERVICE"
-            android:process=":plugin" />
+            android:process=":w12" />
 
         <service
-            android:name=".proxy.ProxyJobService$mfyf"
+            android:name=".proxy.ProxyJobService$P13"
             android:exported="true"
             android:permission="android.permission.BIND_JOB_SERVICE"
-            android:process=":aux" />
+            android:process=":w13" />
 
         <service
-            android:name=".proxy.ProxyJobService$nyoc"
+            android:name=".proxy.ProxyJobService$P14"
             android:exported="true"
             android:permission="android.permission.BIND_JOB_SERVICE"
-            android:process=":background" />
+            android:process=":w14" />
 
         <service
-            android:name=".proxy.ProxyJobService$jivb"
+            android:name=".proxy.ProxyJobService$P15"
             android:exported="true"
             android:permission="android.permission.BIND_JOB_SERVICE"
-            android:process=":persist" />
+            android:process=":w15" />
 
         <service
-            android:name=".proxy.ProxyJobService$kypf"
+            android:name=".proxy.ProxyJobService$P16"
             android:exported="true"
             android:permission="android.permission.BIND_JOB_SERVICE"
-            android:process=":system" />
+            android:process=":w16" />
 
         <service
-            android:name=".proxy.ProxyJobService$lfgd"
+            android:name=".proxy.ProxyJobService$P17"
             android:exported="true"
             android:permission="android.permission.BIND_JOB_SERVICE"
-            android:process=":tools" />
+            android:process=":w17" />
 
         <service
-            android:name=".proxy.ProxyJobService$mkbq"
+            android:name=".proxy.ProxyJobService$P18"
             android:exported="true"
             android:permission="android.permission.BIND_JOB_SERVICE"
-            android:process=":app" />
+            android:process=":w18" />
 
         <service
-            android:name=".proxy.ProxyJobService$neqp"
+            android:name=".proxy.ProxyJobService$P19"
             android:exported="true"
             android:permission="android.permission.BIND_JOB_SERVICE"
-            android:process=":secure" />
+            android:process=":w19" />
 
         <service
-            android:name=".proxy.ProxyJobService$jpgk"
+            android:name=".proxy.ProxyJobService$P20"
             android:exported="true"
             android:permission="android.permission.BIND_JOB_SERVICE"
-            android:process=":remote" />
+            android:process=":w20" />
 
         <service
-            android:name=".proxy.ProxyJobService$kbrh"
+            android:name=".proxy.ProxyJobService$P21"
             android:exported="true"
             android:permission="android.permission.BIND_JOB_SERVICE"
-            android:process=":push" />
+            android:process=":w21" />
 
         <service
-            android:name=".proxy.ProxyJobService$lwjp"
+            android:name=".proxy.ProxyJobService$P22"
             android:exported="true"
             android:permission="android.permission.BIND_JOB_SERVICE"
-            android:process=":worker" />
+            android:process=":w22" />
 
         <service
-            android:name=".proxy.ProxyJobService$mpje"
+            android:name=".proxy.ProxyJobService$P23"
             android:exported="true"
             android:permission="android.permission.BIND_JOB_SERVICE"
-            android:process=":core" />
+            android:process=":w23" />
 
         <service
-            android:name=".proxy.ProxyJobService$nsjj"
+            android:name=".proxy.ProxyJobService$P24"
             android:exported="true"
             android:permission="android.permission.BIND_JOB_SERVICE"
-            android:process=":sync" />
+            android:process=":w24" />
 
         <service
-            android:name=".proxy.ProxyJobService$jjlt"
+            android:name=".proxy.ProxyJobService$P25"
             android:exported="true"
             android:permission="android.permission.BIND_JOB_SERVICE"
-            android:process=":media" />
+            android:process=":w25" />
 
         <service
-            android:name=".proxy.ProxyJobService$kmgz"
+            android:name=".proxy.ProxyJobService$P26"
             android:exported="true"
             android:permission="android.permission.BIND_JOB_SERVICE"
-            android:process=":service" />
+            android:process=":w26" />
 
         <service
-            android:name=".proxy.ProxyJobService$ltxy"
+            android:name=".proxy.ProxyJobService$P27"
             android:exported="true"
             android:permission="android.permission.BIND_JOB_SERVICE"
-            android:process=":render" />
+            android:process=":w27" />
 
         <service
-            android:name=".proxy.ProxyJobService$mugt"
+            android:name=".proxy.ProxyJobService$P28"
             android:exported="true"
             android:permission="android.permission.BIND_JOB_SERVICE"
-            android:process=":data" />
+            android:process=":w28" />
 
         <service
-            android:name=".proxy.ProxyJobService$nbnc"
+            android:name=".proxy.ProxyJobService$P29"
             android:exported="true"
             android:permission="android.permission.BIND_JOB_SERVICE"
-            android:process=":web" />
+            android:process=":w29" />
 
         <service
-            android:name=".proxy.ProxyJobService$jeju"
+            android:name=".proxy.ProxyJobService$P30"
             android:exported="true"
             android:permission="android.permission.BIND_JOB_SERVICE"
-            android:process=":net" />
+            android:process=":w30" />
 
         <service
-            android:name=".proxy.ProxyJobService$klvu"
+            android:name=".proxy.ProxyJobService$P31"
             android:exported="true"
             android:permission="android.permission.BIND_JOB_SERVICE"
-            android:process=":io" />
+            android:process=":w31" />
 
         <service
-            android:name=".proxy.ProxyJobService$lrvw"
+            android:name=".proxy.ProxyJobService$P32"
             android:exported="true"
             android:permission="android.permission.BIND_JOB_SERVICE"
-            android:process=":plugin" />
+            android:process=":w32" />
 
         <service
-            android:name=".proxy.ProxyJobService$mqjo"
+            android:name=".proxy.ProxyJobService$P33"
             android:exported="true"
             android:permission="android.permission.BIND_JOB_SERVICE"
-            android:process=":aux" />
+            android:process=":w33" />
 
         <service
-            android:name=".proxy.ProxyJobService$nguf"
+            android:name=".proxy.ProxyJobService$P34"
             android:exported="true"
             android:permission="android.permission.BIND_JOB_SERVICE"
-            android:process=":background" />
+            android:process=":w34" />
 
         <service
-            android:name=".proxy.ProxyJobService$jcdn"
+            android:name=".proxy.ProxyJobService$P35"
             android:exported="true"
             android:permission="android.permission.BIND_JOB_SERVICE"
-            android:process=":persist" />
+            android:process=":w35" />
 
         <service
-            android:name=".proxy.ProxyJobService$kfob"
+            android:name=".proxy.ProxyJobService$P36"
             android:exported="true"
             android:permission="android.permission.BIND_JOB_SERVICE"
-            android:process=":system" />
+            android:process=":w36" />
 
         <service
-            android:name=".proxy.ProxyJobService$lyqs"
+            android:name=".proxy.ProxyJobService$P37"
             android:exported="true"
             android:permission="android.permission.BIND_JOB_SERVICE"
-            android:process=":tools" />
+            android:process=":w37" />
 
         <service
-            android:name=".proxy.ProxyJobService$mvde"
+            android:name=".proxy.ProxyJobService$P38"
             android:exported="true"
             android:permission="android.permission.BIND_JOB_SERVICE"
-            android:process=":app" />
+            android:process=":w38" />
 
         <service
-            android:name=".proxy.ProxyJobService$nfln"
+            android:name=".proxy.ProxyJobService$P39"
             android:exported="true"
             android:permission="android.permission.BIND_JOB_SERVICE"
-            android:process=":secure" />
+            android:process=":w39" />
 
         <service
-            android:name=".proxy.ProxyJobService$jfos"
+            android:name=".proxy.ProxyJobService$P40"
             android:exported="true"
             android:permission="android.permission.BIND_JOB_SERVICE"
-            android:process=":remote" />
+            android:process=":w40" />
 
         <service
-            android:name=".proxy.ProxyJobService$kmgg"
+            android:name=".proxy.ProxyJobService$P41"
             android:exported="true"
             android:permission="android.permission.BIND_JOB_SERVICE"
-            android:process=":push" />
+            android:process=":w41" />
 
         <service
-            android:name=".proxy.ProxyJobService$ltka"
+            android:name=".proxy.ProxyJobService$P42"
             android:exported="true"
             android:permission="android.permission.BIND_JOB_SERVICE"
-            android:process=":worker" />
+            android:process=":w42" />
 
         <service
-            android:name=".proxy.ProxyJobService$mjrg"
+            android:name=".proxy.ProxyJobService$P43"
             android:exported="true"
             android:permission="android.permission.BIND_JOB_SERVICE"
-            android:process=":core" />
+            android:process=":w43" />
 
         <service
-            android:name=".proxy.ProxyJobService$nimx"
+            android:name=".proxy.ProxyJobService$P44"
             android:exported="true"
             android:permission="android.permission.BIND_JOB_SERVICE"
-            android:process=":sync" />
+            android:process=":w44" />
 
         <service
-            android:name=".proxy.ProxyJobService$jjik"
+            android:name=".proxy.ProxyJobService$P45"
             android:exported="true"
             android:permission="android.permission.BIND_JOB_SERVICE"
-            android:process=":media" />
+            android:process=":w45" />
 
         <service
-            android:name=".proxy.ProxyJobService$kpyb"
+            android:name=".proxy.ProxyJobService$P46"
             android:exported="true"
             android:permission="android.permission.BIND_JOB_SERVICE"
-            android:process=":service" />
+            android:process=":w46" />
 
         <service
-            android:name=".proxy.ProxyJobService$lkfd"
+            android:name=".proxy.ProxyJobService$P47"
             android:exported="true"
             android:permission="android.permission.BIND_JOB_SERVICE"
-            android:process=":render" />
+            android:process=":w47" />
 
         <service
-            android:name=".proxy.ProxyJobService$mdac"
+            android:name=".proxy.ProxyJobService$P48"
             android:exported="true"
             android:permission="android.permission.BIND_JOB_SERVICE"
-            android:process=":data" />
+            android:process=":w48" />
 
         <service
-            android:name=".proxy.ProxyJobService$nkcg"
+            android:name=".proxy.ProxyJobService$P49"
             android:exported="true"
             android:permission="android.permission.BIND_JOB_SERVICE"
-            android:process=":web" />
+            android:process=":w49" />
 
     </application>
 </manifest>

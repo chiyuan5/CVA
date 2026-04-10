@@ -1,4 +1,5 @@
 package com.chiyuan.va.core.system;
+import com.chiyuan.va.utils.Slog;
 
 import android.app.Notification;
 import android.app.NotificationChannel;
@@ -31,7 +32,7 @@ public class DaemonService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
-        Log.d(TAG, "DaemonService onCreate");
+        Slog.d(TAG, "DaemonService onCreate");
         
         
         if (BuildCompat.isOreo()) {
@@ -41,7 +42,7 @@ public class DaemonService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        Log.d(TAG, "DaemonService onStartCommand");
+        Slog.d(TAG, "DaemonService onStartCommand");
         
         try {
             
@@ -51,12 +52,12 @@ public class DaemonService extends Service {
             
             if (BuildCompat.isOreo()) {
                 if (!startForegroundService()) {
-                    Log.w(TAG, "Failed to start foreground service, falling back to regular service");
+                    Slog.w(TAG, "Failed to start foreground service, falling back to regular service");
                     return START_STICKY;
                 }
             }
             
-            Log.d(TAG, "DaemonService started successfully");
+            Slog.d(TAG, "DaemonService started successfully");
             return START_STICKY;
             
         } catch (Exception e) {
@@ -68,7 +69,7 @@ public class DaemonService extends Service {
 
     @Override
     public void onDestroy() {
-        Log.d(TAG, "DaemonService onDestroy");
+        Slog.d(TAG, "DaemonService onDestroy");
         super.onDestroy();
     }
 
@@ -89,7 +90,7 @@ public class DaemonService extends Service {
                 NotificationManager notificationManager = getSystemService(NotificationManager.class);
                 if (notificationManager != null) {
                     notificationManager.createNotificationChannel(channel);
-                    Log.d(TAG, "Notification channel created successfully");
+                    Slog.d(TAG, "Notification channel created successfully");
                 }
             }
         } catch (Exception e) {
@@ -103,7 +104,7 @@ public class DaemonService extends Service {
             Notification notification = createNotification();
             if (notification != null) {
                 startForeground(NOTIFY_ID, notification);
-                Log.d(TAG, "Foreground service started successfully");
+                Slog.d(TAG, "Foreground service started successfully");
                 return true;
             } else {
                 Log.e(TAG, "Failed to create notification");
@@ -150,7 +151,7 @@ public class DaemonService extends Service {
                 NotificationManager nm = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
                 if (nm != null) {
                     nm.cancel(NOTIFY_ID);
-                    Log.d(TAG, "Notification cancelled successfully");
+                    Slog.d(TAG, "Notification cancelled successfully");
                 }
                 
                 

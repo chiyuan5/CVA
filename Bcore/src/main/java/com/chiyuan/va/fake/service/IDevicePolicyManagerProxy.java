@@ -57,7 +57,7 @@ public class IDevicePolicyManagerProxy extends BinderInvocationStub {
 
         @Override
         protected Object hook(Object who, Method method, Object[] args) throws Throwable {
-            return Str.dec(_vaUserName);
+            return android.os.Build.MANUFACTURER;
         }
     }
 
@@ -66,7 +66,7 @@ public class IDevicePolicyManagerProxy extends BinderInvocationStub {
 
         @Override
         protected Object hook(Object who, Method method, Object[] args) throws Throwable {
-            return Str.dec(_vaUserName);
+            return android.os.Build.MANUFACTURER;
         }
     }
 

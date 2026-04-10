@@ -1,19 +1,38 @@
 package com.chiyuan.va.utils;
 
 public class StackTraceFilter {
-    
-    private static final byte[] _xposed = {
-        (byte)0x4D, (byte)0x1E, (byte)0xA8, (byte)0xFC, (byte)0x94, (byte)0x23, (byte)0xD4
-    };
-    private static final byte[] _epic = {
-        (byte)0x54, (byte)0x01, (byte)0xB5, (byte)0xF8, (byte)0x9C
-    };
-    private static final byte[] _virtual = {
-        (byte)0x4C, (byte)0x18, (byte)0xB7, (byte)0xE6, (byte)0x98, (byte)0x34,
-        (byte)0xC2, (byte)0x7B
-    };
-    private static final byte[] _hook = {
-        (byte)0x52, (byte)0x1E, (byte)0xAA, (byte)0xF9
+
+    // Comprehensive filter covering ACE's VA class name blacklist (0x27D234-0x27D324)
+    // plus all ChiyuanVA internal class patterns
+    private static final String[] SUSPICIOUS_KEYWORDS = {
+        // ChiyuanVA framework internals
+        "chiyuan", "chiyuanva",
+        // Generic hook/proxy/fake patterns
+        "hook", "proxy", "fake", "delegate", "stub",
+        "invocationstub", "binderinvocation", "classinvocation",
+        "methodhook", "injecthook", "hookmanager",
+        // Our renamed components
+        "dispatchactivity", "workservice", "scheduledservice",
+        "overlayactivity", "pendingdispatchactivity",
+        // ACE's known VA class patterns (from string table)
+        "stubactivity", "shadowactivity", "activityproxy",
+        "guestactivitystub", "normalactivity", "supermesbactivity",
+        "vmosforkappmanager", "vmosmanager", "gameplugin",
+        "pitactivity", "droidplugin", "doubleagent",
+        // Internal framework classes
+        "appinstrumentation", "baseinstrumentationdel",
+        "bactivitythread", "hcallbackproxy",
+        "contentproviderdelegate", "innerreceiverdelegate",
+        "serviceconnectiondelegate",
+        "blackmanager", "bpackagemanager", "bactivitymanager",
+        "blocationmanager", "bnotificationmanager",
+        "bjobmanager", "busermanager", "bstoragemanager",
+        "bresourcesmanager", "baccountmanager",
+        "virtualruntime", "benvironment", "appsystemenv",
+        "nativecore", "iocore", "gmscore", "fakecore",
+        "systemhookmanager", "uidspoof", "aceanti",
+        // java.lang.reflect.Proxy generated classes
+        "$proxy"
     };
 
     static {
@@ -22,24 +41,60 @@ public class StackTraceFilter {
 
     public static void install() {
         try {
+            Thread.UncaughtExceptionHandler existing = Thread.getDefaultUncaughtExceptionHandler();
             Thread.setDefaultUncaughtExceptionHandler((t, e) -> {
-                StackTraceElement[] original = e.getStackTrace();
-                e.setStackTrace(filterStackTrace(original));
+                cleanThrowable(e);
+                if (existing != null) {
+                    existing.uncaughtException(t, e);
+                }
             });
         } catch (Throwable ignored) {}
     }
 
-    private static StackTraceElement[] filterStackTrace(StackTraceElement[] stack) {
-        return java.util.Arrays.stream(stack)
-            .filter(element -> !isSuspicious(element.getClassName()))
-            .toArray(StackTraceElement[]::new);
+    public static void cleanThrowable(Throwable e) {
+        Throwable current = e;
+        while (current != null) {
+            try {
+                StackTraceElement[] original = current.getStackTrace();
+                current.setStackTrace(filterStackTrace(original));
+            } catch (Throwable ignored) {}
+            current = current.getCause();
+        }
+    }
+
+    public static StackTraceElement[] filterStackTrace(StackTraceElement[] stack) {
+        if (stack == null) return new StackTraceElement[0];
+        int count = 0;
+        for (StackTraceElement element : stack) {
+            if (!isSuspicious(element.getClassName())) {
+                count++;
+            }
+        }
+        StackTraceElement[] filtered = new StackTraceElement[count];
+        int idx = 0;
+        for (StackTraceElement element : stack) {
+            if (!isSuspicious(element.getClassName())) {
+                filtered[idx++] = element;
+            }
+        }
+        return filtered;
+    }
+
+    public static StackTraceElement[] filterCurrentThreadStack() {
+        return filterStackTrace(Thread.currentThread().getStackTrace());
     }
 
     private static boolean isSuspicious(String className) {
+        if (className == null) return false;
         String lower = className.toLowerCase();
-        return lower.contains(Str.dec(_xposed)) ||
-               lower.contains(Str.dec(_epic)) ||
-               lower.contains(Str.dec(_virtual)) ||
-               lower.contains(Str.dec(_hook));
+        for (String keyword : SUSPICIOUS_KEYWORDS) {
+            if (lower.contains(keyword)) {
+                return true;
+            }
+        }
+        if (className.startsWith("com.sun.proxy.$Proxy") || className.contains("$Proxy")) {
+            return true;
+        }
+        return false;
     }
 }

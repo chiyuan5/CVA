@@ -17,7 +17,7 @@ import com.chiyuan.va.utils.compat.TaskDescriptionCompat;
 
 @ScanClass(ActivityManagerCommonProxy.class)
 public class IActivityClientProxy extends ClassInvocationStub {
-    public static final String TAG = "IActivityClientProxy";
+    public static final String TAG = "i.ac";
     private final Object who;
 
     public IActivityClientProxy(Object who) {

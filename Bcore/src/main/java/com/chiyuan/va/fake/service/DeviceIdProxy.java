@@ -9,7 +9,7 @@ import com.chiyuan.va.utils.Slog;
 
 
 public class DeviceIdProxy extends ClassInvocationStub {
-    public static final String TAG = "DeviceIdProxy";
+    public static final String TAG = "di.p";
 
     public DeviceIdProxy() {
         super();

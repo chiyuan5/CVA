@@ -14,7 +14,7 @@ import com.chiyuan.va.utils.Slog;
 
 
 public class GmsProxy extends BinderInvocationStub {
-    public static final String TAG = "GmsProxy";
+    public static final String TAG = "gm.p";
 
     public GmsProxy() {
         super(BRServiceManager.get().getService("gms"));

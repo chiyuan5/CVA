@@ -1,6 +1,7 @@
 package com.chiyuan.va.fake.service;
 
 import android.util.Log;
+import com.chiyuan.va.utils.Slog;
 
 import java.lang.reflect.Method;
 
@@ -18,7 +19,7 @@ public class ResourcesManagerProxy extends ClassInvocationStub {
         try {
             Class.forName(RESOURCES_MANAGER_CLASS);
         } catch (ClassNotFoundException e) {
-            Log.w(TAG, "ResourcesManager class not found: " + e.getMessage());
+            Slog.w(TAG, "ResourcesManager class not found: " + e.getMessage());
         }
     }
 
@@ -54,7 +55,7 @@ public class ResourcesManagerProxy extends ClassInvocationStub {
                                 path.contains(".frro") ||
                                 path.contains("systemui") ||
                                 path.contains("data@resource-cache@"))) {
-                Log.d(TAG, "Blocking problematic ApkAssets load: " + path);
+                Slog.d(TAG, "Blocking problematic ApkAssets load: " + path);
                 
                 return null;
             }
@@ -76,7 +77,7 @@ public class ResourcesManagerProxy extends ClassInvocationStub {
                                 path.contains(".frro") ||
                                 path.contains("systemui") ||
                                 path.contains("data@resource-cache@"))) {
-                Log.d(TAG, "Blocking problematic overlay path: " + path);
+                Slog.d(TAG, "Blocking problematic overlay path: " + path);
                 
                 return null;
             }

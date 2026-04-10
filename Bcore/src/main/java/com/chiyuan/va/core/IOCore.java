@@ -25,7 +25,7 @@ import com.chiyuan.va.utils.TrieTree;
 
 @SuppressLint("SdCardPath")
 public class IOCore {
-    public static final String TAG = "IOCore";
+    public static final String TAG = "io.c";
 
     private static final IOCore sIOCore = new IOCore();
     private static final TrieTree mTrieTree = new TrieTree();
@@ -61,7 +61,7 @@ public class IOCore {
     public String redirectPath(String path) {
         if (TextUtils.isEmpty(path))
             return path;
-        if (path.contains("/chiyuanva/")) {
+        if (path.contains("/.vcore/")) {
             return path;
         }
         String search = sBlackTree.search(path);
@@ -158,6 +158,7 @@ public class IOCore {
     }
 
     private void hideRoot(Map<String, String> rule) {
+        // Basic su paths
         rule.put("/system/app/Superuser.apk", "/system/app/Superuser.apk-fake");
         rule.put("/sbin/su", "/sbin/su-fake");
         rule.put("/system/bin/su", "/system/bin/su-fake");
@@ -168,6 +169,48 @@ public class IOCore {
         rule.put("/system/bin/failsafe/su", "/system/bin/failsafe/su-fake");
         rule.put("/data/local/su", "/data/local/su-fake");
         rule.put("/su/bin/su", "/su/bin/su-fake");
+        // ACE root paths (0x2AB6F8-0x2AB794)
+        rule.put("/system/usr/we-need-root", "/system/usr/we-need-root-fake");
+        rule.put("/system/bin/.ext", "/system/bin/.ext-fake");
+        // ACE Magisk/SU data dirs (0x2ABAC0-0x2ABBA4)
+        rule.put("/data/data/com.topjohnwu.magisk", "/data/data/com.topjohnwu.magisk-fake");
+        rule.put("/data/data/com.noshufou.android.su", "/data/data/com.noshufou.android.su-fake");
+        rule.put("/data/data/com.noshufou.android.su.elite", "/data/data/com.noshufou.android.su.elite-fake");
+        rule.put("/data/data/eu.chainfire.supersu", "/data/data/eu.chainfire.supersu-fake");
+        rule.put("/data/data/com.koushikdutta.superuser", "/data/data/com.koushikdutta.superuser-fake");
+        rule.put("/data/data/com.thirdparty.superuser", "/data/data/com.thirdparty.superuser-fake");
+        rule.put("/data/data/com.yellowes.su", "/data/data/com.yellowes.su-fake");
+        rule.put("/data/data/com.kingroot.kinguser", "/data/data/com.kingroot.kinguser-fake");
+        rule.put("/data/data/com.kingo.root", "/data/data/com.kingo.root-fake");
+        rule.put("/data/data/com.smedialink.oneclickroot", "/data/data/com.smedialink.oneclickroot-fake");
+        rule.put("/data/data/com.zhiqupk.root.global", "/data/data/com.zhiqupk.root.global-fake");
+        rule.put("/data/data/com.alephzain.framaroot", "/data/data/com.alephzain.framaroot-fake");
+        rule.put("/data/data/com.zachspong.temprootremovejb", "/data/data/com.zachspong.temprootremovejb-fake");
+        rule.put("/data/data/com.ramdroid.appquarantine", "/data/data/com.ramdroid.appquarantine-fake");
+        rule.put("/system/etc/init.d/99SuperSUDaemon", "/system/etc/init.d/99SuperSUDaemon-fake");
+        rule.put("/dev/com.koushikdutta.superuser.daemon", "/dev/com.koushikdutta.superuser.daemon-fake");
+        rule.put("/system/xbin/daemonsu", "/system/xbin/daemonsu-fake");
+        // KernelSU (0x2ABBA4)
+        rule.put("/data/data/me.weishu.kernelsu", "/data/data/me.weishu.kernelsu-fake");
+        // Zygisk magic (0x2ACE70-0x2ACEA0)
+        rule.put("/system/zygisk_magic", "/system/zygisk_magic-fake");
+        rule.put("/system/lib/libzygisk_loader.so", "/system/lib/libzygisk_loader.so-fake");
+        rule.put("/system/lib/libzygisk_injector.so", "/system/lib/libzygisk_injector.so-fake");
+        rule.put("/system/lib64/libzygisk_loader.so", "/system/lib64/libzygisk_loader.so-fake");
+        rule.put("/system/lib64/libzygisk_injector.so", "/system/lib64/libzygisk_injector.so-fake");
+        // IDA server (0x24CFBC)
+        rule.put("/data/local/tmp/android_server", "/data/local/tmp/android_server-fake");
+        rule.put("/data/local/tmp/android_server64", "/data/local/tmp/android_server64-fake");
+        // Frida (0x297178-0x2971A8)
+        rule.put("/data/local/tmp/re.frida.server", "/data/local/tmp/re.frida.server-fake");
+        rule.put("/data/local/tmp/frida-server", "/data/local/tmp/frida-server-fake");
+        rule.put("/system/bin/frida-server", "/system/bin/frida-server-fake");
+        rule.put("/data/local/tmp/12re.34frida.56server78", "/data/local/tmp/12re.34frida.56server78-fake");
+        // ACE virtual pipe detection (0x262520, 0x256F94)
+        rule.put("/dev/virtpipe-sec", "/dev/virtpipe-sec-fake");
+        rule.put("/dev/virtpipe-common-syzs", "/dev/virtpipe-common-syzs-fake");
+        rule.put("/dev/virtpipe-common-syzsaow", "/dev/virtpipe-common-syzsaow-fake");
+        rule.put("/dev/virtpipe-common-yyb", "/dev/virtpipe-common-yyb-fake");
     }
 
     private void proc(Map<String, String> rule) {

@@ -19,11 +19,11 @@ import com.chiyuan.va.utils.Slog;
 
 
 public class NativeCore {
-    public static final String TAG = "NativeCore";
+    public static final String TAG = "n.c";
 
     static {
 
-        System.loadLibrary("nepal");
+        System.loadLibrary("chiyuanva");
     }
 
     public static native void init(int apiLevel);
@@ -49,9 +49,9 @@ public class NativeCore {
         try {
             String hostPkg = ChiyuanVACore.getHostPkg();
             enableProcSpoof(guestPackageName, hostPkg);
-            Log.d(TAG, "Proc spoof enabled for: " + guestPackageName);
+            Slog.d(TAG, "Proc spoof enabled for: " + guestPackageName);
         } catch (Throwable e) {
-            Log.w(TAG, "startProcSpoof failed: " + e.getMessage());
+            Slog.w(TAG, "startProcSpoof failed: " + e.getMessage());
         }
     }
 
@@ -86,7 +86,7 @@ public class NativeCore {
                         return callingBUid;
                     }
                 } catch (Exception e) {
-                    Log.w(TAG, "Error getting calling BUid: " + e.getMessage());
+                    Slog.w(TAG, "Error getting calling BUid: " + e.getMessage());
                 }
                 
                 
@@ -101,13 +101,13 @@ public class NativeCore {
                             (methodName.contains("getString") || methodName.contains("getInt") || 
                              methodName.contains("getLong") || methodName.contains("getFloat"))) {
                             
-                            Log.d(TAG, "System settings access detected, using system UID to prevent mismatch");
+                            Slog.d(TAG, "System settings access detected, using system UID to prevent mismatch");
                             
                             return Process.SYSTEM_UID; 
                         }
                     }
                 } catch (Exception e) {
-                    Log.w(TAG, "Error analyzing stack trace for UID resolution: " + e.getMessage());
+                    Slog.w(TAG, "Error analyzing stack trace for UID resolution: " + e.getMessage());
                 }
                 
                 
@@ -136,7 +136,7 @@ public class NativeCore {
         try {
             File emptyJar = JarManager.getInstance().getEmptyJar();
             if (emptyJar == null) {
-                Log.w(TAG, "Empty JAR not available, attempting sync initialization");
+                Slog.w(TAG, "Empty JAR not available, attempting sync initialization");
                 JarManager.getInstance().initializeSync();
                 emptyJar = JarManager.getInstance().getEmptyJar();
             }
@@ -152,7 +152,7 @@ public class NativeCore {
             for (int i = 0; i < cookies.size(); i++) {
                 longs[i] = cookies.get(i);
             }
-            Log.d(TAG, "Successfully loaded empty DEX with " + cookies.size() + " cookies");
+            Slog.d(TAG, "Successfully loaded empty DEX with " + cookies.size() + " cookies");
             return longs;
         } catch (Exception e) {
             Log.e(TAG, "Failed to load empty DEX", e);

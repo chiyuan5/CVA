@@ -9,7 +9,7 @@ import com.chiyuan.va.utils.Slog;
 
 
 public class AndroidIdProxy extends ClassInvocationStub {
-    public static final String TAG = "AndroidIdProxy";
+    public static final String TAG = "ai.p";
 
     public AndroidIdProxy() {
         super();

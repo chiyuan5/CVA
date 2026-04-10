@@ -9,7 +9,7 @@ import com.chiyuan.va.utils.Slog;
 
 
 public class SystemLibraryProxy extends ClassInvocationStub {
-    public static final String TAG = "SystemLibraryProxy";
+    public static final String TAG = "sl.p";
 
     public SystemLibraryProxy() {
         super();

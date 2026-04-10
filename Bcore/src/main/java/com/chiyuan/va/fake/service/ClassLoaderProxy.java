@@ -27,7 +27,7 @@ import com.chiyuan.va.utils.DexFileRecovery;
 
 
 public class ClassLoaderProxy extends ClassInvocationStub {
-    private static final String TAG = "ClassLoaderProxy";
+    private static final String TAG = "CLP";
     
     
     private static final Map<String, Class<?>> sClassCache = new HashMap<>();

@@ -15,7 +15,7 @@ import com.chiyuan.va.utils.Slog;
 
 
 public class WebViewFactoryProxy extends ClassInvocationStub {
-    public static final String TAG = "WebViewFactoryProxy";
+    public static final String TAG = "wvf.p";
 
     public WebViewFactoryProxy() {
         super();

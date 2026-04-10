@@ -1,78 +1,108 @@
+
+
 package com.chiyuan.va.utils;
 
 import android.util.Log;
 
 
 public final class Slog {
-    public static final int LOG_ID_SYSTEM = 3;
+     public static final int LOG_ID_SYSTEM = 3;
 
-    
-    private static final byte[] _TAG = {
-        (byte)0x61, (byte)0x1E, (byte)0xB5, (byte)0xE6, (byte)0x9F, (byte)0x3D, (byte)0xC6
-    };
+    // Set to false for release builds to suppress all framework logs
+    private static volatile boolean sDebugMode = false;
 
-    private static String sTag;
-
-    public static String getTag() {
-        if (sTag == null) {
-            sTag = Str.dec(_TAG);
-        }
-        return sTag;
-    }
+    // Obfuscated tag prefix to avoid pattern matching on "CVA" / "ChiyuanVA" / "Hook" etc.
+    private static final String TAG_PREFIX = "sys.fw.";
 
     private Slog() {
     }
 
+    public static void setDebugMode(boolean debug) {
+        sDebugMode = debug;
+    }
+
+    private static String sanitizeTag(String tag) {
+        if (tag == null) return TAG_PREFIX + "u";
+        // Strip any identifiable keywords from tags
+        return TAG_PREFIX + Integer.toHexString(tag.hashCode() & 0xFFFF);
+    }
+
+    private static String sanitizeMsg(String msg) {
+        if (msg == null) return "";
+        // In release mode, don't output messages at all
+        return msg;
+    }
+
     public static int v(String tag, String msg) {
-        return Log.println(Log.VERBOSE, tag, msg);
+        if (!sDebugMode) return 0;
+        return Log.println(Log.VERBOSE, sanitizeTag(tag), sanitizeMsg(msg));
     }
 
     public static int v(String tag, String msg, Throwable tr) {
-        return Log.println(Log.VERBOSE, tag,
-                msg + '\n' + Log.getStackTraceString(tr));
+        if (!sDebugMode) return 0;
+        return Log.println(Log.VERBOSE, sanitizeTag(tag),
+                sanitizeMsg(msg) + '\n' + Log.getStackTraceString(tr));
     }
 
+    
     public static int d(String tag, String msg) {
-        return Log.println(Log.DEBUG, tag, msg);
+        if (!sDebugMode) return 0;
+        return Log.println(Log.DEBUG, sanitizeTag(tag), sanitizeMsg(msg));
     }
 
+    
     public static int d(String tag, String msg, Throwable tr) {
-        return Log.println(Log.DEBUG, tag,
-                msg + '\n' + Log.getStackTraceString(tr));
+        if (!sDebugMode) return 0;
+        return Log.println(Log.DEBUG, sanitizeTag(tag),
+                sanitizeMsg(msg) + '\n' + Log.getStackTraceString(tr));
     }
 
+    
     public static int i(String tag, String msg) {
-        return Log.println(Log.INFO, tag, msg);
+        if (!sDebugMode) return 0;
+        return Log.println(Log.INFO, sanitizeTag(tag), sanitizeMsg(msg));
     }
 
     public static int i(String tag, String msg, Throwable tr) {
-        return Log.println(Log.INFO, tag,
-                msg + '\n' + Log.getStackTraceString(tr));
+        if (!sDebugMode) return 0;
+        return Log.println(Log.INFO, sanitizeTag(tag),
+                sanitizeMsg(msg) + '\n' + Log.getStackTraceString(tr));
     }
 
+    
     public static int w(String tag, String msg) {
-        return Log.println(Log.WARN, tag, msg);
+        if (!sDebugMode) return 0;
+        return Log.println(Log.WARN, sanitizeTag(tag), sanitizeMsg(msg));
     }
 
+    
     public static int w(String tag, String msg, Throwable tr) {
-        return Log.println(Log.WARN, tag,
-                msg + '\n' + Log.getStackTraceString(tr));
+        if (!sDebugMode) return 0;
+        return Log.println(Log.WARN, sanitizeTag(tag),
+                sanitizeMsg(msg) + '\n' + Log.getStackTraceString(tr));
     }
 
     public static int w(String tag, Throwable tr) {
-        return Log.println(Log.WARN, tag, Log.getStackTraceString(tr));
+        if (!sDebugMode) return 0;
+        return Log.println(Log.WARN, sanitizeTag(tag), Log.getStackTraceString(tr));
     }
 
+    
     public static int e(String tag, String msg) {
-        return Log.println(Log.ERROR, tag, msg);
+        if (!sDebugMode) return 0;
+        return Log.println(Log.ERROR, sanitizeTag(tag), sanitizeMsg(msg));
     }
 
+    
     public static int e(String tag, String msg, Throwable tr) {
-        return Log.println(Log.ERROR, tag,
-                msg + '\n' + Log.getStackTraceString(tr));
+        if (!sDebugMode) return 0;
+        return Log.println(Log.ERROR, sanitizeTag(tag),
+                sanitizeMsg(msg) + '\n' + Log.getStackTraceString(tr));
     }
 
     public static int println(int priority, String tag, String msg) {
-        return Log.println(priority, tag, msg);
+        if (!sDebugMode) return 0;
+        return Log.println(priority, sanitizeTag(tag), sanitizeMsg(msg));
     }
 }
+

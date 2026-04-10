@@ -1,6 +1,7 @@
 package com.chiyuan.va.fake.service;
 
 import android.util.Log;
+import com.chiyuan.va.utils.Slog;
 
 import java.lang.reflect.Method;
 
@@ -18,7 +19,7 @@ public class ApkAssetsProxy extends ClassInvocationStub {
         try {
             Class.forName(APK_ASSETS_CLASS);
         } catch (ClassNotFoundException e) {
-            Log.w(TAG, "ApkAssets class not found: " + e.getMessage());
+            Slog.w(TAG, "ApkAssets class not found: " + e.getMessage());
         }
     }
 
@@ -54,7 +55,7 @@ public class ApkAssetsProxy extends ClassInvocationStub {
                                 path.contains(".frro") ||
                                 path.contains("systemui") ||
                                 path.contains("data@resource-cache@"))) {
-                Log.d(TAG, "Blocking problematic overlay path: " + path);
+                Slog.d(TAG, "Blocking problematic overlay path: " + path);
                 throw new RuntimeException("Blocked problematic overlay path: " + path);
             }
             
@@ -75,7 +76,7 @@ public class ApkAssetsProxy extends ClassInvocationStub {
                                 path.contains(".frro") ||
                                 path.contains("systemui") ||
                                 path.contains("data@resource-cache@"))) {
-                Log.d(TAG, "Blocking problematic native load path: " + path);
+                Slog.d(TAG, "Blocking problematic native load path: " + path);
                 throw new RuntimeException("Blocked problematic native load path: " + path);
             }
             

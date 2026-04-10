@@ -4,6 +4,7 @@ import android.content.Context;
 import android.location.LocationManager;
 import android.os.IInterface;
 import android.util.Log;
+import com.chiyuan.va.utils.Slog;
 
 import java.lang.reflect.Method;
 import java.util.Arrays;
@@ -57,7 +58,7 @@ public class ILocationManagerProxy extends BinderInvocationStub {
             if (method.getName().equals("getLastLocation") || 
                 method.getName().equals("getLastKnownLocation") ||
                 method.getName().equals("requestLocationUpdates")) {
-                Log.w(TAG, "Blocking location request from Google Play Services to prevent crash");
+                Slog.w(TAG, "Blocking location request from Google Play Services to prevent crash");
                 return null;
             }
         }
@@ -89,7 +90,7 @@ public class ILocationManagerProxy extends BinderInvocationStub {
                 return method.invoke(who, args);
             } catch (Exception e) {
                 if (e.getCause() instanceof SecurityException) {
-                    Log.w(TAG, "Location permission denied, returning null for getLastLocation");
+                    Slog.w(TAG, "Location permission denied, returning null for getLastLocation");
                     return null;
                 }
                 throw e;
@@ -111,7 +112,7 @@ public class ILocationManagerProxy extends BinderInvocationStub {
                 return method.invoke(who, args);
             } catch (Exception e) {
                 if (e.getCause() instanceof SecurityException) {
-                    Log.w(TAG, "Location permission denied, returning null for getLastKnownLocation");
+                    Slog.w(TAG, "Location permission denied, returning null for getLastKnownLocation");
                     return null;
                 }
                 throw e;
@@ -137,7 +138,7 @@ public class ILocationManagerProxy extends BinderInvocationStub {
                 return method.invoke(who, args);
             } catch (Exception e) {
                 if (e.getCause() instanceof SecurityException) {
-                    Log.w(TAG, "Location permission denied for requestLocationUpdates, returning 0");
+                    Slog.w(TAG, "Location permission denied for requestLocationUpdates, returning 0");
                     return 0;
                 }
                 throw e;

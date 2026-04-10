@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.IBinder;
 import android.telephony.TelephonyManager;
 import android.util.Log;
+import com.chiyuan.va.utils.Slog;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -111,7 +112,7 @@ public class ITelephonyManagerProxy extends BinderInvocationStub {
     public static class GetCellLocation extends MethodHook {
         @Override
         protected Object hook(Object who, Method method, Object[] args) throws Throwable {
-            Log.d(TAG, "getCellLocation");
+            Slog.d(TAG, "getCellLocation");
             if (BLocationManager.isFakeLocationEnable()) {
                 BCell cell = BLocationManager.get().getCell(BActivityThread.getUserId(), BActivityThread.getAppPackageName());
                 if (cell != null) {
@@ -144,7 +145,7 @@ public class ITelephonyManagerProxy extends BinderInvocationStub {
     public static class GetNetworkOperator extends MethodHook {
         @Override
         protected Object hook(Object who, Method method, Object[] args) throws Throwable {
-            Log.d(TAG, "getNetworkOperator");
+            Slog.d(TAG, "getNetworkOperator");
             return method.invoke(who, args);
         }
     }
@@ -165,7 +166,7 @@ public class ITelephonyManagerProxy extends BinderInvocationStub {
     public static class GetNeighboringCellInfo extends MethodHook {
         @Override
         protected Object hook(Object who, Method method, Object[] args) throws Throwable {
-            Log.d(TAG, "getNeighboringCellInfo");
+            Slog.d(TAG, "getNeighboringCellInfo");
             if (BLocationManager.isFakeLocationEnable()) {
                 List<BCell> cell = BLocationManager.get().getNeighboringCell(BActivityThread.getUserId(), BActivityThread.getAppPackageName());
                 

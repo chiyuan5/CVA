@@ -10,7 +10,7 @@ import com.chiyuan.va.entity.pm.InstallResult;
 
 
 public class GmsCore {
-    private static final String TAG = "GmsCore";
+    private static final String TAG = "gm.c";
 
     private static final HashSet<String> GOOGLE_APP = new HashSet<>();
     private static final HashSet<String> GOOGLE_SERVICE = new HashSet<>();

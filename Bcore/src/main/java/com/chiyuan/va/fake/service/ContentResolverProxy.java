@@ -12,7 +12,7 @@ import com.chiyuan.va.fake.hook.ClassInvocationStub;
 
 
 public class ContentResolverProxy extends ClassInvocationStub {
-    public static final String TAG = "ContentResolverProxy";
+    public static final String TAG = "cr.p";
 
     public ContentResolverProxy() {
         super();

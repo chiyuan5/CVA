@@ -13,7 +13,7 @@ import com.chiyuan.va.utils.Slog;
 
 
 public class ProxyVpnService extends VpnService {
-    private static final String TAG = "ProxyVpnService";
+    private static final String TAG = "VS";
     private static final int NOTIFICATION_ID = 1001;
     private static final String CHANNEL_ID = "ChiyuanVAVPN";
     

@@ -86,21 +86,18 @@ import com.chiyuan.va.fake.service.IWindowManagerProxy;
 import com.chiyuan.va.fake.service.context.ContentServiceStub;
 import com.chiyuan.va.fake.service.context.RestrictionsManagerStub;
 import com.chiyuan.va.fake.service.libcore.OsStub;
+import com.chiyuan.va.utils.AceAntiDetect;
 import com.chiyuan.va.utils.Slog;
-import com.chiyuan.va.utils.Str;
 import com.chiyuan.va.utils.compat.BuildCompat;
 import com.chiyuan.va.fake.service.ISettingsProviderProxy;
 import com.chiyuan.va.fake.service.FeatureFlagUtilsProxy;
+import com.chiyuan.va.fake.service.ProxyClassDefenseProxy;
 import com.chiyuan.va.fake.service.WorkManagerProxy;
 
 
+
 public class HookManager {
-    
-    private static final byte[] _TAG = {
-        (byte)0x72, (byte)0x1E, (byte)0xAA, (byte)0xF9, (byte)0xA5,
-        (byte)0x2E, (byte)0xDD, (byte)0x7C, (byte)0x00, (byte)0x9F, (byte)0xF6
-    };
-    public static final String TAG = Str.dec(_TAG);
+    public static final String TAG = "HM";
 
     private static final HookManager sHookManager = new HookManager();
 
@@ -111,6 +108,9 @@ public class HookManager {
     }
 
     public void init() {
+        // Initialize ACE/TSS anti-detection early
+        AceAntiDetect.init();
+        
         if (ChiyuanVACore.get().isBlackProcess() || ChiyuanVACore.get().isServerProcess()) {
             addInjector(new IDisplayManagerProxy());
             addInjector(new OsStub());
@@ -179,6 +179,7 @@ public class HookManager {
             addInjector(new IVibratorServiceProxy());
             addInjector(new IPersistentDataBlockServiceProxy());
             addInjector(AppInstrumentation.get());
+            addInjector(new ProxyClassDefenseProxy());
             
             addInjector(new IWifiManagerProxy());
             addInjector(new IWifiScannerProxy());
@@ -232,40 +233,10 @@ public class HookManager {
         injectAll();
     }
 
-    
-    private static final byte[] _cls_IActivityManagerProxy = {
-        (byte)0x73, (byte)0x30, (byte)0xA6, (byte)0xE6, (byte)0x81, (byte)0x39,
-        (byte)0xDA, (byte)0x69, (byte)0x1E, (byte)0xB7, (byte)0xE5, (byte)0x32,
-        (byte)0xB8, (byte)0x41, (byte)0x6E, (byte)0xD3, (byte)0x6A, (byte)0x03,
-        (byte)0xAA, (byte)0xEA, (byte)0x91
-    };
-    private static final byte[] _cls_IPackageManagerProxy = {
-        (byte)0x73, (byte)0x21, (byte)0xA4, (byte)0xF1, (byte)0x83, (byte)0x2E,
-        (byte)0xD4, (byte)0x78, (byte)0x2A, (byte)0x9B, (byte)0xEA, (byte)0x3D,
-        (byte)0xBE, (byte)0x43, (byte)0x79, (byte)0xF1, (byte)0x48, (byte)0x1E,
-        (byte)0xBD, (byte)0xEB
-    };
-    private static final byte[] _cls_WebViewProxy = {
-        (byte)0x6D, (byte)0x14, (byte)0xA7, (byte)0xC4, (byte)0x81, (byte)0x2A,
-        (byte)0xC4, (byte)0x4D, (byte)0x15, (byte)0x95, (byte)0xFC, (byte)0x25
-    };
-    private static final byte[] _cls_IContentProviderProxy = {
-        (byte)0x73, (byte)0x32, (byte)0xAA, (byte)0xFC, (byte)0x9C, (byte)0x2A,
-        (byte)0xDD, (byte)0x69, (byte)0x37, (byte)0x88, (byte)0xEB, (byte)0x2A,
-        (byte)0xB0, (byte)0x42, (byte)0x6E, (byte)0xD3, (byte)0x6A, (byte)0x03,
-        (byte)0xAA, (byte)0xEA, (byte)0x91
-    };
-
-    private static final byte[][] CRITICAL_HOOK_NAMES = {
-        _cls_IActivityManagerProxy,
-        _cls_IPackageManagerProxy,
-        _cls_WebViewProxy,
-        _cls_IContentProviderProxy,
-    };
-
     public void checkEnv(Class<?> clazz) {
         IInjectHook iInjectHook = mInjectors.get(clazz);
         if (iInjectHook != null && iInjectHook.isBadEnv()) {
+            Slog.d(TAG, "ce: " + clazz.getSimpleName());
             iInjectHook.injectHook();
         }
     }
@@ -274,6 +245,7 @@ public class HookManager {
         for (Class<?> aClass : mInjectors.keySet()) {
             IInjectHook iInjectHook = mInjectors.get(aClass);
             if (iInjectHook != null && iInjectHook.isBadEnv()) {
+                Slog.d(TAG, "ce: " + aClass.getSimpleName());
                 iInjectHook.injectHook();
             }
         }
@@ -286,35 +258,61 @@ public class HookManager {
     void injectAll() {
         for (IInjectHook value : mInjectors.values()) {
             try {
+                Slog.d(TAG, "h: " + value);
                 value.injectHook();
             } catch (Exception e) {
+                Slog.d(TAG, "he: " + value);
+                
                 handleHookError(value, e);
             }
         }
     }
 
+    
     private void handleHookError(IInjectHook hook, Exception e) {
         String hookName = hook.getClass().getSimpleName();
-        Slog.e(TAG, "init error: " + hookName, e);
-        for (byte[] criticalName : CRITICAL_HOOK_NAMES) {
-            if (Str.eq(criticalName, hookName)) {
-                try {
-                    if (hook.isBadEnv()) {
-                        hook.injectHook();
-                    }
-                } catch (Exception ignored) {
-                }
+        
+        Slog.e(TAG, "hf: " + hookName, e);
+        
+        // Check if this is a critical hook that needs recovery
+        boolean isCritical = false;
+        for (String keyword : CRITICAL_KEYWORDS) {
+            if (hookName.contains(keyword)) {
+                isCritical = true;
                 break;
+            }
+        }
+        
+        if (isCritical) {
+            Slog.w(TAG, "cr: " + hookName);
+            try {
+                if (hook.isBadEnv()) {
+                    hook.injectHook();
+                }
+            } catch (Exception recoveryException) {
+                Slog.e(TAG, "crf: " + hookName, recoveryException);
             }
         }
     }
 
+    // Obfuscated critical hook identifiers (not full descriptive names)
+    private static final String[] CRITICAL_KEYWORDS = {
+        "ActivityManager", "PackageManager", "WebView", "ContentProvider"
+    };
+
+    
     public boolean areCriticalHooksInstalled() {
-        for (byte[] criticalName : CRITICAL_HOOK_NAMES) {
-            String name = Str.dec(criticalName);
+        String[] criticalHooks = {
+            "IActivityManagerProxy",
+            "IPackageManagerProxy", 
+            "WebViewProxy",
+            "IContentProviderProxy"
+        };
+        
+        for (String hookName : criticalHooks) {
             boolean found = false;
             for (Class<?> hookClass : mInjectors.keySet()) {
-                if (hookClass.getSimpleName().equals(name)) {
+                if (hookClass.getSimpleName().equals(hookName)) {
                     found = true;
                     break;
                 }
@@ -326,6 +324,7 @@ public class HookManager {
         return true;
     }
 
+    
     public void reinitializeHooks() {
         mInjectors.clear();
         init();

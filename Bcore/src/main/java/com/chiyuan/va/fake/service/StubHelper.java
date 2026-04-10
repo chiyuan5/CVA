@@ -2,6 +2,7 @@ package com.chiyuan.va.fake.service;
 
 import android.os.IBinder;
 import android.util.Log;
+import com.chiyuan.va.utils.Slog;
 
 import java.lang.reflect.Method;
 
@@ -44,10 +45,10 @@ public class StubHelper {
                 IBinder binder = BRServiceManager.get().getService(serviceName);
                 return asInterfaceMethod.invoke(stub, binder);
             } else {
-                Log.w(TAG, "Could not find asInterface method in " + stubClassName);
+                Slog.w(TAG, "Could not find asInterface method in " + stubClassName);
             }
         } catch (Exception e) {
-            Log.w(TAG, "Failed to use generated stub class: " + stubClassName, e);
+            Slog.w(TAG, "Failed to use generated stub class: " + stubClassName, e);
         }
         
         
@@ -57,7 +58,7 @@ public class StubHelper {
             Method asInterfaceMethod = stubClass.getMethod("asInterface", IBinder.class);
             return asInterfaceMethod.invoke(null, binder);
         } catch (Exception ex) {
-            Log.e(TAG, "Failed to get service interface for: " + serviceName, ex);
+            Slog.e(TAG, "Failed to get service interface for: " + serviceName, ex);
             return null;
         }
     }
@@ -95,10 +96,10 @@ public class StubHelper {
                 IBinder serviceBinder = binder != null ? binder : BRServiceManager.get().getService(serviceName);
                 return asInterfaceMethod.invoke(stub, serviceBinder);
             } else {
-                Log.w(TAG, "Could not find asInterface method in " + stubClassName);
+                Slog.w(TAG, "Could not find asInterface method in " + stubClassName);
             }
         } catch (Exception e) {
-            Log.w(TAG, "Failed to use generated stub class: " + stubClassName, e);
+            Slog.w(TAG, "Failed to use generated stub class: " + stubClassName, e);
         }
         
         
@@ -108,7 +109,7 @@ public class StubHelper {
             Method asInterfaceMethod = stubClass.getMethod("asInterface", IBinder.class);
             return asInterfaceMethod.invoke(null, serviceBinder);
         } catch (Exception ex) {
-            Log.e(TAG, "Failed to get service interface for: " + serviceName, ex);
+            Slog.e(TAG, "Failed to get service interface for: " + serviceName, ex);
             return null;
         }
     }

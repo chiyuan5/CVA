@@ -15,12 +15,11 @@ import com.chiyuan.va.fake.hook.ClassInvocationStub;
 import com.chiyuan.va.fake.hook.MethodHook;
 import com.chiyuan.va.fake.hook.ProxyMethod;
 import com.chiyuan.va.utils.Slog;
-import com.chiyuan.va.utils.Str;
 import com.chiyuan.va.app.BActivityThread;
 
 
 public class WebViewProxy extends ClassInvocationStub {
-    public static final String TAG = "WebViewProxy";
+    public static final String TAG = "WVP";
 
     public WebViewProxy() {
         super();
@@ -139,9 +138,9 @@ public class WebViewProxy extends ClassInvocationStub {
                     }
 
                     
-                    String userAgent = settings.getUserAgentString();
-                    if (userAgent != null && !userAgent.contains(Str.dec(_vaUserName))) {
-                        settings.setUserAgentString(userAgent + " ChiyuanVA");
+                    // UA fingerprint removed for anti-detection
+                    // Removed: do not append framework identifier to user agent
+                        // UA string left unchanged to avoid detection
                     }
 
                     

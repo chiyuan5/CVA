@@ -10,7 +10,7 @@ import com.chiyuan.va.utils.Slog;
 
 
 public class FileSystemProxy extends ClassInvocationStub {
-    public static final String TAG = "FileSystemProxy";
+    public static final String TAG = "fs.p";
 
     public FileSystemProxy() {
         super();

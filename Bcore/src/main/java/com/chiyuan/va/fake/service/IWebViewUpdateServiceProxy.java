@@ -12,7 +12,7 @@ import com.chiyuan.va.utils.Slog;
 
 
 public class IWebViewUpdateServiceProxy extends ClassInvocationStub {
-    public static final String TAG = "IWebViewUpdateServiceProxy";
+    public static final String TAG = "wvu.p";
 
     public IWebViewUpdateServiceProxy() {
         super();
