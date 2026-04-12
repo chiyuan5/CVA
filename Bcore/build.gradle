@@ -68,10 +68,9 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.2.0'
 
     implementation 'me.weishu:free_reflection:3.0.1'
-    implementation "com.github.CodingGay.BlackReflection:core:$rootProject.ext.blackReflection"
+    implementation project(':black-reflection')
     implementation project(':Bcore:black-fake')
     implementation project(':Bcore:black-hook')
-    implementation project(':android-mirror')
 
     implementation project(':Bcore:pine-core')
     implementation project(':Bcore:pine-xposed')

@@ -45,6 +45,5 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar', '*.aar'])
     implementation project(':Bcore:pine-xposed')
-    implementation project(':android-mirror')
     implementation project(':Bcore:black-fake')
 }
