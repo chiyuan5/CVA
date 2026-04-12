@@ -1,13 +1,13 @@
-
-
-
+//
+// Created by Milk on 4/9/21.
+//
 
 #ifndef VIRTUALM_VMCORE_H
 #define VIRTUALM_VMCORE_H
 
 #include <jni.h>
 
-#define VMCORE_CLASS "com/chiyuan/va/core/NativeCore"
+#define VMCORE_CLASS "top/niunaijun/blackbox/core/NativeCore"
 
 class BoxCore {
 public:
@@ -20,4 +20,4 @@ public:
 };
 
 
-#endif 
+#endif //VIRTUALM_VMCORE_H

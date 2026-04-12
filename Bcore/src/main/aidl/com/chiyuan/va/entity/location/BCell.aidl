@@ -1,3 +1,0 @@
-package com.chiyuan.va.entity.location;
-
-parcelable BCell;

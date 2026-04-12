@@ -1,9 +1,9 @@
+//
+// Created by Milk on 2021/5/5.
+//
 
-
-
-
-#ifndef CHIYUANVA_VMCLASSLOADERHOOK_H
-#define CHIYUANVA_VMCLASSLOADERHOOK_H
+#ifndef BLACKBOX_VMCLASSLOADERHOOK_H
+#define BLACKBOX_VMCLASSLOADERHOOK_H
 
 
 #include "BaseHook.h"
@@ -16,4 +16,4 @@ public:
 };
 
 
-#endif 
+#endif //BLACKBOX_VMCLASSLOADERHOOK_H

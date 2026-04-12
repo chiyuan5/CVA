@@ -1,9 +1,9 @@
+//
+// Created by Milk on 5/5/21.
+//
 
-
-
-
-#ifndef CHIYUANVA_RUNTIMEHOOK_H
-#define CHIYUANVA_RUNTIMEHOOK_H
+#ifndef BLACKBOX_RUNTIMEHOOK_H
+#define BLACKBOX_RUNTIMEHOOK_H
 
 
 #include "BaseHook.h"
@@ -15,4 +15,4 @@ public:
 };
 
 
-#endif 
+#endif //BLACKBOX_RUNTIMEHOOK_H

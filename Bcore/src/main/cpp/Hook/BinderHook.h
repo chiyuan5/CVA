@@ -1,9 +1,9 @@
+//
+// Created by Milk on 4/25/21.
+//
 
-
-
-
-#ifndef CHIYUANVA_BINDERHOOK_H
-#define CHIYUANVA_BINDERHOOK_H
+#ifndef BLACKBOX_BINDERHOOK_H
+#define BLACKBOX_BINDERHOOK_H
 
 
 #include "BaseHook.h"
@@ -13,4 +13,4 @@ public:
     static void init(JNIEnv *env);
 };
 
-#endif 
+#endif //BLACKBOX_BINDERHOOK_H

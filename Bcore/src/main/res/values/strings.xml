@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="black_box_service_name">:core</string>
-    <string name="app_icon">default icon</string>
+    <string name="black_box_service_name">:black</string>
+    <string name="black_box_daemon_title">BlackBox core service</string>
+    <string name="black_box_daemon_text">Keeping the clone core process running</string>
 </resources>
