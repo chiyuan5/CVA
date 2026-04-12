@@ -1,12 +1,12 @@
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion rootProject.ext.bcoreCompileSdkVersion
-    buildToolsVersion rootProject.ext.bcoreBuildToolsVersion
+    compileSdkVersion 28
+    buildToolsVersion "28.0.2"
 
     defaultConfig {
         minSdkVersion 21
-        targetSdkVersion rootProject.ext.bcoreTargetSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
         versionName "1.0"
 
@@ -68,9 +68,10 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.2.0'
 
     implementation 'me.weishu:free_reflection:3.0.1'
-    implementation project(':black-reflection')
+    implementation "com.github.CodingGay.BlackReflection:core:$rootProject.ext.blackReflection"
     implementation project(':Bcore:black-fake')
     implementation project(':Bcore:black-hook')
+    implementation project(':android-mirror')
 
     implementation project(':Bcore:pine-core')
     implementation project(':Bcore:pine-xposed')

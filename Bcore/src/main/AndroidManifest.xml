@@ -360,13 +360,11 @@
         <service
             android:name="top.niunaijun.blackbox.core.system.DaemonService"
             android:exported="false"
-            android:foregroundServiceType="dataSync"
             android:process="@string/black_box_service_name" />
 
         <service
             android:name="top.niunaijun.blackbox.core.system.DaemonService$DaemonInnerService"
             android:exported="false"
-            android:foregroundServiceType="dataSync"
             android:process="@string/black_box_service_name" />
 
         <activity

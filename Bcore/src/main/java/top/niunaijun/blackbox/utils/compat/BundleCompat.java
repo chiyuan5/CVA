@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
-import android.os.Parcelable;
 
 import black.android.os.BRBundle;
 
@@ -37,13 +36,6 @@ public class BundleCompat {
             return getBinder(bundle, "binder");
         }
         return null;
-    }
-
-    public static <T extends Parcelable> T getParcelable(Intent intent, String key, Class<T> clazz) {
-        if (BuildCompat.isTiramisu()) {
-            return intent.getParcelableExtra(key, clazz);
-        }
-        return intent.getParcelableExtra(key);
     }
 
 //    public static void clearParcelledData(Bundle bundle) {

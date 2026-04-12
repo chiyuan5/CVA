@@ -6,8 +6,11 @@ import android.content.res.Configuration;
 import android.os.IBinder;
 
 import androidx.annotation.Nullable;
+import androidx.core.app.NotificationCompat;
 
+import top.niunaijun.blackbox.BlackBoxCore;
 import top.niunaijun.blackbox.app.dispatcher.AppServiceDispatcher;
+import top.niunaijun.blackbox.utils.compat.BuildCompat;
 
 /**
  * Created by Milk on 3/30/21.
@@ -62,6 +65,13 @@ public class ProxyService extends Service {
         return false;
     }
 
+    private void showNotification() {
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(), getPackageName() + ".blackbox_proxy")
+                .setPriority(NotificationCompat.PRIORITY_MAX);
+        if (BuildCompat.isOreo()) {
+            startForeground(BlackBoxCore.getHostPkg().hashCode(), builder.build());
+        }
+    }
 
     public static class P0 extends ProxyService {
 

@@ -115,6 +115,12 @@ tasks.withType(Javadoc) {
 }
 
 
+repositories {
+    flatDir {
+        dirs 'libs'
+    }
+}
+
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar", "*.aar"])
     implementation project(':Bcore')

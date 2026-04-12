@@ -11,7 +11,6 @@ import androidx.annotation.Nullable;
 import top.niunaijun.blackbox.BlackBoxCore;
 import top.niunaijun.blackbox.R;
 import top.niunaijun.blackbox.utils.Slog;
-import top.niunaijun.blackbox.utils.compat.BundleCompat;
 
 /**
  * Created by BlackBox on 2022/2/24.
@@ -43,7 +42,7 @@ public class LauncherActivity extends Activity {
             finish();
             return;
         }
-        Intent launchIntent = BundleCompat.getParcelable(intent, KEY_INTENT, Intent.class);
+        Intent launchIntent = intent.getParcelableExtra(KEY_INTENT);
         String packageName = intent.getStringExtra(KEY_PKG);
         int userId = intent.getIntExtra(KEY_USER_ID, 0);
 

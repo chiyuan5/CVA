@@ -9,8 +9,6 @@ import android.util.Log;
 
 import androidx.core.app.NotificationCompat;
 
-import top.niunaijun.blackbox.R;
-
 import top.niunaijun.blackbox.BlackBoxCore;
 import top.niunaijun.blackbox.utils.compat.BuildCompat;
 
@@ -55,11 +53,7 @@ public class DaemonService extends Service {
 
     private void showNotification() {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(), getPackageName() + ".blackbox_core")
-                .setSmallIcon(android.R.drawable.stat_notify_sync)
-                .setContentTitle(getString(R.string.black_box_daemon_title))
-                .setContentText(getString(R.string.black_box_daemon_text))
-                .setOngoing(true)
-                .setPriority(NotificationCompat.PRIORITY_LOW);
+                .setPriority(NotificationCompat.PRIORITY_MAX);
         startForeground(NOTIFY_ID, builder.build());
     }
 

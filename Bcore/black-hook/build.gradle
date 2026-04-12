@@ -3,12 +3,12 @@ plugins {
 }
 
 android {
-    compileSdkVersion rootProject.ext.bcoreCompileSdkVersion
-    buildToolsVersion rootProject.ext.bcoreBuildToolsVersion
+    compileSdkVersion 30
+    buildToolsVersion "30.0.3"
 
     defaultConfig {
         minSdkVersion 21
-        targetSdkVersion rootProject.ext.bcoreTargetSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
         versionName "1.0"
 

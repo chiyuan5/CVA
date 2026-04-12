@@ -38,8 +38,8 @@ public class ProxyServiceRecord {
     }
 
     public static ProxyServiceRecord create(Intent intent) {
-        Intent target = BundleCompat.getParcelable(intent, "_B_|_target_", Intent.class);
-        ServiceInfo serviceInfo = BundleCompat.getParcelable(intent, "_B_|_service_info_", ServiceInfo.class);
+        Intent target = intent.getParcelableExtra("_B_|_target_");
+        ServiceInfo serviceInfo = intent.getParcelableExtra("_B_|_service_info_");
         int userId = intent.getIntExtra("_B_|_user_id_", 0);
         int startId = intent.getIntExtra("_B_|_start_id_", 0);
         IBinder token = BundleCompat.getBinder(intent, "_B_|_token_");

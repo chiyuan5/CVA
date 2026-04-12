@@ -2,8 +2,6 @@ package top.niunaijun.blackbox.proxy.record;
 
 import android.content.Intent;
 
-import top.niunaijun.blackbox.utils.compat.BundleCompat;
-
 /**
  * Created by Milk on 4/7/21.
  * * ∧＿∧
@@ -27,7 +25,7 @@ public class ProxyBroadcastRecord {
     }
 
     public static ProxyBroadcastRecord create(Intent intent) {
-        Intent target = BundleCompat.getParcelable(intent, "_B_|_target_", Intent.class);
+        Intent target = intent.getParcelableExtra("_B_|_target_");
         int userId = intent.getIntExtra("_B_|_user_id_", 0);
         return new ProxyBroadcastRecord(target, userId);
     }

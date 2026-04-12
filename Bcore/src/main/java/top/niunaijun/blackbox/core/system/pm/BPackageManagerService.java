@@ -43,7 +43,6 @@ import top.niunaijun.blackbox.entity.pm.InstalledPackage;
 import top.niunaijun.blackbox.utils.AbiUtils;
 import top.niunaijun.blackbox.utils.FileUtils;
 import top.niunaijun.blackbox.utils.Slog;
-import top.niunaijun.blackbox.utils.compat.ContextCompat;
 import top.niunaijun.blackbox.utils.compat.PackageParserCompat;
 import top.niunaijun.blackbox.utils.compat.XposedParserCompat;
 
@@ -79,7 +78,8 @@ public class BPackageManagerService extends IBPackageManagerService.Stub impleme
         filter.addAction("android.intent.action.PACKAGE_ADDED");
         filter.addAction("android.intent.action.PACKAGE_REMOVED");
         filter.addDataScheme("package");
-        ContextCompat.registerReceiver(BlackBoxCore.getContext(), mPackageChangedHandler, filter, true);
+        BlackBoxCore.getContext()
+                .registerReceiver(mPackageChangedHandler, filter);
     }
 
     private final BroadcastReceiver mPackageChangedHandler = new BroadcastReceiver() {

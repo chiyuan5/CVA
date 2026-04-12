@@ -2,8 +2,6 @@ package top.niunaijun.blackbox.proxy.record;
 
 import android.content.Intent;
 
-import top.niunaijun.blackbox.utils.compat.BundleCompat;
-
 /**
  * Created by Milk on 3/31/21.
  * * ∧＿∧
@@ -28,7 +26,7 @@ public class ProxyPendingRecord {
 
     public static ProxyPendingRecord create(Intent intent) {
         int userId = intent.getIntExtra("_B_|_P_user_id_", 0);
-        Intent target = BundleCompat.getParcelable(intent, "_B_|_P_target_", Intent.class);
+        Intent target = intent.getParcelableExtra("_B_|_P_target_");
         return new ProxyPendingRecord(target, userId);
     }
 

@@ -18,7 +18,6 @@ import top.niunaijun.blackbox.core.system.pm.PackageMonitor;
 import top.niunaijun.blackbox.entity.am.PendingResultData;
 import top.niunaijun.blackbox.proxy.ProxyBroadcastReceiver;
 import top.niunaijun.blackbox.utils.Slog;
-import top.niunaijun.blackbox.utils.compat.ContextCompat;
 
 /**
  * Created by BlackBox on 2022/2/28.
@@ -86,7 +85,7 @@ public class BroadcastManager implements PackageMonitor {
                 List<BPackage.ActivityIntentInfo> intents = receiver.intents;
                 for (BPackage.ActivityIntentInfo intent : intents) {
                     ProxyBroadcastReceiver proxyBroadcastReceiver = new ProxyBroadcastReceiver();
-                    ContextCompat.registerReceiver(BlackBoxCore.getContext(), proxyBroadcastReceiver, intent.intentFilter, true);
+                    BlackBoxCore.getContext().registerReceiver(proxyBroadcastReceiver, intent.intentFilter);
                     addReceiver(bPackage.packageName, proxyBroadcastReceiver);
                 }
             }

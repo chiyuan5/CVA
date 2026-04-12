@@ -19,7 +19,6 @@ import top.niunaijun.blackbox.utils.ComponentUtils;
 import top.niunaijun.blackbox.utils.MethodParameterUtils;
 import top.niunaijun.blackbox.utils.Slog;
 import top.niunaijun.blackbox.utils.compat.BuildCompat;
-import top.niunaijun.blackbox.utils.compat.BundleCompat;
 import top.niunaijun.blackbox.utils.compat.StartActivityCompat;
 
 import static android.content.pm.PackageManager.GET_META_DATA;
@@ -43,7 +42,7 @@ public class ActivityManagerCommonProxy {
             Intent intent = getIntent(args);
             Slog.d(TAG, "Hook in : " + intent);
             assert intent != null;
-            if (BundleCompat.getParcelable(intent, "_B_|_target_", Intent.class) != null) {
+            if (intent.getParcelableExtra("_B_|_target_") != null) {
                 return method.invoke(who, args);
             }
             if (ComponentUtils.isRequestInstall(intent)) {

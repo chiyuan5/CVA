@@ -1,28 +1,10 @@
-pluginManagement {
-    repositories {
-        google()
-        mavenCentral()
-        gradlePluginPortal()
-        maven { url "https://www.jitpack.io" }
-    }
-}
-
-dependencyResolutionManagement {
-    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
-    repositories {
-        google()
-        mavenCentral()
-        maven { url "https://www.jitpack.io" }
-    }
-}
-
-rootProject.name = "ChiyuanVA"
-include ':app'
-include(":black-reflection")
-include(":compiler")
 include ':Bcore'
+include ':app'
 include ':Bcore:black-fake'
 include ':Bcore:black-hook'
-include ':Bcore:pine-core'
 include ':Bcore:pine-xposed'
+include ':Bcore:pine-core'
 include ':Bcore:pine-xposed-res'
+include ':android-mirror'
+
+rootProject.name = "BlackBox"

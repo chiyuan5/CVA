@@ -1,10 +1,7 @@
 package top.niunaijun.blackbox.utils.compat;
 
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.ContextWrapper;
-import android.content.Intent;
-import android.content.IntentFilter;
 
 import black.android.app.BRContextImpl;
 import black.android.app.BRContextImplKitkat;
@@ -36,14 +33,6 @@ public class ContextCompat {
             attributionSourceStateContext._set_uid(uid);
             fixAttributionSourceState(BRAttributionSource.get(obj).getNext(), uid);
         }
-    }
-
-    public static Intent registerReceiver(Context context, BroadcastReceiver receiver, IntentFilter filter, boolean exported) {
-        if (BuildCompat.isTiramisu()) {
-            return context.registerReceiver(receiver, filter,
-                    exported ? Context.RECEIVER_EXPORTED : Context.RECEIVER_NOT_EXPORTED);
-        }
-        return context.registerReceiver(receiver, filter);
     }
 
     public static void fix(Context context) {
