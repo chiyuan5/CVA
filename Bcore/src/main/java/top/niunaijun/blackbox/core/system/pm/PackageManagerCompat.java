@@ -17,6 +17,7 @@ import android.content.res.AssetManager;
 import android.content.res.Resources;
 import android.os.Build;
 
+import java.io.File;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -31,6 +32,7 @@ import top.niunaijun.blackbox.core.env.BEnvironment;
 import top.niunaijun.blackbox.entity.pm.InstallOption;
 import top.niunaijun.blackbox.utils.ArrayUtils;
 import top.niunaijun.blackbox.utils.FileUtils;
+import top.niunaijun.blackbox.utils.NativeUtils;
 import top.niunaijun.blackbox.utils.compat.BuildCompat;
 
 /**
@@ -306,7 +308,12 @@ public class PackageManagerCompat {
 //        ai.uid = baseApplication.uid;
 
         if (BuildCompat.isL()) {
-            BRApplicationInfoL.get(ai)._set_primaryCpuAbi(Build.CPU_ABI);
+            String primaryAbi = Build.CPU_ABI;
+            try {
+                primaryAbi = NativeUtils.resolvePrimaryCpuAbi(new File(sourceDir));
+            } catch (Throwable ignored) {
+            }
+            BRApplicationInfoL.get(ai)._set_primaryCpuAbi(primaryAbi);
             BRApplicationInfoL.get(ai)._set_scanPublicSourceDir(BRApplicationInfoL.get(baseApplication).scanPublicSourceDir());
             BRApplicationInfoL.get(ai)._set_scanSourceDir(BRApplicationInfoL.get(baseApplication).scanSourceDir());
         }
