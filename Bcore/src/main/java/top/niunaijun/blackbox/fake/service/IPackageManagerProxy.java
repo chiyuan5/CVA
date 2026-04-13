@@ -304,8 +304,9 @@ public class IPackageManagerProxy extends BinderInvocationStub {
     public static class CanRequestPackageInstalls extends MethodHook {
         @Override
         protected Object hook(Object who, Method method, Object[] args) throws Throwable {
-            MethodParameterUtils.replaceFirstAppPkg(args);
-            return method.invoke(who, args);
+            // Virtual apps often check this during splash and call System.exit(1)
+            // when the package installer permission page is not available in sandbox.
+            return true;
         }
     }
 

@@ -81,7 +81,10 @@ public class IAppOpsManagerProxy extends BinderInvocationStub {
         @Override
         protected Object hook(Object who, Method method, Object[] args) throws Throwable {
             MethodParameterUtils.replaceLastUid(args);
-            return method.invoke(who, args);
+            // Environment.isExternalStorageManager() and similar checks may route here.
+            // Returning MODE_ALLOWED avoids sandboxed apps immediately jumping to
+            // settings and exiting during splash.
+            return AppOpsManager.MODE_ALLOWED;
         }
     }
 
@@ -89,7 +92,7 @@ public class IAppOpsManagerProxy extends BinderInvocationStub {
     public static class NoteOperation extends MethodHook {
         @Override
         protected Object hook(Object who, Method method, Object[] args) throws Throwable {
-            return method.invoke(who, args);
+            return AppOpsManager.MODE_ALLOWED;
         }
     }
 }

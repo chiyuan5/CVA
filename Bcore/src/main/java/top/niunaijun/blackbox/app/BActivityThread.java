@@ -328,7 +328,22 @@ public class BActivityThread extends IBActivityThread.Stub {
             }
         }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-            WebView.setDataDirectorySuffix(getUserId() + ":" + packageName + ":" + processName);
+            String safeProcessName = processName == null ? packageName : processName.replace(':', '_');
+            String webViewSuffix = getUserId() + "_" + packageName + "_" + safeProcessName;
+            WebView.setDataDirectorySuffix(webViewSuffix);
+            try {
+                File dataDir = packageContext.getDataDir();
+                if (dataDir != null) {
+                    new File(dataDir, "app_webview_" + webViewSuffix).mkdirs();
+                }
+                File cacheDir = packageContext.getCacheDir();
+                if (cacheDir != null) {
+                    File webViewCacheDir = new File(cacheDir, "webview_" + webViewSuffix);
+                    new File(webViewCacheDir, "Default/HTTP Cache/Code Cache/js").mkdirs();
+                    new File(webViewCacheDir, "GPUCache").mkdirs();
+                }
+            } catch (Throwable ignored) {
+            }
         }
 
         VirtualRuntime.setupRuntime(processName, applicationInfo);

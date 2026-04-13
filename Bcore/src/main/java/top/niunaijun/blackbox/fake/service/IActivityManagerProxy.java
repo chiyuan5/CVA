@@ -68,6 +68,19 @@ import static android.content.pm.PackageManager.PERMISSION_GRANTED;
  */
 @ScanClass(ActivityManagerCommonProxy.class)
 public class IActivityManagerProxy extends ClassInvocationStub {
+
+    private static boolean isOpenSystemServiceIntent(Intent intent) {
+        if (intent == null) {
+            return false;
+        }
+        ComponentName component = intent.getComponent();
+        if (AppSystemEnv.isOpenPackage(component)) {
+            return true;
+        }
+        String pkg = intent.getPackage();
+        return AppSystemEnv.isOpenPackage(pkg);
+    }
+
     public static final String TAG = "ActivityManagerStub";
 
     @Override
@@ -193,6 +206,9 @@ public class IActivityManagerProxy extends ClassInvocationStub {
         protected Object hook(Object who, Method method, Object[] args) throws Throwable {
             Intent intent = (Intent) args[1];
             String resolvedType = (String) args[2];
+            if (isOpenSystemServiceIntent(intent)) {
+                return method.invoke(who, args);
+            }
             ResolveInfo resolveInfo = BlackBoxCore.getBPackageManager().resolveService(intent, 0, resolvedType, BActivityThread.getUserId());
             if (resolveInfo == null) {
                 return method.invoke(who, args);
@@ -220,6 +236,9 @@ public class IActivityManagerProxy extends ClassInvocationStub {
         protected Object hook(Object who, Method method, Object[] args) throws Throwable {
             Intent intent = (Intent) args[1];
             String resolvedType = (String) args[2];
+            if (isOpenSystemServiceIntent(intent)) {
+                return method.invoke(who, args);
+            }
             return BlackBoxCore.getBActivityManager().stopService(intent, resolvedType, BActivityThread.getUserId());
         }
     }
@@ -230,6 +249,9 @@ public class IActivityManagerProxy extends ClassInvocationStub {
         protected Object hook(Object who, Method method, Object[] args) throws Throwable {
             ComponentName componentName = (ComponentName) args[0];
             IBinder token = (IBinder) args[1];
+            if (AppSystemEnv.isOpenPackage(componentName)) {
+                return method.invoke(who, args);
+            }
             BlackBoxCore.getBActivityManager().stopServiceToken(componentName, token, BActivityThread.getUserId());
             return true;
         }
@@ -246,8 +268,11 @@ public class IActivityManagerProxy extends ClassInvocationStub {
 
             int userId = intent.getIntExtra("_B_|_UserId", -1);
             userId = userId == -1 ? BActivityThread.getUserId() : userId;
+            if (isOpenSystemServiceIntent(intent)) {
+                return method.invoke(who, args);
+            }
             ResolveInfo resolveInfo = BlackBoxCore.getBPackageManager().resolveService(intent, 0, resolvedType, userId);
-            if (resolveInfo != null || AppSystemEnv.isOpenPackage(intent.getComponent())) {
+            if (resolveInfo != null) {
                 Intent proxyIntent = BlackBoxCore.getBActivityManager().bindService(intent,
                         connection == null ? null : connection.asBinder(),
                         resolvedType,
