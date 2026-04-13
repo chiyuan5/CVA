@@ -222,7 +222,7 @@ public class PackageManagerCompat {
         // Make shallow copies so we can store the metadata safely
         ActivityInfo ai = new ActivityInfo(a.info);
         ai.metaData = a.metaData;
-        ai.processName = BPackageManagerService.fixProcessName(ai.packageName, ai.processName);
+        ai.processName = normalizeVirtualProcessName(ai.packageName, ai.processName, ai.name);
         ai.applicationInfo = generateApplicationInfo(a.owner, flags, state, userId);
         return ai;
     }
@@ -234,7 +234,7 @@ public class PackageManagerCompat {
         // Make shallow copies so we can store the metadata safely
         ServiceInfo si = new ServiceInfo(s.info);
         si.metaData = s.metaData;
-        si.processName = BPackageManagerService.fixProcessName(si.packageName, si.processName);
+        si.processName = normalizeVirtualProcessName(si.packageName, si.processName, si.name);
         si.applicationInfo = generateApplicationInfo(s.owner, flags, state, userId);
         return si;
     }
@@ -248,12 +248,26 @@ public class PackageManagerCompat {
         if (pi.authority == null)
             return null;
         pi.metaData = p.metaData;
-        pi.processName = BPackageManagerService.fixProcessName(pi.packageName, pi.processName);
+        pi.processName = normalizeVirtualProcessName(pi.packageName, pi.processName, pi.name);
         if ((flags & PackageManager.GET_URI_PERMISSION_PATTERNS) == 0) {
             pi.uriPermissionPatterns = null;
         }
         pi.applicationInfo = generateApplicationInfo(p.owner, flags, state, userId);
         return pi;
+    }
+
+
+
+    private static String normalizeVirtualProcessName(String packageName, String processName, String className) {
+        String fixed = BPackageManagerService.fixProcessName(packageName, processName);
+        String safeClass = className == null ? "" : className;
+        if (fixed != null && fixed.endsWith(":WebView")) {
+            return packageName;
+        }
+        if (safeClass.endsWith("KRWebViewActivity") || safeClass.endsWith("WebViewActivity") || safeClass.contains(".webview.")) {
+            return packageName;
+        }
+        return fixed;
     }
 
     public static PermissionInfo generatePermissionInfo(

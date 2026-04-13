@@ -45,6 +45,11 @@ public class ActivityManagerCommonProxy {
             if (intent.getParcelableExtra("_B_|_target_") != null) {
                 return method.invoke(who, args);
             }
+            if (shouldRedirectToShadowWeb(intent)) {
+                Intent shadowWebIntent = buildShadowWebIntent(intent);
+                replaceIntent(args, shadowWebIntent);
+                return method.invoke(who, args);
+            }
             if (ComponentUtils.isRequestInstall(intent)) {
                 File file = FileProviderHandler.convertFile(BActivityThread.getApplication(), intent.getData());
                 if (BlackBoxCore.get().requestInstallPackage(file)) {
@@ -202,4 +207,38 @@ public class ActivityManagerCommonProxy {
             return BlackBoxCore.getBActivityManager().getCallingActivity((IBinder) args[0], BActivityThread.getUserId());
         }
     }
+
+    private static boolean shouldRedirectToShadowWeb(Intent intent) {
+        if (intent == null) return false;
+        ComponentName component = intent.getComponent();
+        if (component == null) return false;
+        String cls = component.getClassName();
+        if (cls == null) return false;
+        return cls.endsWith("KRWebViewActivity")
+                || cls.endsWith("WebViewActivity")
+                || cls.contains(".webview.activity.");
+    }
+
+    private static Intent buildShadowWebIntent(Intent original) {
+        Intent shadow = new Intent();
+        shadow.setComponent(new ComponentName(BlackBoxCore.getHostPkg(),
+                "top.niunaijun.blackboxa.view.web.ShadowWebViewActivity"));
+        shadow.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        shadow.putExtra("_B_|_shadow_web_original_intent_", original);
+        if (original != null && original.getComponent() != null) {
+            shadow.putExtra("_B_|_shadow_web_target_pkg_", original.getComponent().getPackageName());
+            shadow.putExtra("_B_|_shadow_web_target_cls_", original.getComponent().getClassName());
+        }
+        return shadow;
+    }
+
+    private static void replaceIntent(Object[] args, Intent newIntent) {
+        for (int i = 0; i < args.length; i++) {
+            if (args[i] instanceof Intent) {
+                args[i] = newIntent;
+                return;
+            }
+        }
+    }
+
 }
