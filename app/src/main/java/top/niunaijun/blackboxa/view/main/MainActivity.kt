@@ -153,8 +153,8 @@ class MainActivity : LoadingActivity() {
         return true
     }
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        when (item?.itemId) {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
             R.id.main_git -> {
                 val intent =
                     Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/FBlackBox/BlackBox"))
@@ -179,7 +179,7 @@ class MainActivity : LoadingActivity() {
             }
         }
 
-        return true
+        return super.onOptionsItemSelected(item)
     }
 
     companion object {

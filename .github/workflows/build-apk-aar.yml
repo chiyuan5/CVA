@@ -20,28 +20,31 @@ jobs:
       - name: Validate Gradle wrapper
         uses: gradle/actions/wrapper-validation@v4
 
-      - name: Set up JDK 11
+      - name: Set up JDK 17 for Android SDK tools
         uses: actions/setup-java@v4
         with:
           distribution: temurin
-          java-version: '11'
+          java-version: '17'
 
       - name: Set up Android SDK
-        uses: android-actions/setup-android@v3
+        uses: android-actions/setup-android@v4
+        with:
+          packages: ''
 
       - name: Install Android SDK packages
         run: |
           yes | sdkmanager --licenses > /dev/null || true
-          sdkmanager \
-            "platform-tools" \
-            "platforms;android-30" \
-            "build-tools;30.0.3" \
-            "cmake;3.18.1" \
-            "ndk;21.4.7075529"
+          sdkmanager             "platform-tools"             "platforms;android-30"             "build-tools;30.0.3"             "cmake;3.18.1"             "ndk;21.4.7075529"
 
       - name: Prepare local.properties
         run: |
           echo "sdk.dir=${ANDROID_SDK_ROOT}" > local.properties
+
+      - name: Set up JDK 11 for Gradle build
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '11'
 
       - name: Set up Gradle cache
         uses: gradle/actions/setup-gradle@v4
@@ -51,22 +54,7 @@ jobs:
 
       - name: Build release APK and AAR outputs
         run: |
-          ./gradlew --no-daemon --stacktrace \
-            clean \
-            :app:assembleRelease \
-            :Bcore:assembleRelease \
-            :Bcore:black-fake:assembleRelease \
-            :Bcore:black-hook:assembleRelease \
-            :Bcore:pine-core:assembleRelease \
-            :Bcore:pine-xposed:assembleRelease \
-            :Bcore:pine-xposed-res:assembleRelease \
-            :android-mirror:assembleRelease \
-            :thirdparty:free-reflection:assembleRelease \
-            :thirdparty:catloadinglibrary:assembleRelease \
-            :thirdparty:floatingview:assembleRelease \
-            :thirdparty:rvadapter:assembleRelease \
-            :thirdparty:stateview:assembleRelease \
-            :thirdparty:cornerlabelview:assembleRelease
+          ./gradlew --no-daemon --stacktrace             clean             :app:assembleRelease             :Bcore:assembleRelease             :Bcore:black-fake:assembleRelease             :Bcore:black-hook:assembleRelease             :Bcore:pine-core:assembleRelease             :Bcore:pine-xposed:assembleRelease             :Bcore:pine-xposed-res:assembleRelease             :android-mirror:assembleRelease             :thirdparty:free-reflection:assembleRelease             :thirdparty:catloadinglibrary:assembleRelease             :thirdparty:floatingview:assembleRelease             :thirdparty:rvadapter:assembleRelease             :thirdparty:stateview:assembleRelease             :thirdparty:cornerlabelview:assembleRelease
 
       - name: Collect APK and AAR artifacts
         run: |

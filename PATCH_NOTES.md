@@ -22,3 +22,11 @@
 
 - APK: `out/apk/`
 - AAR: `out/aar/`
+
+
+## Additional fixes after GitHub Actions compile log
+
+- Fixed Kotlin override signature in `BaseActivityLifecycleCallback` by changing `onActivitySaveInstanceState(..., Bundle?)` to `Bundle` to match `Application.ActivityLifecycleCallbacks`.
+- Fixed nullable `pkg` handling in `FakeManagerActivity` before passing to `viewModel.setPattern()` and `viewModel.setLocation()`.
+- Fixed `MainActivity.onOptionsItemSelected()` signature from `MenuItem?` to `MenuItem` and restored fallback to `super.onOptionsItemSelected(item)`.
+- Replaced workflow with a JDK 17 -> Android SDK setup -> JDK 11 Gradle build sequence to satisfy newer `sdkmanager` while keeping the legacy Gradle/AGP build on Java 11.
