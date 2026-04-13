@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="CornerLabelView">
+        <attr name="bg_color" format="color|reference" />
+        <attr name="position" format="enum">
+            <enum name="left_top" value="0" />
+            <enum name="right_top" value="1" />
+            <enum name="left_bottom" value="2" />
+            <enum name="right_bottom" value="3" />
+        </attr>
+        <attr name="side_length" format="dimension" />
+        <attr name="text" format="string" />
+        <attr name="text_color" format="color|reference" />
+        <attr name="text_size" format="dimension" />
+    </declare-styleable>
+</resources>

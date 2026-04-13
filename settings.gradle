@@ -6,5 +6,11 @@ include ':Bcore:pine-xposed'
 include ':Bcore:pine-core'
 include ':Bcore:pine-xposed-res'
 include ':android-mirror'
+include ':thirdparty:free-reflection'
+include ':thirdparty:catloadinglibrary'
+include ':thirdparty:floatingview'
+include ':thirdparty:rvadapter'
+include ':thirdparty:stateview'
+include ':thirdparty:cornerlabelview'
 
 rootProject.name = "BlackBox"
