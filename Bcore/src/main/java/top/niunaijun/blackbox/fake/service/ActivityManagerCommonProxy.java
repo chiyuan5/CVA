@@ -214,15 +214,41 @@ public class ActivityManagerCommonProxy {
         if (component == null) return false;
         String cls = component.getClassName();
         if (cls == null) return false;
+        String lower = cls.toLowerCase();
         return cls.endsWith("KRWebViewActivity")
                 || cls.endsWith("WebViewActivity")
-                || cls.contains(".webview.activity.");
+                || cls.endsWith("WebActivity")
+                || cls.contains(".webview.activity.")
+                || lower.contains("webview")
+                || (lower.contains("web") && looksLikeWebPayload(intent));
+    }
+
+
+    private static boolean looksLikeWebPayload(Intent intent) {
+        if (intent == null) return false;
+        String data = intent.getDataString();
+        if (isHttpUrl(data)) return true;
+        Bundle extras = intent.getExtras();
+        if (extras == null) return false;
+        for (String key : extras.keySet()) {
+            Object value = extras.get(key);
+            if (value != null && isHttpUrl(String.valueOf(value))) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private static boolean isHttpUrl(String value) {
+        if (value == null) return false;
+        String lower = value.toLowerCase();
+        return lower.contains("http://") || lower.contains("https://");
     }
 
     private static Intent buildShadowWebIntent(Intent original) {
         Intent shadow = new Intent();
         shadow.setComponent(new ComponentName(BlackBoxCore.getHostPkg(),
-                "top.niunaijun.blackboxa.view.web.ShadowWebViewActivity"));
+                "top.niunaijun.blackbox.core.web.ShadowWebViewActivity"));
         shadow.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         shadow.putExtra("_B_|_shadow_web_original_intent_", original);
         if (original != null && original.getComponent() != null) {
