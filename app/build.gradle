@@ -77,6 +77,11 @@ android {
         viewBinding true
     }
 
+    dependenciesInfo {
+        includeInApk = false
+        includeInBundle = false
+    }
+
     kotlinOptions {
         jvmTarget = '1.8'
     }

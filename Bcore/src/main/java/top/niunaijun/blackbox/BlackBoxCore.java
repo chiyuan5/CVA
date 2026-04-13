@@ -355,8 +355,12 @@ public class BlackBoxCore extends ClientConfiguration {
         bundle.putString("_B_|_server_name_", name);
         Bundle vm = ProviderCall.callSafely(ProxyManifest.getBindProvider(), "VM", null, bundle);
         binder = BundleCompat.getBinder(vm, "_B_|_server_");
+        if (binder != null) {
+            mServices.put(name, binder);
+        } else {
+            Slog.w(TAG, "getService returned null: " + name + ", provider reply=" + vm);
+        }
         Slog.d(TAG, "getService: " + name + ", " + binder);
-        mServices.put(name, binder);
         return binder;
     }
 

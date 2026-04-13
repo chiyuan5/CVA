@@ -9,6 +9,9 @@ import black.android.os.BRBundle;
 
 public class BundleCompat {
     public static IBinder getBinder(Bundle bundle, String key) {
+        if (bundle == null) {
+            return null;
+        }
         if (Build.VERSION.SDK_INT >= 18) {
             return bundle.getBinder(key);
         } else {

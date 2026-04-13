@@ -10,6 +10,7 @@ import android.os.Message;
 
 import androidx.annotation.NonNull;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.Proxy;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -77,22 +78,13 @@ public class HCallbackProxy implements IInjectHook, Handler.Callback {
     public boolean handleMessage(@NonNull Message msg) {
         if (!mBeing.getAndSet(true)) {
             try {
-                if (BuildCompat.isPie()) {
-                    if (msg.what == BRActivityThreadH.get().EXECUTE_TRANSACTION()) {
-                        if (handleLaunchActivity(msg.obj)) {
-                            getH().sendMessageAtFrontOfQueue(Message.obtain(msg));
-                            return true;
-                        }
-                    }
-                } else {
-                    if (msg.what == BRActivityThreadH.get().LAUNCH_ACTIVITY()) {
-                        if (handleLaunchActivity(msg.obj)) {
-                            getH().sendMessageAtFrontOfQueue(Message.obtain(msg));
-                            return true;
-                        }
+                if (isLaunchActivityMessage(msg)) {
+                    if (handleLaunchActivity(msg.obj)) {
+                        getH().sendMessageAtFrontOfQueue(Message.obtain(msg));
+                        return true;
                     }
                 }
-                if (msg.what == BRActivityThreadH.get().CREATE_SERVICE()) {
+                if (isCreateServiceMessage(msg)) {
                     return handleCreateService(msg.obj);
                 }
                 if (mOtherCallback != null) {
@@ -104,6 +96,83 @@ public class HCallbackProxy implements IInjectHook, Handler.Callback {
             }
         }
         return false;
+    }
+
+    private boolean isLaunchActivityMessage(@NonNull Message msg) {
+        if (BuildCompat.isPie()) {
+            if (msg.what == getExecuteTransactionWhat()) {
+                return true;
+            }
+            return isClientTransaction(msg.obj);
+        }
+        if (msg.what == getLaunchActivityWhat()) {
+            return true;
+        }
+        return isActivityClientRecord(msg.obj);
+    }
+
+    private boolean isCreateServiceMessage(@NonNull Message msg) {
+        if (msg.what == getCreateServiceWhat()) {
+            return true;
+        }
+        return isCreateServiceData(msg.obj);
+    }
+
+    private int getExecuteTransactionWhat() {
+        return readActivityThreadHCode("EXECUTE_TRANSACTION", 159);
+    }
+
+    private int getLaunchActivityWhat() {
+        return readActivityThreadHCode("LAUNCH_ACTIVITY", 100);
+    }
+
+    private int getCreateServiceWhat() {
+        return readActivityThreadHCode("CREATE_SERVICE", 114);
+    }
+
+    private int readActivityThreadHCode(String fieldName, int fallback) {
+        try {
+            return readActivityThreadHCodeByMirror(fieldName, fallback);
+        } catch (Throwable ignored) {
+        }
+        try {
+            Field field = Class.forName("android.app.ActivityThread$H").getDeclaredField(fieldName);
+            field.setAccessible(true);
+            Object value = field.get(null);
+            if (value instanceof Integer) {
+                return (Integer) value;
+            }
+        } catch (Throwable ignored) {
+        }
+        return fallback;
+    }
+
+    private int readActivityThreadHCodeByMirror(String fieldName, int fallback) {
+        Integer value = null;
+        switch (fieldName) {
+            case "EXECUTE_TRANSACTION":
+                value = BRActivityThreadH.get().EXECUTE_TRANSACTION();
+                break;
+            case "LAUNCH_ACTIVITY":
+                value = BRActivityThreadH.get().LAUNCH_ACTIVITY();
+                break;
+            case "CREATE_SERVICE":
+                value = BRActivityThreadH.get().CREATE_SERVICE();
+                break;
+        }
+        return value != null ? value : fallback;
+    }
+
+    private boolean isClientTransaction(Object obj) {
+        return obj != null && BRClientTransaction.getRealClass().getName().equals(obj.getClass().getName());
+    }
+
+    private boolean isActivityClientRecord(Object obj) {
+        return obj != null && BRActivityThreadActivityClientRecord.getRealClass().getName().equals(obj.getClass().getName());
+    }
+
+    private boolean isCreateServiceData(Object obj) {
+        return obj != null && BRActivityThreadCreateServiceData.getRealClass().getName().equals(obj.getClass().getName());
     }
 
     private Object getLaunchActivityItem(Object clientTransaction) {
@@ -170,7 +239,12 @@ public class HCallbackProxy implements IInjectHook, Handler.Callback {
                 return true;
             }
 
-            int taskId = BRIActivityManager.get(BRActivityManagerNative.get().getDefault()).getTaskForActivity(token, false);
+            int taskId = -1;
+            try {
+                taskId = BRIActivityManager.get(BRActivityManagerNative.get().getDefault()).getTaskForActivity(token, false);
+            } catch (Throwable throwable) {
+                Slog.w(TAG, "Unable to resolve taskId for activity token", throwable);
+            }
             BlackBoxCore.getBActivityManager().onActivityCreated(taskId, token, stubRecord.mActivityRecord);
 
             if (BuildCompat.isS()) {
